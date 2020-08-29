@@ -1,0 +1,14 @@
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\bin\Debug\Punto de Venta.exe.config
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\bin\Debug\Punto de Venta.exe
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\bin\Debug\Punto de Venta.pdb
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\bin\Debug\MetroFramework.Design.dll
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\bin\Debug\MetroFramework.dll
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\bin\Debug\MetroFramework.Fonts.dll
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\obj\Debug\Punto de Venta.csprojAssemblyReference.cache
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\obj\Debug\Punto_de_Venta.Form1.resources
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\obj\Debug\Punto_de_Venta.Properties.Resources.resources
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\obj\Debug\Punto de Venta.csproj.GenerateResource.cache
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\obj\Debug\Punto de Venta.csproj.CoreCompileInputs.cache
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\obj\Debug\Punto de Venta.csproj.CopyComplete
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\obj\Debug\Punto de Venta.exe
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\obj\Debug\Punto de Venta.pdb
