@@ -9,5 +9,6 @@ namespace Logic.Libreria {
     public class Librerias : Connection {
         public CargarImagen cargarImagen = new CargarImagen();
         public TextBoxEvent textBoxEvent = new TextBoxEvent();
+        public Parser parser = new Parser();
     }
 }

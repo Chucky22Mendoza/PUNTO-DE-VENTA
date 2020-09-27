@@ -66,3 +66,5 @@ C:\Users\jessy\Desktop\Jessy\Proyectos\PUNTO-DE-VENTA\Data\obj\Debug\Data.csproj
 C:\Users\jessy\Desktop\Jessy\Proyectos\PUNTO-DE-VENTA\Data\obj\Debug\Data.csproj.CopyComplete
 C:\Users\jessy\Desktop\Jessy\Proyectos\PUNTO-DE-VENTA\Data\obj\Debug\Data.dll
 C:\Users\jessy\Desktop\Jessy\Proyectos\PUNTO-DE-VENTA\Data\obj\Debug\Data.pdb
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Data\bin\Debug\itextsharp.dll
+C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Data\bin\Debug\itextsharp.xml

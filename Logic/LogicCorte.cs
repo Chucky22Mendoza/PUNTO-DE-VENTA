@@ -31,14 +31,18 @@ namespace Logic {
 
         double sumaVentaTotales;
         double sumaGananciaDia;
+        double dineroInicialCaja;
         public void setDataGUI() {
             sumaVentaTotales = 0;
+            sumaGananciaDia = 0;
+
             List<Corte_Caja> corteCaja = _CorteCaja
                 .ThenByDescending(obj => obj.fecha_corte_inicio).ToList();
             List<Venta_Producto> ventaProductos = _VentaProducto.ToList();
             List<Producto> productos = _Producto.ToList();
 
             corteCaja.ForEach(corte => {
+                dineroInicialCaja = corte.dinero_inicial;
                 ventaProductos.ForEach(venta => {
                     if(venta.fecha_registro > corte.fecha_corte_inicio) {
                         sumaVentaTotales += venta.total;
@@ -51,8 +55,17 @@ namespace Logic {
                 });
             });
 
-            listLabel[0].Text = "$" + sumaVentaTotales.ToString();
-            listLabel[1].Text = "$" + sumaGananciaDia.ToString();
+            sumaVentaTotales = Math.Round(sumaVentaTotales, 2);
+            sumaGananciaDia = Math.Round(sumaGananciaDia, 2);
+            dineroInicialCaja = Math.Round(dineroInicialCaja, 2);
+
+            listLabel[0].Text = parser.getCentavos(sumaVentaTotales.ToString());
+            listLabel[1].Text = parser.getCentavos(sumaGananciaDia.ToString());
+            listLabel[3].Text = parser.getCentavos(dineroInicialCaja.ToString());
+        }
+
+        public void imprimirCorte() {
+
         }
     }
 }
