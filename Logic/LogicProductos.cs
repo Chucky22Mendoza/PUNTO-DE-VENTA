@@ -33,7 +33,7 @@ namespace Logic
         {
             List<Producto> productos = new List<Producto>();
             List<Departamentos> departamentos = new List<Departamentos>();
-            List<TipoVenta> tipoVentas = new List<TipoVenta>();
+            List<Tipo_Venta> tipoVentas = new List<Tipo_Venta>();
 
 
             productos = _Producto.ToList();

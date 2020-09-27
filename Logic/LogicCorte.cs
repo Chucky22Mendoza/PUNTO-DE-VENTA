@@ -44,7 +44,7 @@ namespace Logic {
                         sumaVentaTotales += venta.total;
                         productos.ForEach(producto => {
                             if (producto.id_producto == venta.id_producto) {
-                                sumaGananciaDia += (producto.precio_venta - producto.precio_costo) * venta.cantidad;
+                                sumaGananciaDia += (producto.precio - producto.precio_costo) * venta.cantidad;
                             }
                         });
                     }

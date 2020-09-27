@@ -92,12 +92,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Corte_Caja.cs" />
     <Compile Include="Model\Departamentos.cs" />
     <Compile Include="Model\Producto.cs" />
     <Compile Include="Connection.cs" />
-    <Compile Include="Model\TipoVenta.cs" />
+    <Compile Include="Model\Tipo_Venta.cs" />
     <Compile Include="Model\Venta.cs" />
-    <Compile Include="Model\VentaProducto.cs" />
+    <Compile Include="Model\Venta_Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
