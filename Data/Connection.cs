@@ -14,5 +14,7 @@ namespace Data
         public ITable<Producto> _Producto { get { return GetTable<Producto>(); } }
         public ITable<Venta> _Venta { get { return GetTable<Venta>(); } }
         public ITable<VentaProducto> _VentaProducto { get { return GetTable<VentaProducto>(); } }
-    }
+        public ITable<Departamentos> _Departamentos { get { return GetTable<Departamentos>(); } }
+        public ITable<TipoVenta> _TipoVenta { get { return GetTable<TipoVenta>(); } }
+    } 
 }
