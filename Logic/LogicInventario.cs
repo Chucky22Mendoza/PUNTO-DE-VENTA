@@ -80,7 +80,7 @@ namespace Logic {
             try {
                 List<Producto> productos = _Producto.Where(obj => obj.codigo.Equals(txtCodigoProducto.Text)).ToList();
                 productos.ForEach(element => {
-                    nuevaExistencia = element.existencia + Convert.ToInt32(Math.Round(numInventario.Value, 0));
+                    nuevaExistencia = (int)(element.existencia + Convert.ToInt32(numInventario.Value));
                 });
                 
                 _Producto.Where(obj => obj.codigo.Equals(txtCodigoProducto.Text))
