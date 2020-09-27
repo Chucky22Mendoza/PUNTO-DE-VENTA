@@ -57,14 +57,13 @@ namespace Logic {
 
         public void buscarProducto(string field) {
             List<Producto> query = new List<Producto>();
-            
             if (field.Equals("")) {
                 query = _Producto.ToList();
             } else {
                 query = _Producto.Where(obj => obj.codigo.StartsWith(field)).ToList();
             }
 
-            if (query.Count == 1) {
+            if (query.Count.Equals(1)) {
                 query.ForEach(obj => {
                     listLabel[2].Text = obj.descripcion;
                     listLabel[4].Text = obj.existencia.ToString();
@@ -94,6 +93,35 @@ namespace Logic {
             } catch (SqlException) {
                 RollbackTransaction();
             }
+        }
+
+        public void reporteInventario() {
+            List<Producto> productos = _Producto.ToList();
+
+            productos.ForEach(producto => {
+                Console.WriteLine(producto.nombre);
+                Console.WriteLine(producto.codigo);
+                Console.WriteLine(producto.existencia);
+            });
+        }
+
+        public void reporteBajoInventario() {
+            List<Producto> productos = _Producto.Where(obj => obj.min_inventario >= obj.existencia).ToList();
+
+            productos.ForEach(producto => {
+                Console.WriteLine(producto.nombre);
+                Console.WriteLine(producto.codigo);
+                Console.WriteLine(producto.existencia);
+                Console.WriteLine(producto.min_inventario);
+            });
+        }
+
+        public void reporteMovimientos() {
+            List<Producto> productos = _Producto.ToList();
+
+            productos.ForEach(producto => {
+                Console.WriteLine(producto.nombre);
+            });
         }
 
         private void limpiarCampos() {

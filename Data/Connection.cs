@@ -13,6 +13,7 @@ namespace Data
         public Connection() : base("DB1") { }
         public ITable<Producto> _Producto { get { return GetTable<Producto>(); } }
         public ITable<Venta> _Venta { get { return GetTable<Venta>(); } }
-        public ITable<VentaProducto> _VentaProducto { get { return GetTable<VentaProducto>(); } }
+        public ITable<Venta_Producto> _VentaProducto { get { return GetTable<Venta_Producto>(); } }
+        public ITable<Corte_Caja> _CorteCaja { get { return GetTable<Corte_Caja>(); } }
     }
 }

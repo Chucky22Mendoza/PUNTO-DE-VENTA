@@ -13,18 +13,36 @@ using System.Windows.Forms;
 namespace Punto_de_Venta {
     public partial class Main : Form {
         private LogicInventario inventario;
+        private LogicCorte corte;
 
         public Main() {
             InitializeComponent();
-            var listLabel = new List<Label>();
-            listLabel.Add(lblCodigoProducto);
-            listLabel.Add(lblTituloDescripcion);
-            listLabel.Add(lblDescripcion);
-            listLabel.Add(lblTituloCantidadActual);
-            listLabel.Add(lblCantidadActual);
-            listLabel.Add(lblTituloCantidad);
 
-            inventario = new LogicInventario(txtCodigoProducto, numInventario, listLabel);
+            var listLabelInventario = new List<Label>();
+
+            listLabelInventario.Add(lblCodigoProducto);
+            listLabelInventario.Add(lblTituloDescripcion);
+            listLabelInventario.Add(lblDescripcion);
+            listLabelInventario.Add(lblTituloCantidadActual);
+            listLabelInventario.Add(lblCantidadActual);
+            listLabelInventario.Add(lblTituloCantidad);
+
+            inventario = new LogicInventario(txtCodigoProducto, numInventario, listLabelInventario);
+
+            var listLabelCorte = new List<Label>();
+
+            listLabelCorte.Add(lblVentasTotales);
+            listLabelCorte.Add(lblGananciaDia);
+            listLabelCorte.Add(lblEntradaDinero);
+            listLabelCorte.Add(lblDineroInicial);
+            listLabelCorte.Add(lblTotalEfectivo);
+            listLabelCorte.Add(lblVentasEfectivo);
+            listLabelCorte.Add(lblEntradas);
+            listLabelCorte.Add(lblTotalDineroCaja);
+            listLabelCorte.Add(lblEfectivo);
+            listLabelCorte.Add(lblTotalContado);
+
+            corte = new LogicCorte(listLabelCorte, tblDepartamento);
         }
 
         private void txtCodigoProducto_TextChanged(object sender, EventArgs e) {
@@ -35,6 +53,26 @@ namespace Punto_de_Venta {
 
         private void btnAgregarInventario_Click(object sender, EventArgs e) {
             inventario.registrar();
+        }
+
+        private void btnReporteInventario_Click(object sender, EventArgs e) {
+            inventario.reporteInventario();
+        }
+
+        private void btnProductuosBajosInv_Click(object sender, EventArgs e) {
+            inventario.reporteBajoInventario();
+        }
+
+        private void btnReporteMovimientos_Click(object sender, EventArgs e) {
+            inventario.reporteMovimientos();
+        }
+
+        private void btnCorte_Click(object sender, EventArgs e) {
+            corte.setDataGUI();
+        }
+
+        private void btnImprimirCorte_Click(object sender, EventArgs e) {
+
         }
     }
 }
