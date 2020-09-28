@@ -126,12 +126,17 @@ namespace Logic {
                 Paragraph title = new Paragraph();
                 title.Font = FontFactory.GetFont(FontFactory.TIMES, 28f, BaseColor.DARK_GRAY);
                 title.Add("Reporte de Inventario");
+                title.Alignment = Element.ALIGN_CENTER;
+
                 Paragraph fecha = new Paragraph();
-                fecha.Font = FontFactory.GetFont(FontFactory.TIMES, 16f, BaseColor.DARK_GRAY);
+                fecha.Font = FontFactory.GetFont(FontFactory.TIMES, 12f, BaseColor.DARK_GRAY);
                 fecha.Add("Fecha: " + dateTime.ToShortDateString());
+                fecha.Alignment = Element.ALIGN_CENTER;
+
                 Paragraph hora = new Paragraph();
-                hora.Font = FontFactory.GetFont(FontFactory.TIMES, 16f, BaseColor.DARK_GRAY);
+                hora.Font = FontFactory.GetFont(FontFactory.TIMES, 12f, BaseColor.DARK_GRAY);
                 hora.Add("Hora: " + dateTime.ToShortTimeString());
+                hora.Alignment = Element.ALIGN_CENTER;
 
                 doc.Add(title);
                 doc.Add(fecha);
@@ -141,6 +146,7 @@ namespace Logic {
                 // Creamos una tabla 
                 PdfPTable table = new PdfPTable(7);
                 table.WidthPercentage = 100;
+                table.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 // Configuramos el título de las columnas de la tabla
                 PdfPCell clNombre = new PdfPCell(new Phrase("Nombre", _standardFont));
@@ -228,14 +234,137 @@ namespace Logic {
         }
 
         public void reporteBajoInventario() {
-            List<Producto> productos = _Producto.Where(obj => obj.min_inventario >= obj.existencia).ToList();
+            DateTime dateTime = DateTime.Now;
 
-            productos.ForEach(producto => {
-                Console.WriteLine(producto.nombre);
-                Console.WriteLine(producto.codigo);
-                Console.WriteLine(producto.existencia);
-                Console.WriteLine(producto.min_inventario);
-            });
+            SaveFileDialog save = new SaveFileDialog();
+            save.FileName = "ReporteBajoInventario_" + dateTime.ToShortDateString().Replace("/", "-") + ".pdf";
+            save.Filter = "Formato de documento portátil (PDF) (*.pdf)|*.pdf|Todos los archivos (*.*)|*.*";
+
+            if (save.ShowDialog() == DialogResult.OK) {
+                // Creamos el documento
+                Document doc = new Document(PageSize.LETTER);
+                // Indicamos donde vamos a guardar el documento
+                PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(save.FileName, FileMode.Create));
+
+                // Le colocamos el título y el autor
+                // **Nota: Esto no será visible en el documento
+                doc.AddTitle("Reporte Bajo Inventario");
+                doc.AddCreator("loginlock22@gmail.com");
+
+                //Abrimos el archivo
+                doc.Open();
+
+                // Creamos el tipo de Font que vamos utilizar
+                iTextSharp.text.Font _standardFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 8, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+
+                // Escribimos el encabezamiento en el documento
+                Paragraph title = new Paragraph();
+                title.Font = FontFactory.GetFont(FontFactory.TIMES, 28f, BaseColor.DARK_GRAY);
+                title.Add("Reporte de Bajo Inventario");
+                title.Alignment = Element.ALIGN_CENTER;
+
+                Paragraph fecha = new Paragraph();
+                fecha.Font = FontFactory.GetFont(FontFactory.TIMES, 12f, BaseColor.DARK_GRAY);
+                fecha.Add("Fecha: " + dateTime.ToShortDateString());
+                fecha.Alignment = Element.ALIGN_CENTER;
+
+                Paragraph hora = new Paragraph();
+                hora.Font = FontFactory.GetFont(FontFactory.TIMES, 12f, BaseColor.DARK_GRAY);
+                hora.Add("Hora: " + dateTime.ToShortTimeString());
+                hora.Alignment = Element.ALIGN_CENTER;
+
+                doc.Add(title);
+                doc.Add(fecha);
+                doc.Add(hora);
+                doc.Add(Chunk.NEWLINE);
+
+                // Creamos una tabla 
+                PdfPTable table = new PdfPTable(7);
+                table.WidthPercentage = 100;
+                table.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                // Configuramos el título de las columnas de la tabla
+                PdfPCell clNombre = new PdfPCell(new Phrase("Nombre", _standardFont));
+                clNombre.Border = 0;
+                clNombre.BorderWidthBottom = 0.75f;
+                clNombre.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell clCodigo = new PdfPCell(new Phrase("Código", _standardFont));
+                clCodigo.Border = 0;
+                clCodigo.BorderWidthBottom = 0.75f;
+                clCodigo.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell clCodigoBarras = new PdfPCell(new Phrase("Código de Barras", _standardFont));
+                clCodigoBarras.Border = 0;
+                clCodigoBarras.BorderWidthBottom = 0.75f;
+                clCodigoBarras.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell clExistencia = new PdfPCell(new Phrase("Existencia", _standardFont));
+                clExistencia.Border = 0;
+                clExistencia.BorderWidthBottom = 0.75f;
+                clExistencia.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell clMinInventario = new PdfPCell(new Phrase("Mínimo en Inventario", _standardFont));
+                clMinInventario.Border = 0;
+                clMinInventario.BorderWidthBottom = 0.75f;
+                clMinInventario.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell clPrecioVenta = new PdfPCell(new Phrase("Precio Venta", _standardFont));
+                clPrecioVenta.Border = 0;
+                clPrecioVenta.BorderWidthBottom = 0.75f;
+                clPrecioVenta.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell clDepartamento = new PdfPCell(new Phrase("Departamento", _standardFont));
+                clDepartamento.Border = 0;
+                clDepartamento.BorderWidthBottom = 0.75f;
+                clDepartamento.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                // Añadimos las celdas a la tabla
+                table.AddCell(clNombre);
+                table.AddCell(clCodigo);
+                table.AddCell(clCodigoBarras);
+                table.AddCell(clExistencia);
+                table.AddCell(clMinInventario);
+                table.AddCell(clPrecioVenta);
+                table.AddCell(clDepartamento);
+
+                // Llenamos la tabla con información
+                List<Producto> productos = _Producto.Where(obj => obj.min_inventario >= obj.existencia).ToList();
+
+                productos.ForEach(producto => {
+                    string precio_venta = parser.getCentavos(Math.Round(producto.precio, 2).ToString());
+
+                    // Añadimos las celdas a la tabla
+                    clNombre = new PdfPCell(new Phrase(producto.nombre, _standardFont));
+                    clCodigo = new PdfPCell(new Phrase(producto.codigo, _standardFont));
+                    clCodigoBarras = new PdfPCell(new Phrase(producto.codigo_barras, _standardFont));
+                    clExistencia = new PdfPCell(new Phrase(producto.existencia.ToString(), _standardFont));
+                    clMinInventario = new PdfPCell(new Phrase(producto.min_inventario.ToString(), _standardFont));
+                    clPrecioVenta = new PdfPCell(new Phrase(precio_venta, _standardFont));
+                    clDepartamento = new PdfPCell(new Phrase(producto.departamento.ToString(), _standardFont));
+
+                    clNombre.HorizontalAlignment = Element.ALIGN_CENTER;
+                    clCodigo.HorizontalAlignment = Element.ALIGN_CENTER;
+                    clCodigoBarras.HorizontalAlignment = Element.ALIGN_CENTER;
+                    clExistencia.HorizontalAlignment = Element.ALIGN_CENTER;
+                    clMinInventario.HorizontalAlignment = Element.ALIGN_CENTER;
+                    clPrecioVenta.HorizontalAlignment = Element.ALIGN_CENTER;
+                    clDepartamento.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    // Finalmente, añadimos la tabla al documento PDF y cerramos el documento
+                    table.AddCell(clNombre);
+                    table.AddCell(clCodigo);
+                    table.AddCell(clCodigoBarras);
+                    table.AddCell(clExistencia);
+                    table.AddCell(clMinInventario);
+                    table.AddCell(clPrecioVenta);
+                    table.AddCell(clDepartamento);
+                });
+                // Finalmente, añadimos la tabla al documento PDF y cerramos el documento
+                doc.Add(table);
+                doc.Close();
+                writer.Close();
+            }
         }
 
         public void reporteMovimientos() {

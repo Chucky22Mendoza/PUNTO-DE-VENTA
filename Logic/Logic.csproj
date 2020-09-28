@@ -105,6 +105,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Departamento.cs" />
     <Compile Include="Libreria\CargarImagen.cs" />
     <Compile Include="Libreria\Librerias.cs" />
     <Compile Include="Libreria\Parser.cs" />

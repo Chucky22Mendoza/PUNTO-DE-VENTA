@@ -35,16 +35,16 @@ namespace Punto_de_Venta {
 
             listLabelCorte.Add(lblVentasTotales);
             listLabelCorte.Add(lblGananciaDia);
-            listLabelCorte.Add(lblEntradaDinero);
+            listLabelCorte.Add(lblEntradaCambio);
             listLabelCorte.Add(lblDineroInicial);
             listLabelCorte.Add(lblTotalEfectivo);
             listLabelCorte.Add(lblVentasEfectivo);
             listLabelCorte.Add(lblEntradas);
+            listLabelCorte.Add(lblSalidas);
             listLabelCorte.Add(lblTotalDineroCaja);
-            listLabelCorte.Add(lblEfectivo);
-            listLabelCorte.Add(lblTotalContado);
+            tblDepartamento.BackgroundColor = Color.WhiteSmoke;
 
-            corte = new LogicCorte(listLabelCorte, tblDepartamento);
+            corte = new LogicCorte(listLabelCorte, tblDepartamento, btnImprimirCorte, btnCorte);
 
             var listLabel = new List<Label>();
 
@@ -79,6 +79,7 @@ namespace Punto_de_Venta {
             productos = new LogicProductos(tableProducts, listInput, listCombo, listNumeric);
 
             productos.index();
+            corte.index();
         }
 
         /**
@@ -144,11 +145,7 @@ namespace Punto_de_Venta {
         }
 
         private void btnImprimirCorte_Click(object sender, EventArgs e) {
-
-        }
-
-        private void lblVentasEfectivo_Click(object sender, EventArgs e) {
-
+            corte.imprimirCorte();
         }
     }
 }
