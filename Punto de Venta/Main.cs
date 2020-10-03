@@ -13,47 +13,36 @@ using System.Windows.Forms;
 
 namespace Punto_de_Venta {
     public partial class Main : Form {
-        private LogicInventario inventario;
-        private LogicCorte corte;
+
+        private LogicVenta venta;
         private LogicProductos productos;
+        private LogicInventario inventario;
+
+        public static string code = "";
 
         public Main() {
+
             InitializeComponent();
 
-            var listLabelInventario = new List<Label>();
+            //Ventas
 
-            listLabelInventario.Add(lblCodigoProducto);
-            listLabelInventario.Add(lblTituloDescripcion);
-            listLabelInventario.Add(lblDescripcion);
-            listLabelInventario.Add(lblTituloCantidadActual);
-            listLabelInventario.Add(lblCantidadActual);
-            listLabelInventario.Add(lblTituloCantidad);
+            var listLabelSale = new List<Label>();
 
-            inventario = new LogicInventario(txtCodigoProducto, numInventario, listLabelInventario);
+            listLabelSale.Add(lblReceived);
+            listLabelSale.Add(lblCash);
+            listLabelSale.Add(lblTotal);
+            listLabelSale.Add(lblTotal2);
+            listLabelSale.Add(lblItems);
 
-            var listLabelCorte = new List<Label>();
+            var listButtonSale = new List<MetroButton>();
 
-            listLabelCorte.Add(lblVentasTotales);
-            listLabelCorte.Add(lblGananciaDia);
-            listLabelCorte.Add(lblEntradaDinero);
-            listLabelCorte.Add(lblDineroInicial);
-            listLabelCorte.Add(lblTotalEfectivo);
-            listLabelCorte.Add(lblVentasEfectivo);
-            listLabelCorte.Add(lblEntradas);
-            listLabelCorte.Add(lblTotalDineroCaja);
-            listLabelCorte.Add(lblEfectivo);
-            listLabelCorte.Add(lblTotalContado);
+            listButtonSale.Add(btnAddProductSale);
+            listButtonSale.Add(btnCharge);
+            listButtonSale.Add(btnDeleteProduct);
 
-            corte = new LogicCorte(listLabelCorte, tblDepartamento);
+            venta = new LogicVenta(tableSaleProducts, txtProductCode, listLabelSale, listButtonSale);
 
-            var listLabel = new List<Label>();
-
-            listLabel.Add(lblCodigoProducto);
-            listLabel.Add(lblTituloDescripcion);
-            listLabel.Add(lblDescripcion);
-            listLabel.Add(lblTituloCantidadActual);
-            listLabel.Add(lblCantidadActual);
-            listLabel.Add(lblTituloCantidad);
+            //Productos
 
             var listInput = new List<MetroTextBox>();
 
@@ -75,14 +64,45 @@ namespace Punto_de_Venta {
             listNumeric.Add(numQuantityCurrent);
             listNumeric.Add(numQuantityMinimum);
 
-            inventario = new LogicInventario(txtCodigoProducto, numInventario, listLabel);
             productos = new LogicProductos(tableProducts, listInput, listCombo, listNumeric);
 
             productos.index();
+
+            //Inventario
+
+            var listLabel = new List<Label>();
+
+            listLabel.Add(lblCodigoProducto);
+            listLabel.Add(lblTituloDescripcion);
+            listLabel.Add(lblDescripcion);
+            listLabel.Add(lblTituloCantidadActual);
+            listLabel.Add(lblCantidadActual);
+            listLabel.Add(lblTituloCantidad);
+
+            inventario = new LogicInventario(txtCodigoProducto, numInventario, listLabel);
+            
         }
 
         /**
-         * Funciones de producto
+         * Funciones para ventas
+         */
+
+        private void btnAddProduct_Click(object sender, EventArgs e)
+        {
+            code = txtProductCode.Text;
+            AddProduct addProduct = new AddProduct();
+            addProduct.Show();
+            //venta.addProduct();
+        }
+
+        private void btnDeleteProduct_Click(object sender, EventArgs e)
+        {
+            venta.removeProduct();
+        }
+
+
+        /**
+         * Funciones de productos
          */
 
         private void btnStore_Click(object sender, EventArgs e)
@@ -103,7 +123,7 @@ namespace Punto_de_Venta {
         private void btnEdit_Click(object sender, EventArgs e)
         {
             productos.edit();
-        }
+        }        
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -111,7 +131,7 @@ namespace Punto_de_Venta {
         }
 
         /**
-         * Funciones de Inventario
+         * Funciones de Inventario  
          */
 
         private void txtCodigoProducto_TextChanged(object sender, EventArgs e)
@@ -127,28 +147,9 @@ namespace Punto_de_Venta {
             inventario.registrar();
         }
 
-        private void btnReporteInventario_Click(object sender, EventArgs e) {
-            inventario.reporteInventario();
-        }
-
-        private void btnProductuosBajosInv_Click(object sender, EventArgs e) {
-            inventario.reporteBajoInventario();
-        }
-
-        private void btnReporteMovimientos_Click(object sender, EventArgs e) {
-            inventario.reporteMovimientos();
-        }
-
-        private void btnCorte_Click(object sender, EventArgs e) {
-            corte.setDataGUI();
-        }
-
-        private void btnImprimirCorte_Click(object sender, EventArgs e) {
-
-        }
-
-        private void lblVentasEfectivo_Click(object sender, EventArgs e) {
-
+        public static implicit operator string(Main v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
