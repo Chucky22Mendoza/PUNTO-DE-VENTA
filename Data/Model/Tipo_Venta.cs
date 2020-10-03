@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data.Model
 {
-    public class TipoVenta {
+    public class Tipo_Venta {
 
         [PrimaryKey, Identity]
         public int idTipo { set; get; }

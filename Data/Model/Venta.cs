@@ -12,6 +12,6 @@ namespace Data.Model {
         public double total { set; get; }
         public int estado { set; get; }
         public int total_articulos { set; get; }
-        public string fecha_creacion { set; get; }
+        public DateTime fecha_registro { set; get; }
     }
 }
