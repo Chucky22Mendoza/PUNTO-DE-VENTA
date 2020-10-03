@@ -13,10 +13,10 @@ using System.Windows.Forms;
 
 namespace Punto_de_Venta {
     public partial class Main : Form {
-
         private LogicVenta venta;
         private LogicProductos productos;
         private LogicInventario inventario;
+        private LogicCorte corte;
 
         public static string code = "";
 
@@ -80,7 +80,24 @@ namespace Punto_de_Venta {
             listLabel.Add(lblTituloCantidad);
 
             inventario = new LogicInventario(txtCodigoProducto, numInventario, listLabel);
-            
+
+            //Corte
+            var listLabelCorte = new List<Label>();
+
+            listLabelCorte.Add(lblVentasTotales);
+            listLabelCorte.Add(lblGananciaDia);
+            listLabelCorte.Add(lblEntradaCambio);
+            listLabelCorte.Add(lblDineroInicial);
+            listLabelCorte.Add(lblTotalEfectivo);
+            listLabelCorte.Add(lblVentasEfectivo);
+            listLabelCorte.Add(lblEntradas);
+            listLabelCorte.Add(lblSalidas);
+            listLabelCorte.Add(lblTotalDineroCaja);
+            tblDepartamento.BackgroundColor = Color.WhiteSmoke;
+
+            corte = new LogicCorte(listLabelCorte, tblDepartamento, btnImprimirCorte, btnCorte);
+
+            corte.index();
         }
 
         /**
@@ -131,25 +148,46 @@ namespace Punto_de_Venta {
         }
 
         /**
-         * Funciones de Inventario  
+         * Eventos de Inventario  
          */
 
-        private void txtCodigoProducto_TextChanged(object sender, EventArgs e)
-        {
-            if (!txtCodigoProducto.Equals(""))
-            {
+        private void txtCodigoProducto_TextChanged(object sender, EventArgs e) {
+            if (!txtCodigoProducto.Equals("")) {
                 inventario.buscarProducto(txtCodigoProducto.Text);
             }
         }
 
-        private void btnAgregarInventario_Click(object sender, EventArgs e)
-        {
+        private void btnAgregarInventario_Click(object sender, EventArgs e) {
             inventario.registrar();
         }
 
-        public static implicit operator string(Main v)
-        {
+        private void btnReporteInventario_Click(object sender, EventArgs e) {
+            inventario.reporteInventario();
+        }
+
+        private void btnProductuosBajosInv_Click(object sender, EventArgs e) {
+            inventario.reporteBajoInventario();
+        }
+
+        private void btnReporteMovimientos_Click(object sender, EventArgs e) {
+            inventario.reporteMovimientos();
+        }
+
+        /**
+         * Eventos de Corte
+         */
+        private void btnCorte_Click(object sender, EventArgs e) {
+            corte.setDataGUI();
+        }
+
+        private void btnImprimirCorte_Click(object sender, EventArgs e) {
+            corte.imprimirCorte();
+        }
+
+        public static implicit operator string(Main v) {
             throw new NotImplementedException();
         }
+
+        
     }
 }
