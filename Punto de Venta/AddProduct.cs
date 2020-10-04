@@ -15,7 +15,9 @@ namespace Punto_de_Venta
 {
     public partial class AddProduct : Form
     {
-        private LogicVenta venta = new LogicVenta(null, null, null, null);
+        private LogicVenta venta = new LogicVenta(Main.tab, null, null, null);
+
+        public static string quantity = "";
 
         public AddProduct()
         {
@@ -46,7 +48,7 @@ namespace Punto_de_Venta
                 }
                 else
                 {
-                        MessageBox.Show("No se ha encontrado un producto con el código: " + code + ", intente con otro código", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No se ha encontrado un producto con el código: " + code + ", intente con otro código", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 
             }
@@ -56,6 +58,11 @@ namespace Punto_de_Venta
             }
 
         }
-       
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            venta.addProduct(Main.code, txtQuantity.Text);
+            this.Close();
+        }
     }
 }

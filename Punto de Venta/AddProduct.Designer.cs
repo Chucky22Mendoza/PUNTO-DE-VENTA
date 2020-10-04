@@ -47,7 +47,7 @@
             this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel1.Location = new System.Drawing.Point(32, 76);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(90, 31);
+            this.metroLabel1.Size = new System.Drawing.Size(72, 25);
             this.metroLabel1.TabIndex = 1;
             this.metroLabel1.Text = "Código";
             // 
@@ -77,7 +77,7 @@
             this.metroLabel4.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel4.Location = new System.Drawing.Point(32, 184);
             this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(110, 31);
+            this.metroLabel4.Size = new System.Drawing.Size(88, 25);
             this.metroLabel4.TabIndex = 7;
             this.metroLabel4.Text = "Existencia";
             // 
@@ -132,13 +132,14 @@
             this.btnAdd.TabIndex = 14;
             this.btnAdd.Text = "Añadir";
             this.btnAdd.UseSelectable = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // lblCodeBar
             // 
             this.lblCodeBar.AutoSize = true;
             this.lblCodeBar.Location = new System.Drawing.Point(35, 55);
             this.lblCodeBar.Name = "lblCodeBar";
-            this.lblCodeBar.Size = new System.Drawing.Size(16, 21);
+            this.lblCodeBar.Size = new System.Drawing.Size(13, 17);
             this.lblCodeBar.TabIndex = 15;
             this.lblCodeBar.Text = "-";
             // 
@@ -147,7 +148,7 @@
             this.lblCode.AutoSize = true;
             this.lblCode.Location = new System.Drawing.Point(35, 107);
             this.lblCode.Name = "lblCode";
-            this.lblCode.Size = new System.Drawing.Size(16, 21);
+            this.lblCode.Size = new System.Drawing.Size(13, 17);
             this.lblCode.TabIndex = 16;
             this.lblCode.Text = "-";
             // 
@@ -156,7 +157,7 @@
             this.lblProduct.AutoSize = true;
             this.lblProduct.Location = new System.Drawing.Point(35, 159);
             this.lblProduct.Name = "lblProduct";
-            this.lblProduct.Size = new System.Drawing.Size(16, 21);
+            this.lblProduct.Size = new System.Drawing.Size(13, 17);
             this.lblProduct.TabIndex = 17;
             this.lblProduct.Text = "-";
             // 
@@ -165,7 +166,7 @@
             this.lblCurrentExist.AutoSize = true;
             this.lblCurrentExist.Location = new System.Drawing.Point(35, 215);
             this.lblCurrentExist.Name = "lblCurrentExist";
-            this.lblCurrentExist.Size = new System.Drawing.Size(16, 21);
+            this.lblCurrentExist.Size = new System.Drawing.Size(13, 17);
             this.lblCurrentExist.TabIndex = 18;
             this.lblCurrentExist.Text = "-";
             // 
