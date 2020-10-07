@@ -39,7 +39,7 @@ namespace Logic
             productos = _Producto.ToList();
             tableProducts.DataSource = productos;
 
-            tipoVentas = _TipoVenta.ToList();
+            tipoVentas = _Tipo.ToList();
             listCombo[0].DataSource = tipoVentas;
             listCombo[0].DisplayMember = "tipo";
             listCombo[0].ValueMember = "idTipo";

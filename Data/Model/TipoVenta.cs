@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace Data.Model
 {
-    public class TipoVenta {
-
+    public class TipoVenta
+    {
         [PrimaryKey, Identity]
         public int idTipo { set; get; }
         public string tipo { set; get; }
-
     }
 }

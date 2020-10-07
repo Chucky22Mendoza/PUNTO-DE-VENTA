@@ -80,3 +80,5 @@ C:\Users\jessy\Desktop\Jessy\Proyectos\PUNTO-DE-VENTA\Logic\obj\Debug\Logic.dll
 C:\Users\jessy\Desktop\Jessy\Proyectos\PUNTO-DE-VENTA\Logic\obj\Debug\Logic.pdb
 C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Logic\bin\Debug\itextsharp.dll
 C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Logic\bin\Debug\itextsharp.xml
+C:\Users\jessy\Desktop\Jessy\Proyectos\PUNTO-DE-VENTA\Logic\bin\Debug\itextsharp.dll
+C:\Users\jessy\Desktop\Jessy\Proyectos\PUNTO-DE-VENTA\Logic\bin\Debug\itextsharp.xml

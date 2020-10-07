@@ -11,112 +11,72 @@ using System.Windows.Forms;
 namespace Logic {
     public class LogicVenta : Librerias {
 
-        private MetroGrid tableSaleProducts;
-        private MetroTextBox txtProductCode;
-        private List<Label> listLabelSale;
-        private List<MetroButton> listButtonSale;
+        private ListView listSale;
+        private List<Label> labels;
+
         List<Producto> producto = new List<Producto>();
 
-        private int received = 0;
-        private int cash = 0;
         private double total = 0;
+        private int count = 0;
+        private double items = 0;
 
-        private int items = 0;
-
-        public LogicVenta(MetroGrid tableSaleProducts, MetroTextBox txtProductCode, List<Label> listLabelSale, List<MetroButton> listButtonSale)
+        public LogicVenta(ListView listSale, List<Label> labels)
         {
-            this.tableSaleProducts = tableSaleProducts;
-            this.txtProductCode = txtProductCode;
-            this.listLabelSale = listLabelSale;
-            this.listButtonSale = listButtonSale;
+            this.listSale = listSale;
+            this.labels = labels;
         }
 
-        public void addProduct()
+        public void addProduct(string product, double quantity)
         {
 
-            if(txtProductCode.Text.Length < 8)
+            if(product.Length < 8)
             {
-                producto = _Producto.Where(obj => obj.codigo.Equals(txtProductCode.Text)).ToList();
+                Console.WriteLine("es menor");
+                producto = _Producto.Where(obj => obj.codigo.Equals(product)).ToList();
             }
             else
             {
-                producto = _Producto.Where(obj => obj.codigo_barras.Equals(txtProductCode.Text)).ToList();
+                Console.WriteLine("es mayor");
+                producto = _Producto.Where(obj => obj.codigo_barras.Equals(product)).ToList();
             }
 
-            if (producto.Count() > 0)
+            if (producto.Count() == 1)
             {
-                items = items + 1;
+                items = items + quantity;
 
                 producto.ForEach(obj =>
                 {
+                    
+                    Console.WriteLine(obj.nombre);
+                    total = total + (obj.precio * quantity);
 
-                    total = total + obj.precio;
-
-                    if (obj.tipo_venta != 1)
-                    {
-                        tableSaleProducts.Rows.Add(obj.codigo_barras, obj.codigo, obj.nombre, obj.precio, obj.descripcion, 1);
-                    }
-                    else
-                    {
-                        tableSaleProducts.Rows.Add(obj.codigo_barras, obj.codigo, obj.nombre, obj.precio, obj.descripcion);
-                    }
-
+                    listSale.Items.Add(obj.codigo);
+                    listSale.Items[count].SubItems.Add(obj.nombre);
+                    listSale.Items[count].SubItems.Add(quantity.ToString());
+                    listSale.Items[count].SubItems.Add(obj.precio.ToString());
+                    listSale.Items[count].SubItems.Add((obj.precio * quantity).ToString());
+                    count += 1;
                 });
 
-                listLabelSale[2].Text = "$" + total;
-                listLabelSale[3].Text = "$" + total;
-                listLabelSale[4].Text = items + " productos en venta actual";
+                labels[0].Text = "$" + total;
+                labels[1].Text = items + " productos en venta actual";
+
             }
             else
             {
-                MessageBox.Show("No se ha encontrado un producto con el código: " + txtProductCode.Text + ", intente con otro código", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se ha encontrado un producto con el código: " + product + ", intente con otro código", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
-
-
         }
 
         public void removeProduct()
         {
-            if (tableSaleProducts.SelectedRows.Count != 0)
-            {
-                DataGridViewRow data = tableSaleProducts.SelectedRows[0];
-
-                Console.WriteLine(data);
-
-                total = total - (double)data.Cells["precio"].Value;
-
-                items = items - 1;
-
-                listLabelSale[2].Text = "$" + total;
-                listLabelSale[3].Text = "$" + total;
-                listLabelSale[4].Text = items + " productos en venta actual";
-
-                tableSaleProducts.Rows.Remove(data);
-            }
+            listSale.Items.Clear();
+            count = 0;
+            items = 0;
+            total = 0;
+            labels[0].Text = "$" + total;
+            labels[1].Text = items + " productos en venta actual";
         }
 
-        public List<Producto> getProductData(string code)
-        {
-
-            Console.WriteLine(code);
-
-            List<Producto> producto = new List<Producto>();
-
-            if (code.Length < 8)
-            {
-                producto = _Producto.Where(obj => obj.codigo.Equals(code)).ToList();
-            }
-            else
-            {
-                producto = _Producto.Where(obj => obj.codigo_barras.Equals(code)).ToList();
-            }
-
-       
-
-            return producto;
-
-        }
     }
 }
