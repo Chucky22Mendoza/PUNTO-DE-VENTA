@@ -74,7 +74,7 @@ namespace Logic {
                     if(venta.fecha_registro > corte.fecha_corte_inicio) {
                         sumaVentaTotales += venta.total;
                         productos.ForEach(producto => {
-                            if (producto.id_producto == venta.id_producto) {
+                            if (producto.codigo == venta.id_producto) {
                                 sumaGananciaDia += (producto.precio - producto.precio_costo) * venta.cantidad;
                                 departamentos.ForEach(departamento => {
                                     if (departamento.idDepartamento == producto.departamento) {

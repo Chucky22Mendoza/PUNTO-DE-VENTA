@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -99,6 +100,7 @@ namespace Punto_de_Venta {
         private void Main_Load(object sender, EventArgs e)
         {
             Encabezados();
+            venta.removeProduct();
             this.txtProductCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductCode_KeyPress);
             this.txtProductCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtProductCode_KeyDown);
 
@@ -106,7 +108,7 @@ namespace Punto_de_Venta {
             this.txtQuatinty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtQuatinty_KeyDown);
         }
 
-        void Encabezados()
+        private void Encabezados()
         {
             //Encabezados del litView
             listSale.View = View.Details;
@@ -154,7 +156,7 @@ namespace Punto_de_Venta {
         {
             if (e.KeyCode == Keys.F5)
             {
-                //RealizaVenta();
+                RealizaVenta();
 
             }
         }
@@ -202,19 +204,43 @@ namespace Punto_de_Venta {
         {
             if (e.KeyCode == Keys.F5)
             {
-                //RealizaVenta();
+                RealizaVenta();
 
             }
         }
 
-        void SaveTemp_Ventas(string product, double quantity)
+        private void SaveTemp_Ventas(string product, double quantity)
         {
+            SystemSounds.Exclamation.Play();
             venta.addProduct(product, quantity);
         }
+
+        private void RealizaVenta()
+        {
+            SystemSounds.Asterisk.Play();
+            if (listSale.Items.Count != 0)
+            {
+                venta.makeSale();
+
+                Cobrar cobrar = new Cobrar();
+                cobrar.Show();
+            }
+        }
+
+
+        //private int GuardarVenta()
+        //{
+
+        //}
 
         /**
          * Funciones para ventas
          */
+
+        private void btnCharge_Click(object sender, EventArgs e)
+        {
+            RealizaVenta();
+        }
 
         private void btnClean_Click(object sender, EventArgs e)
         {
@@ -290,11 +316,6 @@ namespace Punto_de_Venta {
 
         public static implicit operator string(Main v) {
             throw new NotImplementedException();
-        }
-
-        private void txtQuatinty_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

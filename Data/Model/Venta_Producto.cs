@@ -8,8 +8,8 @@ namespace Data.Model {
     public class Venta_Producto {
         public int id_venta_producto { get; set; }
         public int id_venta { get; set; }
-        public int id_producto { get; set; }
-        public int cantidad { get; set; }
+        public string id_producto { get; set; }
+        public double cantidad { get; set; }
         public double total { get; set; }
         public DateTime fecha_registro { set; get; }
     }

@@ -95,3 +95,4 @@ C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\bin\Debug
 C:\Users\login\Documents\NETCOREprojects\Punto de Venta\Punto de Venta\obj\Debug\Punto_de_Venta.AddProduct.resources
 C:\Users\jessy\Desktop\Jessy\Proyectos\PUNTO-DE-VENTA\Punto de Venta\bin\Debug\itextsharp.dll
 C:\Users\jessy\Desktop\Jessy\Proyectos\PUNTO-DE-VENTA\Punto de Venta\bin\Debug\itextsharp.xml
+C:\Users\jessy\Desktop\Jessy\Proyectos\PUNTO-DE-VENTA\Punto de Venta\obj\Debug\Punto_de_Venta.Cobrar.resources
