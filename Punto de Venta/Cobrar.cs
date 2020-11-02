@@ -15,10 +15,70 @@ namespace Punto_de_Venta
     {
         private LogicVenta venta = new LogicVenta();
 
+        double total = 0;
+        double cash = 0;
+
         public Cobrar()
         {
 
             InitializeComponent();
+        }
+
+        private void Cobrar_Load(object sender, EventArgs e)
+        {
+            total = venta.getTotalSale();
+
+            btnOK.Enabled = false;
+
+            lblTotalSale.Text = "$ " + total.ToString();
+
+        }
+
+        private void txtEfectivo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+        (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtEfectivo_TextChanged(object sender, EventArgs e)
+        {
+            if (txtEfectivo.Text != "")
+            {
+                double comingCash = Convert.ToDouble(txtEfectivo.Text);
+
+                if (comingCash <= total)
+                {
+                    cash = total - comingCash;
+                }
+                else
+                {
+                    cash = comingCash - total;
+                }
+
+                if (comingCash >= total)
+                {
+                    btnOK.Enabled = true;
+                }
+                else
+                {
+                    btnOK.Enabled = false;
+                }
+
+                lblCash.Text = "$ " + cash.ToString();
+                Console.WriteLine(txtEfectivo.Text);
+            }
+            else {
+                lblCash.Text = "$0.00";
+            }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -26,10 +86,9 @@ namespace Punto_de_Venta
 
         }
 
-        private void Cobrar_Load(object sender, EventArgs e)
+        private void btnCancelSale_Click(object sender, EventArgs e)
         {
 
-            lblTotalSale.Text = "$ " + venta.getTotalSale().ToString();
         }
     }
 }
