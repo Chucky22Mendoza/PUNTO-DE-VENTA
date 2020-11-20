@@ -53,10 +53,10 @@ namespace Logic
 
         public void store()
         {
-            if (listInput[0].Text != "")
+            if (listInput[1].Text != "")
             {
                 List<Producto> productos = new List<Producto>();
-                productos = _Producto.Where(obj => obj.codigo_barras.Equals(listInput[0].Text)).ToList();
+                productos = _Producto.Where(obj => obj.codigo.Equals(listInput[1].Text)).ToList();
 
                 if (productos.Count > 0)
                 {
@@ -68,10 +68,9 @@ namespace Logic
                     try
                     {
 
-                        _Producto.Value(obj => obj.nombre, listInput[1].Text)
-                            .Value(obj => obj.descripcion, listInput[3].Text)
-                            .Value(obj => obj.codigo_barras, listInput[0].Text)
-                            .Value(obj => obj.codigo, listInput[2].Text)
+                        _Producto.Value(obj => obj.nombre, listInput[0].Text)
+                            .Value(obj => obj.descripcion, listInput[2].Text)
+                            .Value(obj => obj.codigo, listInput[1].Text)
                             .Value(obj => obj.precio, (double)listNumeric[1].Value)
                             .Value(obj => obj.existencia, (double)listNumeric[3].Value)
                             .Value(obj => obj.precio_costo, (double)listNumeric[0].Value)
@@ -81,7 +80,7 @@ namespace Logic
                             .Value(obj => obj.departamento, listCombo[1].SelectedValue)
                             .Insert();
 
-                        MessageBox.Show("Producto " + listInput[1].Text + " creado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Producto " + listInput[0].Text + " creado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         clean();
                         index();
                         CommitTransaction();
@@ -111,13 +110,11 @@ namespace Logic
             {
                 DataGridViewRow data = this.tableProducts.SelectedRows[0];
 
-                listInput[0].Text = (string)data.Cells["codigo_barras"].Value;
+                listInput[0].Text = (string)data.Cells["nombre"].Value;
 
-                listInput[1].Text = (string)data.Cells["nombre"].Value;
+                listInput[1].Text = (string)data.Cells["codigo"].Value;
 
-                listInput[2].Text = (string)data.Cells["codigo"].Value;
-
-                listInput[3].Text = (string)data.Cells["descripcion"].Value;
+                listInput[2].Text = (string)data.Cells["descripcion"].Value;
 
                 listCombo[0].SelectedValue = data.Cells["tipo_venta"].Value;
 
@@ -152,18 +149,17 @@ namespace Logic
 
         public void update()
         {
-            if (listInput[0].Text != "")
+            if (listInput[1].Text != "")
             {
                 DateTime localDate = DateTime.Now;
                 BeginTransactionAsync();
                 try
                 {
 
-                    _Producto.Where(obj => obj.codigo_barras.Equals(listInput[0].Text))
-                        .Set(obj => obj.nombre, listInput[1].Text)
-                        .Set(obj => obj.descripcion, listInput[3].Text)
-                        .Set(obj => obj.codigo_barras, listInput[0].Text)
-                        .Set(obj => obj.codigo, listInput[2].Text)
+                    _Producto.Where(obj => obj.codigo.Equals(listInput[1].Text))
+                        .Set(obj => obj.nombre, listInput[0].Text)
+                        .Set(obj => obj.descripcion, listInput[2].Text)
+                        .Set(obj => obj.codigo, listInput[1].Text)
                         .Set(obj => obj.precio, (double)listNumeric[1].Value)
                         .Set(obj => obj.existencia, (double)listNumeric[3].Value)
                         .Set(obj => obj.fecha_actualizacion, localDate)
@@ -174,7 +170,7 @@ namespace Logic
                         .Set(obj => obj.departamento, listCombo[1].SelectedValue)
                         .Update();
 
-                    MessageBox.Show("Producto " + listInput[1].Text + " actualizado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Producto " + listInput[0].Text + " actualizado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     clean();
                     index();
                     CommitTransaction();
@@ -182,7 +178,7 @@ namespace Logic
                 catch (SqlException)
                 {
                     RollbackTransaction();
-                    MessageBox.Show("Error al actualizar el producto " + listInput[1].Text, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al actualizar el producto " + listInput[0].Text, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -198,7 +194,7 @@ namespace Logic
             {
                 DataGridViewRow data = this.tableProducts.SelectedRows[0];
 
-                string codigo = (string)data.Cells["codigo_barras"].Value;
+                string codigo = (string)data.Cells["codigo"].Value;
 
                 DialogResult dialogResult = MessageBox.Show("Esta seguro de eliminar el producto: " + (string)data.Cells["nombre"].Value, "Confirmación", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
@@ -206,7 +202,7 @@ namespace Logic
                     BeginTransactionAsync();
                     try
                     {
-                        _Producto.Where(obj => obj.codigo_barras.Equals(codigo)).Delete();
+                        _Producto.Where(obj => obj.codigo.Equals(codigo)).Delete();
 
                         MessageBox.Show("Producto " + (string)data.Cells["nombre"].Value + " eliminado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         index();
@@ -232,8 +228,6 @@ namespace Logic
             listInput[1].Text = "";
 
             listInput[2].Text = "";
-
-            listInput[3].Text = "";
 
             listCombo[0].SelectedValue = 1;
 

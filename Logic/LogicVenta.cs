@@ -38,14 +38,7 @@ namespace Logic {
         public void addProduct(string product, double quantity)
         {
 
-            if(product.Length < 8)
-            {
                 producto = _Producto.Where(obj => obj.codigo.Equals(product)).ToList();
-            }
-            else
-            {
-                producto = _Producto.Where(obj => obj.codigo_barras.Equals(product)).ToList();
-            }
 
             if (producto.Count() == 1)
             {

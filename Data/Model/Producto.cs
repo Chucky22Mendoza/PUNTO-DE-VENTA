@@ -20,9 +20,6 @@ namespace Data.Model {
         [DisplayName("Tipo venta")]
         public int tipo_venta { set; get; }
 
-        [DisplayName("Código de barras")]
-        public string codigo_barras { set; get; }
-
         [DisplayName("Código")]
         public string codigo { set; get; }
 

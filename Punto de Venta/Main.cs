@@ -43,7 +43,6 @@ namespace Punto_de_Venta {
 
             var listInput = new List<MetroTextBox>();
 
-            listInput.Add(txtCodeBars);
             listInput.Add(txtName);
             listInput.Add(txtCode);
             listInput.Add(txtDescription);
@@ -316,6 +315,12 @@ namespace Punto_de_Venta {
 
         public static implicit operator string(Main v) {
             throw new NotImplementedException();
+        }
+
+        private void btnInOut_Click(object sender, EventArgs e)
+        {
+            InOut inOut = new InOut();
+            inOut.Show();
         }
     }
 }

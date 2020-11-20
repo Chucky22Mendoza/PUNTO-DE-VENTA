@@ -203,7 +203,6 @@ namespace Logic {
                     // Añadimos las celdas a la tabla
                     clNombre = new PdfPCell(new Phrase(producto.nombre, _standardFont));
                     clCodigo = new PdfPCell(new Phrase(producto.codigo, _standardFont));
-                    clCodigoBarras = new PdfPCell(new Phrase(producto.codigo_barras, _standardFont));
                     clExistencia = new PdfPCell(new Phrase(producto.existencia.ToString(), _standardFont));
                     clPrecioVenta = new PdfPCell(new Phrase(precio_venta, _standardFont));
                     clPrecioCosto = new PdfPCell(new Phrase(precio_costo, _standardFont));
@@ -337,7 +336,6 @@ namespace Logic {
                     // Añadimos las celdas a la tabla
                     clNombre = new PdfPCell(new Phrase(producto.nombre, _standardFont));
                     clCodigo = new PdfPCell(new Phrase(producto.codigo, _standardFont));
-                    clCodigoBarras = new PdfPCell(new Phrase(producto.codigo_barras, _standardFont));
                     clExistencia = new PdfPCell(new Phrase(producto.existencia.ToString(), _standardFont));
                     clMinInventario = new PdfPCell(new Phrase(producto.min_inventario.ToString(), _standardFont));
                     clPrecioVenta = new PdfPCell(new Phrase(precio_venta, _standardFont));
