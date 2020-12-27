@@ -20,9 +20,7 @@ namespace Logic {
         private MetroTextBox txtCodigoProducto;
         private NumericUpDown numInventario;
         private List<Label> listLabel;
-        string departamentoColumn;
-        int nuevaExistencia;
-
+        
         public LogicInventario(MetroTextBox txtCodigoProducto, NumericUpDown numInventario, List<Label> listLabel) {
             this.txtCodigoProducto = txtCodigoProducto;
             this.numInventario = numInventario;
@@ -79,6 +77,7 @@ namespace Logic {
             }
         }
 
+        int nuevaExistencia;
         private void guardarRegistro() {
             BeginTransactionAsync();
             try {
@@ -98,7 +97,7 @@ namespace Logic {
                 RollbackTransaction();
             }
         }
-        
+
         public void reporteInventario() {
             DateTime dateTime = DateTime.Now;
 
@@ -196,17 +195,10 @@ namespace Logic {
 
                 // Llenamos la tabla con información
                 List<Producto> productos = _Producto.ToList();
-                List<Departamentos> departamentos = _Departamentos.ToList();
 
                 productos.ForEach(producto => {
                     string precio_venta = parser.getCentavos(Math.Round(producto.precio, 2).ToString());
                     string precio_costo = parser.getCentavos(Math.Round(producto.precio_costo, 2).ToString());
-
-                    departamentos.ForEach(departamento => {
-                        if (departamento.idDepartamento == producto.departamento) {
-                            departamentoColumn = departamento.nombre;
-                        }
-                    });
 
                     // Añadimos las celdas a la tabla
                     clNombre = new PdfPCell(new Phrase(producto.nombre, _standardFont));
@@ -214,7 +206,7 @@ namespace Logic {
                     clExistencia = new PdfPCell(new Phrase(producto.existencia.ToString(), _standardFont));
                     clPrecioVenta = new PdfPCell(new Phrase(precio_venta, _standardFont));
                     clPrecioCosto = new PdfPCell(new Phrase(precio_costo, _standardFont));
-                    clDepartamento = new PdfPCell(new Phrase(departamentoColumn, _standardFont));
+                    clDepartamento = new PdfPCell(new Phrase(producto.departamento.ToString(), _standardFont));
 
                     clNombre.HorizontalAlignment = Element.ALIGN_CENTER;
                     clCodigo.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -337,16 +329,9 @@ namespace Logic {
 
                 // Llenamos la tabla con información
                 List<Producto> productos = _Producto.Where(obj => obj.min_inventario >= obj.existencia).ToList();
-                List<Departamentos> departamentos = _Departamentos.ToList();
 
                 productos.ForEach(producto => {
                     string precio_venta = parser.getCentavos(Math.Round(producto.precio, 2).ToString());
-
-                    departamentos.ForEach(departamento => {
-                        if (departamento.idDepartamento == producto.departamento) {
-                            departamentoColumn = departamento.nombre;
-                        }
-                    });
 
                     // Añadimos las celdas a la tabla
                     clNombre = new PdfPCell(new Phrase(producto.nombre, _standardFont));
@@ -354,7 +339,7 @@ namespace Logic {
                     clExistencia = new PdfPCell(new Phrase(producto.existencia.ToString(), _standardFont));
                     clMinInventario = new PdfPCell(new Phrase(producto.min_inventario.ToString(), _standardFont));
                     clPrecioVenta = new PdfPCell(new Phrase(precio_venta, _standardFont));
-                    clDepartamento = new PdfPCell(new Phrase(departamentoColumn, _standardFont));
+                    clDepartamento = new PdfPCell(new Phrase(producto.departamento.ToString(), _standardFont));
 
                     clNombre.HorizontalAlignment = Element.ALIGN_CENTER;
                     clCodigo.HorizontalAlignment = Element.ALIGN_CENTER;
