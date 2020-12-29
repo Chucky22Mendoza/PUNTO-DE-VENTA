@@ -35,19 +35,28 @@ namespace Logic
             List<Departamentos> departamentos = new List<Departamentos>();
             List<TipoVenta> tipoVentas = new List<TipoVenta>();
 
+            try
+            {
 
-            productos = _Producto.ToList();
-            tableProducts.DataSource = productos;
+                productos = _Producto.ToList();
+                tableProducts.DataSource = productos;
 
-            tipoVentas = _Tipo.ToList();
-            listCombo[0].DataSource = tipoVentas;
-            listCombo[0].DisplayMember = "tipo";
-            listCombo[0].ValueMember = "idTipo";
+                tipoVentas = _Tipo.ToList();
+                listCombo[0].DataSource = tipoVentas;
+                listCombo[0].DisplayMember = "tipo";
+                listCombo[0].ValueMember = "idTipo";
 
-            departamentos = _Departamentos.ToList();
-            listCombo[1].DataSource = departamentos;
-            listCombo[1].DisplayMember = "nombre";
-            listCombo[1].ValueMember = "idDepartamento";
+                departamentos = _Departamentos.ToList();
+                listCombo[1].DataSource = departamentos;
+                listCombo[1].DisplayMember = "nombre";
+                listCombo[1].ValueMember = "idDepartamento";
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Error al intentar conectar con la base de datos: Logica de productos, ln 56", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+            
 
         }
 

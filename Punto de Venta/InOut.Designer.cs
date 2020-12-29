@@ -106,6 +106,7 @@
             this.Controls.Add(this.metroCheckBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "InOut";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Entradas y salidas";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -37,8 +37,7 @@ namespace Logic {
 
         public void addProduct(string product, double quantity)
         {
-
-                producto = _Producto.Where(obj => obj.codigo.Equals(product)).ToList();
+            producto = _Producto.Where(obj => obj.codigo.Equals(product)).ToList();
 
             if (producto.Count() == 1)
             {
@@ -46,8 +45,6 @@ namespace Logic {
 
                 producto.ForEach(obj =>
                 {
-                    
-
                     Console.WriteLine(obj.nombre);
                     total = total + (obj.precio * quantity);
 
@@ -68,17 +65,13 @@ namespace Logic {
 
                 if(tempVentas.Count() > 0)
                 {
-                    Console.WriteLine("ya existe este productoi en la venta");
+                    Console.WriteLine("Ya existe este producto en la venta.");
                     double nuevaCantidad = 0;
 
                     tempVentas.ForEach(obj =>
                     {
-                        Console.WriteLine(nuevaCantidad);
                         nuevaCantidad = quantity + obj.cantidad;
-                        Console.WriteLine(nuevaCantidad);
                     });
-
-                    //Console.WriteLine(nuevaCantidad);
 
                     _TempVenta.Where(obj => obj.codigo.Equals(product))
                     .Set(obj => obj.cantidad, nuevaCantidad)
@@ -91,9 +84,6 @@ namespace Logic {
                            .Value(obj => obj.cantidad, quantity)
                            .Insert();
                 }
-
-                
-
             }
             else
             {
@@ -103,13 +93,20 @@ namespace Logic {
 
         public void removeProduct()
         {
-            _TempVenta.Delete();
-            listSale.Items.Clear();
-            count = 0;
-            items = 0;
-            total = 0;
-            labels[0].Text = "$" + total;
-            labels[1].Text = items + " productos en venta actual";
+            try
+            {
+                _TempVenta.Delete();
+                listSale.Items.Clear();
+                count = 0;
+                items = 0;
+                total = 0;
+                labels[0].Text = "$" + total;
+                labels[1].Text = items + " productos en venta actual";
+            }catch(Exception e)
+            {
+                MessageBox.Show("Error al intentar conectar con la base de datos: Logica de venta, ln 107", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
         }
 
         public void makeSale()
@@ -150,8 +147,48 @@ namespace Logic {
             });
 
             removeProduct();
+        }
 
+        public void completeSale()
+        {
+            int idVenta = 0;
 
+            using (var db = new Connection())
+            {
+                var query = from v in db._Venta
+                            orderby v.id_venta descending
+                            select v;
+                ventas = query.ToList();
+            }
+
+            idVenta = ventas.First().id_venta;
+
+            _Venta.Where(obj => obj.id_venta.Equals(idVenta))
+                    .Set(obj => obj.estado, 1)
+                    .Update();
+
+            MessageBox.Show("Venta realizada", "Venta exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        
+        public void cancelSale()
+        {
+            int idVenta = 0;
+
+            using (var db = new Connection())
+            {
+                var query = from v in db._Venta
+                            orderby v.id_venta descending
+                            select v;
+                ventas = query.ToList();
+            }
+
+            idVenta = ventas.First().id_venta;
+
+            _Venta.Where(obj => obj.id_venta.Equals(idVenta))
+                    .Set(obj => obj.estado, 2)
+                    .Update();
+
+            MessageBox.Show("Venta cancelada", "Cancelación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public double getTotalSale()

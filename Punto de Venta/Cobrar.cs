@@ -83,12 +83,14 @@ namespace Punto_de_Venta
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-
+            venta.completeSale();
+            this.Close();
         }
 
         private void btnCancelSale_Click(object sender, EventArgs e)
         {
-
+            venta.cancelSale();
+            this.Close();
         }
     }
 }

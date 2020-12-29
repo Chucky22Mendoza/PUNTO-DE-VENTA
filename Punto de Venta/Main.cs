@@ -98,6 +98,9 @@ namespace Punto_de_Venta {
 
         private void Main_Load(object sender, EventArgs e)
         {
+
+            Console.WriteLine(e);
+
             Encabezados();
             venta.removeProduct();
             this.txtProductCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductCode_KeyPress);
@@ -128,8 +131,6 @@ namespace Punto_de_Venta {
                 {
                     if (e.KeyChar == 13)
                     {
-                        //Inserttar código aqui
-
                         if (txtProductCode.Text != "" || txtQuatinty.Text != "")
                         {
                             SaveTemp_Ventas(txtProductCode.Text, Convert.ToDouble(txtQuatinty.Text));
@@ -176,9 +177,7 @@ namespace Punto_de_Venta {
 
 
                     if (e.KeyChar == 13)
-                    {//if (e.KeyChar != 13)
-
-                        //Insertar código aqui
+                    {
                         if(txtProductCode.Text != "" || txtQuatinty.Text != "")
                         {
                             SaveTemp_Ventas(txtProductCode.Text, Convert.ToDouble(txtQuatinty.Text));
@@ -222,7 +221,7 @@ namespace Punto_de_Venta {
                 venta.makeSale();
 
                 Cobrar cobrar = new Cobrar();
-                cobrar.Show();
+                cobrar.ShowDialog();
             }
         }
 
@@ -320,7 +319,7 @@ namespace Punto_de_Venta {
         private void btnInOut_Click(object sender, EventArgs e)
         {
             InOut inOut = new InOut();
-            inOut.Show();
+            inOut.ShowDialog();
         }
     }
 }

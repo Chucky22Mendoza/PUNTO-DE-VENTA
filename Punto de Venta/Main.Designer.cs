@@ -34,6 +34,7 @@
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnInOut = new MetroFramework.Controls.MetroButton();
             this.lblMensaje = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -130,7 +131,6 @@
             this.btnImprimirCorte = new MetroFramework.Controls.MetroButton();
             this.btnCorte = new MetroFramework.Controls.MetroButton();
             this.label36 = new System.Windows.Forms.Label();
-            this.btnInOut = new MetroFramework.Controls.MetroButton();
             this.puntoVentaTabs.SuspendLayout();
             this.metroTabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -224,6 +224,18 @@
             this.groupBox4.Size = new System.Drawing.Size(1325, 122);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
+            // 
+            // btnInOut
+            // 
+            this.btnInOut.BackColor = System.Drawing.SystemColors.Desktop;
+            this.btnInOut.Location = new System.Drawing.Point(105, 77);
+            this.btnInOut.Margin = new System.Windows.Forms.Padding(4);
+            this.btnInOut.Name = "btnInOut";
+            this.btnInOut.Size = new System.Drawing.Size(151, 40);
+            this.btnInOut.TabIndex = 58;
+            this.btnInOut.Text = "Entradas y salidas";
+            this.btnInOut.UseSelectable = true;
+            this.btnInOut.Click += new System.EventHandler(this.btnInOut_Click);
             // 
             // lblMensaje
             // 
@@ -586,7 +598,6 @@
             this.txtCode.UseSelectable = true;
             this.txtCode.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtCode.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            
             // 
             // label23
             // 
@@ -1609,18 +1620,6 @@
             this.label36.TabIndex = 26;
             this.label36.Text = "CORTE";
             // 
-            // btnInOut
-            // 
-            this.btnInOut.BackColor = System.Drawing.SystemColors.Desktop;
-            this.btnInOut.Location = new System.Drawing.Point(105, 77);
-            this.btnInOut.Margin = new System.Windows.Forms.Padding(4);
-            this.btnInOut.Name = "btnInOut";
-            this.btnInOut.Size = new System.Drawing.Size(151, 40);
-            this.btnInOut.TabIndex = 58;
-            this.btnInOut.Text = "Entradas y salidas";
-            this.btnInOut.UseSelectable = true;
-            this.btnInOut.Click += new System.EventHandler(this.btnInOut_Click);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1630,6 +1629,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Punto de venta ";
             this.Load += new System.EventHandler(this.Main_Load);
             this.puntoVentaTabs.ResumeLayout(false);

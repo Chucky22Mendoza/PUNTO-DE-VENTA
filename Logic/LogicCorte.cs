@@ -37,16 +37,26 @@ namespace Logic {
         }
 
         public void index() {
-            List<Corte_Caja> corteCaja = _CorteCaja.ThenByDescending(obj => obj.fecha_corte_fin).ToList();
-            corteCaja.ForEach(corte => {
-                if (corte.ganancia == 0) {
-                    btnImprimir.Enabled = false;
-                    btnCorte.Enabled = true;
-                } else {
-                    btnImprimir.Enabled = true;
-                    btnCorte.Enabled = false;
-                }
-            });
+            try
+            {
+                List<Corte_Caja> corteCaja = _CorteCaja.ThenByDescending(obj => obj.fecha_corte_fin).ToList();
+                corteCaja.ForEach(corte => {
+                    if (corte.ganancia == 0)
+                    {
+                        btnImprimir.Enabled = false;
+                        btnCorte.Enabled = true;
+                    }
+                    else
+                    {
+                        btnImprimir.Enabled = true;
+                        btnCorte.Enabled = false;
+                    }
+                });
+            }catch(Exception e)
+            {
+                MessageBox.Show("Error al intentar conectar con la base de datos: Logica de corte, ln 57", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
         }
 
         double sumaVentaTotales;

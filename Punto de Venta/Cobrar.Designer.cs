@@ -148,6 +148,7 @@
             this.Controls.Add(this.lblTotal);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Cobrar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cobrar";
             this.Load += new System.EventHandler(this.Cobrar_Load);
             this.ResumeLayout(false);
