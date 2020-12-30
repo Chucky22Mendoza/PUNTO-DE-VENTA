@@ -18,5 +18,6 @@ namespace Data
         public ITable<Corte_Caja> _CorteCaja { get { return GetTable<Corte_Caja>(); } }
         public ITable<TipoVenta> _Tipo { get { return GetTable<TipoVenta>(); } }
         public ITable<TempVenta> _TempVenta { get { return GetTable<TempVenta>(); } }
+        public ITable<Entradas_Salidas> _EntradasSalidas { get { return GetTable<Entradas_Salidas>(); } }
     } 
 }

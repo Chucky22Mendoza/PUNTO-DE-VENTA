@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="Model\Corte_Caja.cs" />
     <Compile Include="Model\Departamentos.cs" />
+    <Compile Include="Model\Entradas_Salidas.cs" />
     <Compile Include="Model\Producto.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Model\TempVenta.cs" />

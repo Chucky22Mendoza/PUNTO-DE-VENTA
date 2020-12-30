@@ -219,6 +219,22 @@ namespace Logic {
             MessageBox.Show("Venta cancelada", "Cancelación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        public void registerInOut(int tipo, string cantidad)
+        {
+            try
+            {
+                _EntradasSalidas.Value(obj => obj.tipo, tipo)
+                                .Value(obj => obj.cantidad, Convert.ToDouble(cantidad))
+                                .Insert();
+
+                MessageBox.Show("Entrada/Salida registrada con exito", "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Error al registrar la entrada o salida intente de nuevo, ln 231.", "Error al insertar datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public double getTotalSale()
         {
             double totalSale = 0;
