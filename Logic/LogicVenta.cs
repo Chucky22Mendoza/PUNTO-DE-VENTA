@@ -95,7 +95,6 @@ namespace Logic {
         {
             try
             {
-                _TempVenta.Delete();
                 listSale.Items.Clear();
                 count = 0;
                 items = 0;
@@ -163,6 +162,33 @@ namespace Logic {
 
             idVenta = ventas.First().id_venta;
 
+            tempVentas = _TempVenta.ToList();
+
+            tempVentas.ForEach(obj =>
+            {
+
+                double existenciaOld = 0;
+                double existenciaNew = 0;
+
+                using (var db = new Connection())
+                {
+                    var query = from p in db._Producto
+                                where p.codigo == obj.codigo
+                                select p;
+                    producto = query.ToList();
+                }
+
+                existenciaOld = producto.First().existencia;
+
+                existenciaNew = existenciaOld - obj.cantidad;
+
+                _Producto.Where(obj2 => obj2.codigo.Equals(obj.codigo))
+                           .Set(obj2 => obj2.existencia, existenciaNew)
+                           .Update();
+            });
+
+            _TempVenta.Delete();
+
             _Venta.Where(obj => obj.id_venta.Equals(idVenta))
                     .Set(obj => obj.estado, 1)
                     .Update();
@@ -183,6 +209,8 @@ namespace Logic {
             }
 
             idVenta = ventas.First().id_venta;
+
+            _TempVenta.Delete();
 
             _Venta.Where(obj => obj.id_venta.Equals(idVenta))
                     .Set(obj => obj.estado, 2)
