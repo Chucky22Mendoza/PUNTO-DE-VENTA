@@ -57,11 +57,13 @@ namespace Punto_de_Venta
 
                 if (comingCash <= total)
                 {
-                    cash = total - comingCash;
+                    lblCash.Text = "$0.00";
                 }
                 else
                 {
                     cash = comingCash - total;
+
+                    lblCash.Text = "$ " + cash.ToString();
                 }
 
                 if (comingCash >= total)
@@ -72,9 +74,6 @@ namespace Punto_de_Venta
                 {
                     btnOK.Enabled = false;
                 }
-
-                lblCash.Text = "$ " + cash.ToString();
-                Console.WriteLine(txtEfectivo.Text);
             }
             else {
                 lblCash.Text = "$0.00";
@@ -85,6 +84,7 @@ namespace Punto_de_Venta
         {
             venta.completeSale();
             this.Close();
+
         }
 
         private void btnCancelSale_Click(object sender, EventArgs e)

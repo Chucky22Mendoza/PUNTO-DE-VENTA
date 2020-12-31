@@ -31,14 +31,14 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.puntoVentaTabs = new MetroFramework.Controls.MetroTabControl();
-            this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
+            this.tabVenta = new MetroFramework.Controls.MetroTabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.txtQuatinty = new System.Windows.Forms.TextBox();
             this.btnInOut = new MetroFramework.Controls.MetroButton();
             this.lblMensaje = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.txtQuatinty = new MetroFramework.Controls.MetroTextBox();
             this.txtProductCode = new MetroFramework.Controls.MetroTextBox();
             this.lblItems = new System.Windows.Forms.Label();
             this.btnClean = new MetroFramework.Controls.MetroButton();
@@ -46,7 +46,7 @@
             this.btnCharge = new MetroFramework.Controls.MetroButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.listSale = new System.Windows.Forms.ListView();
-            this.metroTabPage4 = new MetroFramework.Controls.MetroTabPage();
+            this.tabProductos = new MetroFramework.Controls.MetroTabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.btnDelete = new MetroFramework.Controls.MetroButton();
@@ -82,7 +82,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.txtSearch = new MetroFramework.Controls.MetroTextBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
+            this.tabInventario = new MetroFramework.Controls.MetroTabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.btnReporteMovimientos = new MetroFramework.Controls.MetroButton();
@@ -100,7 +100,7 @@
             this.lblCodigoProducto = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label35 = new System.Windows.Forms.Label();
-            this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
+            this.tabCorte = new MetroFramework.Controls.MetroTabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.label54 = new System.Windows.Forms.Label();
@@ -132,11 +132,11 @@
             this.btnCorte = new MetroFramework.Controls.MetroButton();
             this.label36 = new System.Windows.Forms.Label();
             this.puntoVentaTabs.SuspendLayout();
-            this.metroTabPage3.SuspendLayout();
+            this.tabVenta.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.metroTabPage4.SuspendLayout();
+            this.tabProductos.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableProducts)).BeginInit();
@@ -147,13 +147,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.numSale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCost)).BeginInit();
             this.groupBox8.SuspendLayout();
-            this.metroTabPage2.SuspendLayout();
+            this.tabInventario.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numInventario)).BeginInit();
             this.groupBox10.SuspendLayout();
-            this.metroTabPage1.SuspendLayout();
+            this.tabCorte.SuspendLayout();
             this.panel4.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox15.SuspendLayout();
@@ -164,10 +164,10 @@
             // 
             // puntoVentaTabs
             // 
-            this.puntoVentaTabs.Controls.Add(this.metroTabPage3);
-            this.puntoVentaTabs.Controls.Add(this.metroTabPage4);
-            this.puntoVentaTabs.Controls.Add(this.metroTabPage2);
-            this.puntoVentaTabs.Controls.Add(this.metroTabPage1);
+            this.puntoVentaTabs.Controls.Add(this.tabVenta);
+            this.puntoVentaTabs.Controls.Add(this.tabProductos);
+            this.puntoVentaTabs.Controls.Add(this.tabInventario);
+            this.puntoVentaTabs.Controls.Add(this.tabCorte);
             this.puntoVentaTabs.Location = new System.Drawing.Point(0, 2);
             this.puntoVentaTabs.Margin = new System.Windows.Forms.Padding(4);
             this.puntoVentaTabs.Name = "puntoVentaTabs";
@@ -175,23 +175,24 @@
             this.puntoVentaTabs.Size = new System.Drawing.Size(1359, 737);
             this.puntoVentaTabs.TabIndex = 0;
             this.puntoVentaTabs.UseSelectable = true;
+            this.puntoVentaTabs.SelectedIndexChanged += new System.EventHandler(this.puntoVentaTabs_SelectedIndexChanged);
             // 
-            // metroTabPage3
+            // tabVenta
             // 
-            this.metroTabPage3.BackColor = System.Drawing.Color.DarkGray;
-            this.metroTabPage3.Controls.Add(this.panel1);
-            this.metroTabPage3.HorizontalScrollbarBarColor = true;
-            this.metroTabPage3.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroTabPage3.HorizontalScrollbarSize = 12;
-            this.metroTabPage3.Location = new System.Drawing.Point(4, 38);
-            this.metroTabPage3.Margin = new System.Windows.Forms.Padding(4);
-            this.metroTabPage3.Name = "metroTabPage3";
-            this.metroTabPage3.Size = new System.Drawing.Size(1351, 695);
-            this.metroTabPage3.TabIndex = 2;
-            this.metroTabPage3.Text = "Venta";
-            this.metroTabPage3.VerticalScrollbarBarColor = true;
-            this.metroTabPage3.VerticalScrollbarHighlightOnWheel = false;
-            this.metroTabPage3.VerticalScrollbarSize = 13;
+            this.tabVenta.BackColor = System.Drawing.Color.DarkGray;
+            this.tabVenta.Controls.Add(this.panel1);
+            this.tabVenta.HorizontalScrollbarBarColor = true;
+            this.tabVenta.HorizontalScrollbarHighlightOnWheel = false;
+            this.tabVenta.HorizontalScrollbarSize = 12;
+            this.tabVenta.Location = new System.Drawing.Point(4, 38);
+            this.tabVenta.Margin = new System.Windows.Forms.Padding(4);
+            this.tabVenta.Name = "tabVenta";
+            this.tabVenta.Size = new System.Drawing.Size(1351, 695);
+            this.tabVenta.TabIndex = 2;
+            this.tabVenta.Text = "Venta";
+            this.tabVenta.VerticalScrollbarBarColor = true;
+            this.tabVenta.VerticalScrollbarHighlightOnWheel = false;
+            this.tabVenta.VerticalScrollbarSize = 13;
             // 
             // panel1
             // 
@@ -207,11 +208,11 @@
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox4.Controls.Add(this.txtQuatinty);
             this.groupBox4.Controls.Add(this.btnInOut);
             this.groupBox4.Controls.Add(this.lblMensaje);
             this.groupBox4.Controls.Add(this.label13);
             this.groupBox4.Controls.Add(this.label12);
-            this.groupBox4.Controls.Add(this.txtQuatinty);
             this.groupBox4.Controls.Add(this.txtProductCode);
             this.groupBox4.Controls.Add(this.lblItems);
             this.groupBox4.Controls.Add(this.btnClean);
@@ -224,6 +225,18 @@
             this.groupBox4.Size = new System.Drawing.Size(1325, 122);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
+            // 
+            // txtQuatinty
+            // 
+            this.txtQuatinty.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtQuatinty.Location = new System.Drawing.Point(597, 64);
+            this.txtQuatinty.Multiline = true;
+            this.txtQuatinty.Name = "txtQuatinty";
+            this.txtQuatinty.Size = new System.Drawing.Size(159, 28);
+            this.txtQuatinty.TabIndex = 59;
+            this.txtQuatinty.Click += new System.EventHandler(this.txtQuatinty_Click);
+            this.txtQuatinty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtQuatinty_KeyDown_1);
+            this.txtQuatinty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuatinty_KeyPress_1);
             // 
             // btnInOut
             // 
@@ -269,40 +282,6 @@
             this.label12.Size = new System.Drawing.Size(183, 25);
             this.label12.TabIndex = 55;
             this.label12.Text = "Código de producto";
-            // 
-            // txtQuatinty
-            // 
-            // 
-            // 
-            // 
-            this.txtQuatinty.CustomButton.Image = null;
-            this.txtQuatinty.CustomButton.Location = new System.Drawing.Point(133, 2);
-            this.txtQuatinty.CustomButton.Margin = new System.Windows.Forms.Padding(5);
-            this.txtQuatinty.CustomButton.Name = "";
-            this.txtQuatinty.CustomButton.Size = new System.Drawing.Size(23, 23);
-            this.txtQuatinty.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.txtQuatinty.CustomButton.TabIndex = 1;
-            this.txtQuatinty.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.txtQuatinty.CustomButton.UseSelectable = true;
-            this.txtQuatinty.CustomButton.Visible = false;
-            this.txtQuatinty.Lines = new string[0];
-            this.txtQuatinty.Location = new System.Drawing.Point(598, 64);
-            this.txtQuatinty.Margin = new System.Windows.Forms.Padding(4);
-            this.txtQuatinty.MaxLength = 32767;
-            this.txtQuatinty.Name = "txtQuatinty";
-            this.txtQuatinty.PasswordChar = '\0';
-            this.txtQuatinty.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtQuatinty.SelectedText = "";
-            this.txtQuatinty.SelectionLength = 0;
-            this.txtQuatinty.SelectionStart = 0;
-            this.txtQuatinty.ShortcutsEnabled = true;
-            this.txtQuatinty.Size = new System.Drawing.Size(159, 28);
-            this.txtQuatinty.TabIndex = 54;
-            this.txtQuatinty.UseSelectable = true;
-            this.txtQuatinty.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.txtQuatinty.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            this.txtQuatinty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtQuatinty_KeyDown);
-            this.txtQuatinty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuatinty_KeyPress);
             // 
             // txtProductCode
             // 
@@ -404,22 +383,23 @@
             this.listSale.Size = new System.Drawing.Size(1323, 529);
             this.listSale.TabIndex = 0;
             this.listSale.UseCompatibleStateImageBehavior = false;
+            this.listSale.Click += new System.EventHandler(this.listSale_Click);
             // 
-            // metroTabPage4
+            // tabProductos
             // 
-            this.metroTabPage4.Controls.Add(this.panel2);
-            this.metroTabPage4.HorizontalScrollbarBarColor = true;
-            this.metroTabPage4.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroTabPage4.HorizontalScrollbarSize = 12;
-            this.metroTabPage4.Location = new System.Drawing.Point(4, 38);
-            this.metroTabPage4.Margin = new System.Windows.Forms.Padding(4);
-            this.metroTabPage4.Name = "metroTabPage4";
-            this.metroTabPage4.Size = new System.Drawing.Size(1351, 695);
-            this.metroTabPage4.TabIndex = 3;
-            this.metroTabPage4.Text = "Productos";
-            this.metroTabPage4.VerticalScrollbarBarColor = true;
-            this.metroTabPage4.VerticalScrollbarHighlightOnWheel = false;
-            this.metroTabPage4.VerticalScrollbarSize = 13;
+            this.tabProductos.Controls.Add(this.panel2);
+            this.tabProductos.HorizontalScrollbarBarColor = true;
+            this.tabProductos.HorizontalScrollbarHighlightOnWheel = false;
+            this.tabProductos.HorizontalScrollbarSize = 12;
+            this.tabProductos.Location = new System.Drawing.Point(4, 38);
+            this.tabProductos.Margin = new System.Windows.Forms.Padding(4);
+            this.tabProductos.Name = "tabProductos";
+            this.tabProductos.Size = new System.Drawing.Size(1351, 695);
+            this.tabProductos.TabIndex = 3;
+            this.tabProductos.Text = "Productos";
+            this.tabProductos.VerticalScrollbarBarColor = true;
+            this.tabProductos.VerticalScrollbarHighlightOnWheel = false;
+            this.tabProductos.VerticalScrollbarSize = 13;
             // 
             // panel2
             // 
@@ -583,7 +563,7 @@
             this.txtCode.CustomButton.UseSelectable = true;
             this.txtCode.CustomButton.Visible = false;
             this.txtCode.Lines = new string[0];
-            this.txtCode.Location = new System.Drawing.Point(8, 122);
+            this.txtCode.Location = new System.Drawing.Point(8, 48);
             this.txtCode.Margin = new System.Windows.Forms.Padding(4);
             this.txtCode.MaxLength = 32767;
             this.txtCode.Name = "txtCode";
@@ -594,7 +574,7 @@
             this.txtCode.SelectionStart = 0;
             this.txtCode.ShortcutsEnabled = true;
             this.txtCode.Size = new System.Drawing.Size(487, 28);
-            this.txtCode.TabIndex = 54;
+            this.txtCode.TabIndex = 56;
             this.txtCode.UseSelectable = true;
             this.txtCode.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtCode.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
@@ -603,11 +583,11 @@
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(11, 98);
+            this.label23.Location = new System.Drawing.Point(11, 24);
             this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(215, 24);
-            this.label23.TabIndex = 53;
+            this.label23.TabIndex = 55;
             this.label23.Text = "Codigo Personalizado";
             // 
             // txtName
@@ -626,7 +606,7 @@
             this.txtName.CustomButton.UseSelectable = true;
             this.txtName.CustomButton.Visible = false;
             this.txtName.Lines = new string[0];
-            this.txtName.Location = new System.Drawing.Point(9, 47);
+            this.txtName.Location = new System.Drawing.Point(7, 117);
             this.txtName.Margin = new System.Windows.Forms.Padding(4);
             this.txtName.MaxLength = 32767;
             this.txtName.Name = "txtName";
@@ -641,12 +621,13 @@
             this.txtName.UseSelectable = true;
             this.txtName.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtName.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtName.Click += new System.EventHandler(this.txtName_Click);
             // 
             // label29
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(12, 24);
+            this.label29.Location = new System.Drawing.Point(10, 89);
             this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(85, 24);
@@ -698,6 +679,7 @@
             this.numQuantityMinimum.Name = "numQuantityMinimum";
             this.numQuantityMinimum.Size = new System.Drawing.Size(101, 22);
             this.numQuantityMinimum.TabIndex = 46;
+            this.numQuantityMinimum.Click += new System.EventHandler(this.numQuantityMinimum_Click);
             // 
             // numQuantityCurrent
             // 
@@ -711,6 +693,7 @@
             this.numQuantityCurrent.Name = "numQuantityCurrent";
             this.numQuantityCurrent.Size = new System.Drawing.Size(101, 22);
             this.numQuantityCurrent.TabIndex = 45;
+            this.numQuantityCurrent.Click += new System.EventHandler(this.numQuantityCurrent_Click);
             // 
             // label19
             // 
@@ -755,6 +738,7 @@
             this.cbDepartment.Size = new System.Drawing.Size(485, 30);
             this.cbDepartment.TabIndex = 40;
             this.cbDepartment.UseSelectable = true;
+            this.cbDepartment.Click += new System.EventHandler(this.cbDepartment_Click);
             // 
             // label7
             // 
@@ -779,6 +763,7 @@
             this.numWholeSale.Name = "numWholeSale";
             this.numWholeSale.Size = new System.Drawing.Size(101, 22);
             this.numWholeSale.TabIndex = 38;
+            this.numWholeSale.Click += new System.EventHandler(this.numWholeSale_Click);
             // 
             // numSale
             // 
@@ -792,6 +777,7 @@
             this.numSale.Name = "numSale";
             this.numSale.Size = new System.Drawing.Size(101, 22);
             this.numSale.TabIndex = 37;
+            this.numSale.Click += new System.EventHandler(this.numSale_Click);
             // 
             // numCost
             // 
@@ -805,6 +791,7 @@
             this.numCost.Name = "numCost";
             this.numCost.Size = new System.Drawing.Size(101, 22);
             this.numCost.TabIndex = 36;
+            this.numCost.Click += new System.EventHandler(this.numCost_Click);
             // 
             // label6
             // 
@@ -853,6 +840,7 @@
             this.cbTypeSale.Size = new System.Drawing.Size(485, 30);
             this.cbTypeSale.TabIndex = 32;
             this.cbTypeSale.UseSelectable = true;
+            this.cbTypeSale.Click += new System.EventHandler(this.cbTypeSale_Click);
             // 
             // label3
             // 
@@ -881,7 +869,7 @@
             this.txtDescription.CustomButton.UseSelectable = true;
             this.txtDescription.CustomButton.Visible = false;
             this.txtDescription.Lines = new string[0];
-            this.txtDescription.Location = new System.Drawing.Point(7, 198);
+            this.txtDescription.Location = new System.Drawing.Point(7, 186);
             this.txtDescription.Margin = new System.Windows.Forms.Padding(4);
             this.txtDescription.MaxLength = 32767;
             this.txtDescription.Name = "txtDescription";
@@ -896,12 +884,13 @@
             this.txtDescription.UseSelectable = true;
             this.txtDescription.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtDescription.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtDescription.Click += new System.EventHandler(this.txtDescription_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(10, 170);
+            this.label2.Location = new System.Drawing.Point(10, 158);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(121, 24);
@@ -932,6 +921,7 @@
             this.label21.Size = new System.Drawing.Size(116, 25);
             this.label21.TabIndex = 28;
             this.label21.Text = "Búsqueda:";
+            this.label21.Visible = false;
             // 
             // txtSearch
             // 
@@ -963,6 +953,7 @@
             this.txtSearch.Size = new System.Drawing.Size(488, 28);
             this.txtSearch.TabIndex = 27;
             this.txtSearch.UseSelectable = true;
+            this.txtSearch.Visible = false;
             this.txtSearch.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtSearch.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
@@ -977,21 +968,21 @@
             this.label18.TabIndex = 26;
             this.label18.Text = "NUEVO PRODUCTO";
             // 
-            // metroTabPage2
+            // tabInventario
             // 
-            this.metroTabPage2.Controls.Add(this.panel3);
-            this.metroTabPage2.HorizontalScrollbarBarColor = true;
-            this.metroTabPage2.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroTabPage2.HorizontalScrollbarSize = 12;
-            this.metroTabPage2.Location = new System.Drawing.Point(4, 38);
-            this.metroTabPage2.Margin = new System.Windows.Forms.Padding(4);
-            this.metroTabPage2.Name = "metroTabPage2";
-            this.metroTabPage2.Size = new System.Drawing.Size(1351, 695);
-            this.metroTabPage2.TabIndex = 4;
-            this.metroTabPage2.Text = "Inventario";
-            this.metroTabPage2.VerticalScrollbarBarColor = true;
-            this.metroTabPage2.VerticalScrollbarHighlightOnWheel = false;
-            this.metroTabPage2.VerticalScrollbarSize = 13;
+            this.tabInventario.Controls.Add(this.panel3);
+            this.tabInventario.HorizontalScrollbarBarColor = true;
+            this.tabInventario.HorizontalScrollbarHighlightOnWheel = false;
+            this.tabInventario.HorizontalScrollbarSize = 12;
+            this.tabInventario.Location = new System.Drawing.Point(4, 38);
+            this.tabInventario.Margin = new System.Windows.Forms.Padding(4);
+            this.tabInventario.Name = "tabInventario";
+            this.tabInventario.Size = new System.Drawing.Size(1351, 695);
+            this.tabInventario.TabIndex = 4;
+            this.tabInventario.Text = "Inventario";
+            this.tabInventario.VerticalScrollbarBarColor = true;
+            this.tabInventario.VerticalScrollbarHighlightOnWheel = false;
+            this.tabInventario.VerticalScrollbarSize = 13;
             // 
             // panel3
             // 
@@ -1112,6 +1103,7 @@
             this.numInventario.Name = "numInventario";
             this.numInventario.Size = new System.Drawing.Size(101, 22);
             this.numInventario.TabIndex = 36;
+            this.numInventario.Click += new System.EventHandler(this.numInventario_Click);
             // 
             // lblTituloCantidadActual
             // 
@@ -1213,21 +1205,21 @@
             this.label35.TabIndex = 26;
             this.label35.Text = "AGREGAR A INVENTARIO";
             // 
-            // metroTabPage1
+            // tabCorte
             // 
-            this.metroTabPage1.Controls.Add(this.panel4);
-            this.metroTabPage1.HorizontalScrollbarBarColor = true;
-            this.metroTabPage1.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroTabPage1.HorizontalScrollbarSize = 12;
-            this.metroTabPage1.Location = new System.Drawing.Point(4, 38);
-            this.metroTabPage1.Margin = new System.Windows.Forms.Padding(4);
-            this.metroTabPage1.Name = "metroTabPage1";
-            this.metroTabPage1.Size = new System.Drawing.Size(1351, 695);
-            this.metroTabPage1.TabIndex = 5;
-            this.metroTabPage1.Text = "Corte";
-            this.metroTabPage1.VerticalScrollbarBarColor = true;
-            this.metroTabPage1.VerticalScrollbarHighlightOnWheel = false;
-            this.metroTabPage1.VerticalScrollbarSize = 13;
+            this.tabCorte.Controls.Add(this.panel4);
+            this.tabCorte.HorizontalScrollbarBarColor = true;
+            this.tabCorte.HorizontalScrollbarHighlightOnWheel = false;
+            this.tabCorte.HorizontalScrollbarSize = 12;
+            this.tabCorte.Location = new System.Drawing.Point(4, 38);
+            this.tabCorte.Margin = new System.Windows.Forms.Padding(4);
+            this.tabCorte.Name = "tabCorte";
+            this.tabCorte.Size = new System.Drawing.Size(1351, 695);
+            this.tabCorte.TabIndex = 5;
+            this.tabCorte.Text = "Corte";
+            this.tabCorte.VerticalScrollbarBarColor = true;
+            this.tabCorte.VerticalScrollbarHighlightOnWheel = false;
+            this.tabCorte.VerticalScrollbarSize = 13;
             // 
             // panel4
             // 
@@ -1633,12 +1625,12 @@
             this.Text = "Punto de venta ";
             this.Load += new System.EventHandler(this.Main_Load);
             this.puntoVentaTabs.ResumeLayout(false);
-            this.metroTabPage3.ResumeLayout(false);
+            this.tabVenta.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.metroTabPage4.ResumeLayout(false);
+            this.tabProductos.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
@@ -1652,7 +1644,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numCost)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            this.metroTabPage2.ResumeLayout(false);
+            this.tabInventario.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
@@ -1660,7 +1652,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numInventario)).EndInit();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
-            this.metroTabPage1.ResumeLayout(false);
+            this.tabCorte.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
@@ -1678,9 +1670,9 @@
         #endregion
 
         private MetroFramework.Controls.MetroTabControl puntoVentaTabs;
-        private MetroFramework.Controls.MetroTabPage metroTabPage3;
-        private MetroFramework.Controls.MetroTabPage metroTabPage4;
-        private MetroFramework.Controls.MetroTabPage metroTabPage2;
+        private MetroFramework.Controls.MetroTabPage tabVenta;
+        private MetroFramework.Controls.MetroTabPage tabProductos;
+        private MetroFramework.Controls.MetroTabPage tabInventario;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -1688,7 +1680,7 @@
         private System.Windows.Forms.Label lblTotal;
         private MetroFramework.Controls.MetroButton btnCharge;
         private MetroFramework.Controls.MetroButton btnClean;
-        private MetroFramework.Controls.MetroTabPage metroTabPage1;
+        private MetroFramework.Controls.MetroTabPage tabCorte;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBox6;
         private MetroFramework.Controls.MetroButton btnDelete;
@@ -1766,18 +1758,18 @@
         private System.Windows.Forms.Label label57;
         private MetroFramework.Controls.MetroButton btnImprimirCorte;
         private MetroFramework.Controls.MetroButton btnCorte;
-        private MetroFramework.Controls.MetroTextBox txtCode;
-        private System.Windows.Forms.Label label23;
         private MetroFramework.Controls.MetroTextBox txtName;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private MetroFramework.Controls.MetroTextBox txtQuatinty;
         private MetroFramework.Controls.MetroTextBox txtProductCode;
         private System.Windows.Forms.Label lblMensaje;
         private System.Windows.Forms.ListView listSale;
         private MetroFramework.Controls.MetroButton btnInOut;
+        private System.Windows.Forms.TextBox txtQuatinty;
+        private MetroFramework.Controls.MetroTextBox txtCode;
+        private System.Windows.Forms.Label label23;
     }
 }
 
