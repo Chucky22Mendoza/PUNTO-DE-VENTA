@@ -146,7 +146,9 @@
             this.Controls.Add(this.lblCambio);
             this.Controls.Add(this.lblEfectivo);
             this.Controls.Add(this.lblTotal);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Cobrar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cobrar";
