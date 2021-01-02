@@ -22,6 +22,10 @@ namespace Logic {
         private MetroButton btnImprimir;
         private MetroButton btnCorte;
 
+        public LogicCorte() {
+
+        }
+
         public LogicCorte(List<Label> listLabel, MetroGrid tblDepartamento, MetroButton btnImprimir, MetroButton btnCorte) {
             this.listLabel = listLabel;
             this.tblDepartamento = tblDepartamento;
@@ -37,71 +41,108 @@ namespace Logic {
         }
 
         public void index() {
-            try
-            {
-                List<Corte_Caja> corteCaja = _CorteCaja.ThenByDescending(obj => obj.fecha_corte_fin).ToList();
-                corteCaja.ForEach(corte => {
-                    if (corte.ganancia == 0)
-                    {
+            Corte_Caja corteCaja;
+            try {
+                int contador = _CorteCaja.Count();
+                
+                if (contador > 0) {
+                    corteCaja = _CorteCaja.ThenByDescending(obj => obj.fecha_corte_inicio).First();
+                    Console.WriteLine(corteCaja.ganancia);
+                    if (corteCaja.ganancia == 0) {
                         btnImprimir.Enabled = false;
                         btnCorte.Enabled = true;
-                    }
-                    else
-                    {
+                    } else {
+                        listLabel[9].Text = "Favor de registrar el dinero inicial en caja";
                         btnImprimir.Enabled = true;
                         btnCorte.Enabled = false;
                     }
-                });
-            }catch(Exception e)
-            {
-                MessageBox.Show("Error al intentar conectar con la base de datos: Logica de corte, ln 57", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                } else {
+                    listLabel[9].Text = "Favor de registrar el dinero inicial en caja";
+                    btnImprimir.Enabled = false;
+                    btnCorte.Enabled = false;
+                }
+            } catch(SqlException e) {
+                Console.WriteLine(e);
+                MessageBox.Show("Error al intentar conectar con la base de datos: Logica de corte, ln 56", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
         }
 
-        double sumaVentaTotales;
-        double sumaGananciaDia;
-        double dineroInicialCaja;
+        public void registrarInicioCorte(String cantidad) {
+            try {
+                _CorteCaja.Value(obj => obj.dinero_inicial, Convert.ToDouble(cantidad)).Insert();
+
+                MessageBox.Show("Dinero Inicial registrado con exito", "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } catch (SqlException e) {
+                MessageBox.Show("Error al registrar el dinero incial intente de nuevo, ln 72.", "Error al insertar datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        double sumaVentaTotales, sumaGananciaDia, dineroInicialCaja, sumaEntradas, sumaSalidas;
         string nombreDep;
         int idCorte;
-        List<double> listVenta = new List<double>();
-        List<string> listDep = new List<string>();
-        List<Departamento> listDepObj = new List<Departamento>();
+        List<double> listVenta;
+        List<string> listDep;
+        List<Departamento> listDepObj;
         public void setDataGUI() {
             sumaVentaTotales = 0;
             sumaGananciaDia = 0;
+            dineroInicialCaja = 0;
+            sumaEntradas = 0;
+            sumaSalidas = 0;
+            nombreDep = "";
+            idCorte = 0;
+            listVenta = new List<double>();
+            listDep = new List<string>();
+            listDepObj = new List<Departamento>();
+
             DateTime dateTime = DateTime.Now;
 
-            List<Corte_Caja> corteCaja = _CorteCaja.ThenByDescending(obj => obj.fecha_corte_inicio).ToList();
+            Corte_Caja corteCaja = _CorteCaja.ThenByDescending(obj => obj.fecha_corte_inicio).First();
             List<Venta_Producto> ventaProductos = _VentaProducto.ToList();
             List<Producto> productos = _Producto.ToList();
             List<Departamentos> departamentos = _Departamentos.ToList();
+            List<Venta> ventas = _Venta.ToList();
+            List<Entradas_Salidas> entradas_salidas = _EntradasSalidas.ToList();
 
-            corteCaja.ForEach(corte => {
-                dineroInicialCaja = corte.dinero_inicial;
-                idCorte = corte.id_corte_caja;
-                ventaProductos.ForEach(venta => {
-                    if(venta.fecha_registro > corte.fecha_corte_inicio) {
-                        sumaVentaTotales += venta.total;
-                        productos.ForEach(producto => {
-                            if (producto.codigo == venta.id_producto) {
-                                sumaGananciaDia += (producto.precio - producto.precio_costo) * venta.cantidad;
-                                departamentos.ForEach(departamento => {
-                                    if (departamento.idDepartamento == producto.departamento) {
-                                        nombreDep = departamento.nombre;
-                                        if (!listDep.Contains(departamento.nombre)) {
-                                            listDep.Add(nombreDep);
-                                            listVenta.Add(venta.total);
-                                        } else {
-                                            int indexDep = listDep.IndexOf(nombreDep);
-                                            listVenta[indexDep] = listVenta[indexDep] + venta.total;
+            dineroInicialCaja = corteCaja.dinero_inicial;
+            idCorte = corteCaja.id_corte_caja;
+
+            ventas.ForEach(ventaObj => {
+                if (ventaObj.estado == 1 && ventaObj.fecha_creacion > corteCaja.fecha_corte_inicio) {
+                    ventaProductos.ForEach(venta => {
+                        if (venta.fecha_registro > corteCaja.fecha_corte_inicio) {
+                            sumaVentaTotales += venta.total;
+                            productos.ForEach(producto => {
+                                if (producto.codigo == venta.id_producto) {
+                                    sumaGananciaDia += (producto.precio - producto.precio_costo) * venta.cantidad;
+                                    departamentos.ForEach(departamento => {
+                                        if (departamento.idDepartamento == producto.departamento) {
+                                            nombreDep = departamento.nombre;
+                                            if (!listDep.Contains(departamento.nombre)) {
+                                                listDep.Add(nombreDep);
+                                                listVenta.Add(venta.total);
+                                            } else {
+                                                int indexDep = listDep.IndexOf(nombreDep);
+                                                listVenta[indexDep] = listVenta[indexDep] + venta.total;
+                                            }
                                         }
-                                    }
-                                });
-                            }
-                        });
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            entradas_salidas.ForEach(io => {
+                if (io.date_create > corteCaja.fecha_corte_inicio) {
+                    if (io.tipo == 0) {
+                        sumaEntradas += io.cantidad;
+                    } else if (io.tipo == 1) {
+                        sumaSalidas += io.cantidad;
                     }
-                });
+                }
             });
 
             for (int i = 0; i < listDep.Count; i++) {
@@ -112,14 +153,26 @@ namespace Logic {
                 listDepObj.Add(obj);
             }
 
+            double totalDineroCaja = sumaVentaTotales + (sumaEntradas - sumaSalidas);
+            double sumaEntradaEfectivo = sumaVentaTotales + dineroInicialCaja;
+            
+            totalDineroCaja = Math.Round(totalDineroCaja, 2);
             sumaVentaTotales = Math.Round(sumaVentaTotales, 2);
             sumaGananciaDia = Math.Round(sumaGananciaDia, 2);
             dineroInicialCaja = Math.Round(dineroInicialCaja, 2);
+            sumaEntradaEfectivo = Math.Round(sumaEntradaEfectivo, 2);
+            sumaEntradas = Math.Round(sumaEntradas, 2);
+            sumaSalidas = Math.Round(sumaSalidas, 2);
 
             listLabel[0].Text = parser.getCentavos(sumaVentaTotales.ToString());
             listLabel[1].Text = parser.getCentavos(sumaGananciaDia.ToString());
+            listLabel[2].Text = parser.getCentavos(sumaVentaTotales.ToString());
             listLabel[3].Text = parser.getCentavos(dineroInicialCaja.ToString());
+            listLabel[4].Text = parser.getCentavos(sumaEntradaEfectivo.ToString());
             listLabel[5].Text = parser.getCentavos(sumaVentaTotales.ToString());
+            listLabel[6].Text = parser.getCentavos(sumaEntradas.ToString());
+            listLabel[7].Text = parser.getCentavos(sumaSalidas.ToString());
+            listLabel[8].Text = parser.getCentavos(totalDineroCaja.ToString());
 
             List<Departamento> sortedList = listDepObj.OrderBy(obj => obj.ventas).ToList();
 
@@ -156,6 +209,7 @@ namespace Logic {
                 CommitTransaction();
                 index();
             } catch (SqlException) {
+                MessageBox.Show("Error al registrar corte caja intente de nuevo, ln 225.", "Error al insertar datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 RollbackTransaction();
             }
         }
