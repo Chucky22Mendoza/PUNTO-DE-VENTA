@@ -98,7 +98,6 @@ namespace Punto_de_Venta {
 
         private void Main_Load(object sender, EventArgs e)
         {
-
             Console.WriteLine(e);
 
             Encabezados();
@@ -145,35 +144,47 @@ namespace Punto_de_Venta {
 
         private void txtProductCode_KeyPress(object sender, KeyPressEventArgs e)
         {
-            lblMensaje.Text = "";
-            try
+            bool res = venta.checkDeposito();
+
+            if (res)
             {
-                if (!((txtProductCode.Text == "") || (txtQuatinty.Text == "")))
+                lblMensaje.Text = "";
+                try
                 {
-                   
 
-                    if (e.KeyChar == 13)
+
+                    if (!((txtProductCode.Text == "") || (txtQuatinty.Text == "")))
                     {
-                        if (txtProductCode.Text != "" || txtQuatinty.Text != "")
-                        {
-                            SaveTemp_Ventas(txtProductCode.Text, Convert.ToDouble(txtQuatinty.Text));
-                            txtProductCode.Text = "";
-                            txtQuatinty.Text = "";
-                            txtProductCode.Focus();
-                        }
 
+
+                        if (e.KeyChar == 13)
+                        {
+                            if (txtProductCode.Text != "" || txtQuatinty.Text != "")
+                            {
+                                SaveTemp_Ventas(txtProductCode.Text, Convert.ToDouble(txtQuatinty.Text));
+                                txtProductCode.Text = "";
+                                txtQuatinty.Text = "";
+                                txtProductCode.Focus();
+                            }
+
+                        }
+                    }
+                    else
+                    {
+
+                        lblMensaje.Text = "Debe introducir una clave de producto y/o una cantidad";
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    
-                    lblMensaje.Text = "Debe introducir una clave de producto y/o una cantidad";
+                    MessageBox.Show(ex.Message);
                 }
-            }
-            catch (Exception ex)
+
+            } else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Es necesario primero añadir el deposito inicial.", "Alerta del deposito inicial.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
         }
 
         private void txtProductCode_KeyDown(object sender, KeyEventArgs e)
@@ -256,13 +267,10 @@ namespace Punto_de_Venta {
             if (listSale.Items.Count > 0)
             {
                 SystemSounds.Asterisk.Play();
-                if (listSale.Items.Count != 0)
-                {
-                    venta.makeSale();
+                venta.makeSale();
 
-                    Cobrar cobrar = new Cobrar();
-                    cobrar.ShowDialog();
-                }
+                Cobrar cobrar = new Cobrar();
+                cobrar.ShowDialog();
             }
             else
             {

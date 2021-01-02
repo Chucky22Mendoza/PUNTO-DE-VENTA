@@ -35,55 +35,98 @@ namespace Logic {
 
         }
 
+        public bool checkDeposito()
+        {
+            bool res = false;
+
+            try
+            {
+                List<Corte_Caja> corteCaja = _CorteCaja.ThenByDescending(obj => obj.fecha_corte_fin).ToList();
+
+                corteCaja.ForEach(corte =>
+                {
+                    if (corte.ganancia == 0)
+                    {
+                        res = true;
+                    }
+                });
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error al conectar con la base de datos, ln 60.", "Error de conección", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return res;
+            }
+        }
+
         public void addProduct(string product, double quantity)
         {
             producto = _Producto.Where(obj => obj.codigo.Equals(product)).ToList();
 
             if (producto.Count() == 1)
             {
-                items = items + quantity;
+
+                double checkExistencia = 0;
 
                 producto.ForEach(obj =>
                 {
-                    Console.WriteLine(obj.nombre);
-                    total = total + (obj.precio * quantity);
-
-                    listSale.Items.Add(obj.codigo);
-                    listSale.Items[count].SubItems.Add(obj.nombre);
-                    listSale.Items[count].SubItems.Add(quantity.ToString());
-                    listSale.Items[count].SubItems.Add(obj.precio.ToString());
-                    listSale.Items[count].SubItems.Add((obj.precio * quantity).ToString());
-                    count += 1;
-
-                    
+                    checkExistencia = obj.existencia;
                 });
 
-                labels[0].Text = "$" + total;
-                labels[1].Text = items + " productos en venta actual";
-
-                tempVentas =  _TempVenta.Where(obj => obj.codigo.Equals(product)).ToList();
-
-                if(tempVentas.Count() > 0)
+                if(checkExistencia > 0 && checkExistencia <= quantity)
                 {
-                    Console.WriteLine("Ya existe este producto en la venta.");
-                    double nuevaCantidad = 0;
+                    items = items + quantity;
 
-                    tempVentas.ForEach(obj =>
+                    producto.ForEach(obj =>
                     {
-                        nuevaCantidad = quantity + obj.cantidad;
+                        Console.WriteLine(obj.nombre);
+                        total = total + (obj.precio * quantity);
+
+                        listSale.Items.Add(obj.codigo);
+                        listSale.Items[count].SubItems.Add(obj.nombre);
+                        listSale.Items[count].SubItems.Add(quantity.ToString());
+                        listSale.Items[count].SubItems.Add(obj.precio.ToString());
+                        listSale.Items[count].SubItems.Add((obj.precio * quantity).ToString());
+                        count += 1;
+
+
                     });
 
-                    _TempVenta.Where(obj => obj.codigo.Equals(product))
-                    .Set(obj => obj.cantidad, nuevaCantidad)
-                    .Update();
-                }
-                else
+                    labels[0].Text = "$" + total;
+                    labels[1].Text = items + " productos en venta actual";
+
+                    tempVentas = _TempVenta.Where(obj => obj.codigo.Equals(product)).ToList();
+
+                    if (tempVentas.Count() > 0)
+                    {
+                        Console.WriteLine("Ya existe este producto en la venta.");
+                        double nuevaCantidad = 0;
+
+                        tempVentas.ForEach(obj =>
+                        {
+                            nuevaCantidad = quantity + obj.cantidad;
+                        });
+
+                        _TempVenta.Where(obj => obj.codigo.Equals(product))
+                        .Set(obj => obj.cantidad, nuevaCantidad)
+                        .Update();
+                    }
+                    else
+                    {
+                        _TempVenta.Value(obj => obj.codigo, product)
+                               .Value(obj => obj.total, total)
+                               .Value(obj => obj.cantidad, quantity)
+                               .Insert();
+                    }
+
+                } else
                 {
-                    _TempVenta.Value(obj => obj.codigo, product)
-                           .Value(obj => obj.total, total)
-                           .Value(obj => obj.cantidad, quantity)
-                           .Insert();
+                    MessageBox.Show("Alerta el producto no cuenta con sufuciente existencia en stock para este pedido.", "Alrta de stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+
+
             }
             else
             {
@@ -110,7 +153,6 @@ namespace Logic {
 
         public void makeSale()
         {
-            int idVenta = 0;
             /**
              * Estado: 0 - Pendiente
              *         1 - Realizada
@@ -121,29 +163,6 @@ namespace Logic {
                   .Value(obj => obj.estado, 0)
                   .Value(obj => obj.total_articulos, items)
                   .Insert();
-
-            using (var db = new Connection())
-            {
-                var query = from v in db._Venta
-                            orderby v.id_venta descending
-                            select v;
-                ventas = query.ToList();
-            }
-
-            idVenta = ventas.First().id_venta;
-
-            Console.WriteLine(idVenta);
-
-            tempVentas = _TempVenta.ToList();
-
-            tempVentas.ForEach(obj =>
-            {
-                _VentaProducto.Value(obj2 => obj2.id_venta, idVenta)
-                              .Value(obj2 => obj2.id_producto, obj.codigo)
-                              .Value(obj2 => obj2.cantidad, obj.cantidad)
-                              .Value(obj2 => obj2.total, obj.total)
-                              .Insert();
-            });
 
             removeProduct();
         }
@@ -181,6 +200,14 @@ namespace Logic {
                 existenciaOld = producto.First().existencia;
 
                 existenciaNew = existenciaOld - obj.cantidad;
+
+
+                _VentaProducto.Value(obj2 => obj2.id_venta, idVenta)
+                              .Value(obj2 => obj2.id_producto, obj.codigo)
+                              .Value(obj2 => obj2.cantidad, obj.cantidad)
+                              .Value(obj2 => obj2.total, obj.total)
+                              .Insert();
+
 
                 _Producto.Where(obj2 => obj2.codigo.Equals(obj.codigo))
                            .Set(obj2 => obj2.existencia, existenciaNew)
