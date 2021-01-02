@@ -54,5 +54,13 @@ namespace Punto_de_Venta
                 e.Handled = true;
             }
         }
+
+        private void label1_Click(object sender, EventArgs e) {
+
+        }
+
+        private void txtCantidadInOut_TextChanged(object sender, EventArgs e) {
+
+        }
     }
 }

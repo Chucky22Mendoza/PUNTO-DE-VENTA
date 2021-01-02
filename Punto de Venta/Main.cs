@@ -89,6 +89,7 @@ namespace Punto_de_Venta {
             listLabelCorte.Add(lblEntradas);
             listLabelCorte.Add(lblSalidas);
             listLabelCorte.Add(lblTotalDineroCaja);
+            listLabelCorte.Add(lblMensaje);
             tblDepartamento.BackgroundColor = Color.WhiteSmoke;
 
             corte = new LogicCorte(listLabelCorte, tblDepartamento, btnImprimirCorte, btnCorte);
@@ -474,6 +475,12 @@ namespace Punto_de_Venta {
             {
                 txtCodigoProducto.Focus();
             }
+        }
+
+        private void btnAbrirCorte_Click(object sender, EventArgs e) {
+            AbrirCorte abrirCorte = new AbrirCorte();
+            abrirCorte.ShowDialog();
+            corte.index();
         }
     }
 }
