@@ -24,6 +24,8 @@ namespace Punto_de_Venta {
         public Main() {
 
             InitializeComponent();
+            
+            btnReporteMovimientos.Visible = false;
 
             //Ventas
 
@@ -92,7 +94,7 @@ namespace Punto_de_Venta {
             listLabelCorte.Add(lblMensaje);
             tblDepartamento.BackgroundColor = Color.WhiteSmoke;
 
-            corte = new LogicCorte(listLabelCorte, tblDepartamento, btnImprimirCorte, btnCorte);
+            corte = new LogicCorte(listLabelCorte, tblDepartamento, btnImprimirCorte, btnCorte, btnAbrirCorte);
 
             corte.index();
         }

@@ -21,16 +21,18 @@ namespace Logic {
         private MetroGrid tblDepartamento;
         private MetroButton btnImprimir;
         private MetroButton btnCorte;
+        private MetroButton btnInicioCorte;
 
         public LogicCorte() {
 
         }
 
-        public LogicCorte(List<Label> listLabel, MetroGrid tblDepartamento, MetroButton btnImprimir, MetroButton btnCorte) {
+        public LogicCorte(List<Label> listLabel, MetroGrid tblDepartamento, MetroButton btnImprimir, MetroButton btnCorte, MetroButton btnInicioCorte) {
             this.listLabel = listLabel;
             this.tblDepartamento = tblDepartamento;
             this.btnImprimir = btnImprimir;
             this.btnCorte = btnCorte;
+            this.btnInicioCorte = btnInicioCorte;
             limpiarCampos();
         }
 
@@ -47,23 +49,27 @@ namespace Logic {
                 
                 if (contador > 0) {
                     corteCaja = _CorteCaja.ThenByDescending(obj => obj.fecha_corte_inicio).First();
-                    Console.WriteLine(corteCaja.ganancia);
+                    
                     if (corteCaja.ganancia == 0) {
+                        listLabel[9].Text = "";
+                        btnInicioCorte.Enabled = false;
                         btnImprimir.Enabled = false;
                         btnCorte.Enabled = true;
                     } else {
                         listLabel[9].Text = "Favor de registrar el dinero inicial en caja";
+                        btnInicioCorte.Enabled = true;
                         btnImprimir.Enabled = true;
                         btnCorte.Enabled = false;
                     }
                 } else {
                     listLabel[9].Text = "Favor de registrar el dinero inicial en caja";
+                    btnInicioCorte.Enabled = true;
                     btnImprimir.Enabled = false;
                     btnCorte.Enabled = false;
                 }
             } catch(SqlException e) {
                 Console.WriteLine(e);
-                MessageBox.Show("Error al intentar conectar con la base de datos: Logica de corte, ln 56", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al intentar conectar con la base de datos: Logica de corte, ln 71", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
         }
@@ -74,7 +80,7 @@ namespace Logic {
 
                 MessageBox.Show("Dinero Inicial registrado con exito", "Registro exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             } catch (SqlException e) {
-                MessageBox.Show("Error al registrar el dinero incial intente de nuevo, ln 72.", "Error al insertar datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al registrar el dinero incial intente de nuevo, ln 82.", "Error al insertar datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -209,7 +215,7 @@ namespace Logic {
                 CommitTransaction();
                 index();
             } catch (SqlException) {
-                MessageBox.Show("Error al registrar corte caja intente de nuevo, ln 225.", "Error al insertar datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al registrar corte caja intente de nuevo, ln 217.", "Error al insertar datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 RollbackTransaction();
             }
         }
