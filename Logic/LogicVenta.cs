@@ -75,7 +75,7 @@ namespace Logic {
                     checkExistencia = obj.existencia;
                 });
 
-                if(checkExistencia > 0 && checkExistencia <= quantity)
+                if(checkExistencia > 0 && quantity <= checkExistencia)
                 {
                     items = items + quantity;
 
