@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InOut));
             this.label1 = new System.Windows.Forms.Label();
             this.rbIn = new MetroFramework.Controls.MetroRadioButton();
             this.rbOut = new MetroFramework.Controls.MetroRadioButton();
@@ -38,10 +39,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(54, 85);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(72, 105);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.Size = new System.Drawing.Size(64, 17);
             this.label1.TabIndex = 3;
             this.label1.Text = "Cantidad";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -51,10 +51,10 @@
             this.rbIn.AutoSize = true;
             this.rbIn.BackColor = System.Drawing.Color.Transparent;
             this.rbIn.Checked = true;
-            this.rbIn.Location = new System.Drawing.Point(56, 58);
-            this.rbIn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbIn.Location = new System.Drawing.Point(75, 71);
+            this.rbIn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rbIn.Name = "rbIn";
-            this.rbIn.Size = new System.Drawing.Size(63, 15);
+            this.rbIn.Size = new System.Drawing.Size(69, 17);
             this.rbIn.TabIndex = 55;
             this.rbIn.TabStop = true;
             this.rbIn.Text = "Entrada";
@@ -63,10 +63,10 @@
             // rbOut
             // 
             this.rbOut.AutoSize = true;
-            this.rbOut.Location = new System.Drawing.Point(154, 58);
-            this.rbOut.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbOut.Location = new System.Drawing.Point(205, 71);
+            this.rbOut.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rbOut.Name = "rbOut";
-            this.rbOut.Size = new System.Drawing.Size(54, 15);
+            this.rbOut.Size = new System.Drawing.Size(59, 17);
             this.rbOut.TabIndex = 56;
             this.rbOut.Text = "Salida";
             this.rbOut.UseSelectable = true;
@@ -74,9 +74,10 @@
             // btnRegistrarInOut
             // 
             this.btnRegistrarInOut.BackColor = System.Drawing.SystemColors.Desktop;
-            this.btnRegistrarInOut.Location = new System.Drawing.Point(75, 147);
+            this.btnRegistrarInOut.Location = new System.Drawing.Point(100, 181);
+            this.btnRegistrarInOut.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnRegistrarInOut.Name = "btnRegistrarInOut";
-            this.btnRegistrarInOut.Size = new System.Drawing.Size(113, 32);
+            this.btnRegistrarInOut.Size = new System.Drawing.Size(151, 39);
             this.btnRegistrarInOut.TabIndex = 59;
             this.btnRegistrarInOut.Text = "Registrar";
             this.btnRegistrarInOut.UseSelectable = true;
@@ -85,27 +86,28 @@
             // txtCantidadInOut
             // 
             this.txtCantidadInOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCantidadInOut.Location = new System.Drawing.Point(56, 102);
-            this.txtCantidadInOut.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtCantidadInOut.Location = new System.Drawing.Point(75, 126);
+            this.txtCantidadInOut.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCantidadInOut.Multiline = true;
             this.txtCantidadInOut.Name = "txtCantidadInOut";
-            this.txtCantidadInOut.Size = new System.Drawing.Size(144, 27);
+            this.txtCantidadInOut.Size = new System.Drawing.Size(191, 32);
             this.txtCantidadInOut.TabIndex = 60;
             this.txtCantidadInOut.TextChanged += new System.EventHandler(this.txtCantidadInOut_TextChanged);
             this.txtCantidadInOut.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidadInOut_KeyPress_1);
             // 
             // InOut
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(259, 208);
+            this.ClientSize = new System.Drawing.Size(345, 256);
             this.Controls.Add(this.txtCantidadInOut);
             this.Controls.Add(this.btnRegistrarInOut);
             this.Controls.Add(this.rbOut);
             this.Controls.Add(this.rbIn);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InOut";

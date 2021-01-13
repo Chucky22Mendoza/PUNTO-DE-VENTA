@@ -108,9 +108,6 @@ namespace Punto_de_Venta {
             this.ActiveControl = txtProductCode;
             this.txtProductCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductCode_KeyPress);
             this.txtProductCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtProductCode_KeyDown);
-
-            this.txtQuatinty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuatinty_KeyPress_1);
-            this.txtQuatinty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtQuatinty_KeyDown_1);
         }
 
         private void Encabezados()
@@ -129,14 +126,19 @@ namespace Punto_de_Venta {
         {
             if (puntoVentaTabs.SelectedTab.Text == "Venta")
             {
+
                 txtProductCode.Focus();
+
             }
             else if (puntoVentaTabs.SelectedTab.Text == "Productos")
             {
                 txtCode.Focus();
+
             } else if(puntoVentaTabs.SelectedTab.Text == "Inventario")
             {
+
                 txtCodigoProducto.Focus();
+
             }
         }
 
@@ -156,26 +158,20 @@ namespace Punto_de_Venta {
                 {
 
 
-                    if (!((txtProductCode.Text == "") || (txtQuatinty.Text == "")))
+                    if (!((txtProductCode.Text == "")))
                     {
 
 
                         if (e.KeyChar == 13)
                         {
-                            if (txtProductCode.Text != "" || txtQuatinty.Text != "")
+                            if (txtProductCode.Text != "")
                             {
-                                SaveTemp_Ventas(txtProductCode.Text, Convert.ToDouble(txtQuatinty.Text));
+                                SaveTemp_Ventas(txtProductCode.Text, 1);
                                 txtProductCode.Text = "";
-                                txtQuatinty.Text = "";
                                 txtProductCode.Focus();
                             }
 
                         }
-                    }
-                    else
-                    {
-
-                        lblMensaje.Text = "Debe introducir una clave de producto y/o una cantidad";
                     }
                 }
                 catch (Exception ex)
@@ -191,66 +187,6 @@ namespace Punto_de_Venta {
         }
 
         private void txtProductCode_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F5)
-            {
-                RealizaVenta();
-
-            }
-        }
-
-        private void txtQuatinty_Click(object sender, EventArgs e)
-        {
-            if (txtProductCode.Text.Length == 0)
-            {
-                txtProductCode.Focus();
-            }
-        }
-
-        private void txtQuatinty_KeyPress_1(object sender, KeyPressEventArgs e)
-        {
-            try
-            {
-                lblMensaje.Text = "";
-
-                if (((txtProductCode.Text != "") || (txtQuatinty.Text == "")))
-                {
-                    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-                    {
-                        e.Handled = true;
-                    }
-
-                    // only allow one decimal point
-                    if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-                    {
-                        e.Handled = true;
-                    }
-
-
-                    if (e.KeyChar == 13)
-                    {
-                        if (txtProductCode.Text != "" || txtQuatinty.Text != "")
-                        {
-                            SaveTemp_Ventas(txtProductCode.Text, Convert.ToDouble(txtQuatinty.Text));
-                            txtProductCode.Text = "";
-                            txtQuatinty.Text = "";
-                            txtProductCode.Focus();
-                        }
-                    }
-                }
-                else
-                {
-                    lblMensaje.Text = "Debe introducir una clave de producto y/o una cantidad";
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-        }
-
-        private void txtQuatinty_KeyDown_1(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F5)
             {
@@ -301,6 +237,7 @@ namespace Punto_de_Venta {
         {
             InOut inOut = new InOut();
             inOut.ShowDialog();
+            txtProductCode.Focus();
         }
 
         /**
@@ -483,6 +420,8 @@ namespace Punto_de_Venta {
             AbrirCorte abrirCorte = new AbrirCorte();
             abrirCorte.ShowDialog();
             corte.index();
+            txtProductCode.Focus();
         }
+
     }
 }

@@ -198,3 +198,4 @@ C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Punto de Venta\o
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Punto de Venta\obj\Debug\Punto de Venta.exe
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Punto de Venta\obj\Debug\Punto de Venta.pdb
 C:\Users\login\Documents\NetCoreProjects\PUNTO-DE-VENTA\Punto de Venta\obj\Debug\Punto_de_Venta.AbrirCorte.resources
+C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Punto de Venta\obj\Debug\Punto_de_Venta.AbrirCorte.resources
