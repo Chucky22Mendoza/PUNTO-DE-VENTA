@@ -151,6 +151,17 @@ namespace Logic {
             }
         }
 
+        public void reduceCount(double discount)
+        {
+            count -= 1;
+            total -= discount;
+            items -= 1;
+
+            labels[0].Text = "$" + total;
+            labels[1].Text = items + " productos en venta actual";
+
+        }
+
         public void makeSale()
         {
             /**

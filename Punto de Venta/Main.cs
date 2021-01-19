@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Media;
 using System.Text;
@@ -109,8 +110,6 @@ namespace Punto_de_Venta {
             this.txtProductCode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductCode_KeyPress);
             this.txtProductCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtProductCode_KeyDown);
 
-            this.txtQuatinty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuatinty_KeyPress_1);
-            this.txtQuatinty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtQuatinty_KeyDown_1);
         }
 
         private void Encabezados()
@@ -119,10 +118,10 @@ namespace Punto_de_Venta {
             listSale.View = View.Details;
             listSale.Columns.Add("Codigo", 100, HorizontalAlignment.Left);
             listSale.Columns.Add("Producto", 250, HorizontalAlignment.Left);
-            listSale.Columns.Add("Cant", 75, HorizontalAlignment.Right);
-            listSale.Columns.Add("Prec", 75, HorizontalAlignment.Right);
+            listSale.Columns.Add("Cant", 75, HorizontalAlignment.Left);
+            listSale.Columns.Add("Prec", 75, HorizontalAlignment.Left);
             //lvVenta.Columns.Add("Iva", 75,HorizontalAlignment.Right);
-            listSale.Columns.Add("Total", 100, HorizontalAlignment.Right);
+            listSale.Columns.Add("Total", 100, HorizontalAlignment.Left);
         }
 
         private void puntoVentaTabs_SelectedIndexChanged(object sender, EventArgs e)
@@ -140,11 +139,6 @@ namespace Punto_de_Venta {
             }
         }
 
-        private void listSale_Click(object sender, EventArgs e)
-        {
-            txtProductCode.Focus();
-        }
-
         private void txtProductCode_KeyPress(object sender, KeyPressEventArgs e)
         {
             bool res = venta.checkDeposito();
@@ -154,28 +148,17 @@ namespace Punto_de_Venta {
                 lblMensaje.Text = "";
                 try
                 {
-
-
-                    if (!((txtProductCode.Text == "") || (txtQuatinty.Text == "")))
+                    if (!((txtProductCode.Text == "")))
                     {
-
-
                         if (e.KeyChar == 13)
                         {
-                            if (txtProductCode.Text != "" || txtQuatinty.Text != "")
+                            if (txtProductCode.Text != "")
                             {
-                                SaveTemp_Ventas(txtProductCode.Text, Convert.ToDouble(txtQuatinty.Text));
+                                SaveTemp_Ventas(txtProductCode.Text, 1);
                                 txtProductCode.Text = "";
-                                txtQuatinty.Text = "";
                                 txtProductCode.Focus();
                             }
-
                         }
-                    }
-                    else
-                    {
-
-                        lblMensaje.Text = "Debe introducir una clave de producto y/o una cantidad";
                     }
                 }
                 catch (Exception ex)
@@ -191,66 +174,6 @@ namespace Punto_de_Venta {
         }
 
         private void txtProductCode_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F5)
-            {
-                RealizaVenta();
-
-            }
-        }
-
-        private void txtQuatinty_Click(object sender, EventArgs e)
-        {
-            if (txtProductCode.Text.Length == 0)
-            {
-                txtProductCode.Focus();
-            }
-        }
-
-        private void txtQuatinty_KeyPress_1(object sender, KeyPressEventArgs e)
-        {
-            try
-            {
-                lblMensaje.Text = "";
-
-                if (((txtProductCode.Text != "") || (txtQuatinty.Text == "")))
-                {
-                    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-                    {
-                        e.Handled = true;
-                    }
-
-                    // only allow one decimal point
-                    if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-                    {
-                        e.Handled = true;
-                    }
-
-
-                    if (e.KeyChar == 13)
-                    {
-                        if (txtProductCode.Text != "" || txtQuatinty.Text != "")
-                        {
-                            SaveTemp_Ventas(txtProductCode.Text, Convert.ToDouble(txtQuatinty.Text));
-                            txtProductCode.Text = "";
-                            txtQuatinty.Text = "";
-                            txtProductCode.Focus();
-                        }
-                    }
-                }
-                else
-                {
-                    lblMensaje.Text = "Debe introducir una clave de producto y/o una cantidad";
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-        }
-
-        private void txtQuatinty_KeyDown_1(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F5)
             {
@@ -301,6 +224,7 @@ namespace Punto_de_Venta {
         {
             InOut inOut = new InOut();
             inOut.ShowDialog();
+            this.txtProductCode.Focus();
         }
 
         /**
@@ -391,6 +315,7 @@ namespace Punto_de_Venta {
             else
             {
                 productos.store();
+                txtCode.Focus();
             }
         }
 
@@ -403,6 +328,7 @@ namespace Punto_de_Venta {
             else
             {
                 productos.update();
+                txtCode.Focus();
             }
         }
 
@@ -483,6 +409,32 @@ namespace Punto_de_Venta {
             AbrirCorte abrirCorte = new AbrirCorte();
             abrirCorte.ShowDialog();
             corte.index();
+            this.txtProductCode.Focus();
+        }
+
+        private void listSale_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keys.Delete == e.KeyCode)
+            {
+                foreach (ListViewItem listViewItem in ((ListView)sender).SelectedItems)
+                {
+                    ListView.SelectedListViewItemCollection sales = ((ListView)sender).SelectedItems;
+
+                    double precio = 0.0;
+
+                    foreach (ListViewItem sale in sales)
+                    {
+                        precio += Double.Parse(sale.SubItems[3].Text);
+                    }
+
+                    listViewItem.Remove();
+
+                    venta.reduceCount(precio);
+
+                    txtProductCode.Focus();
+
+                }
+            }
         }
     }
 }
