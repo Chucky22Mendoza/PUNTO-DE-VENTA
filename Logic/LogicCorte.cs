@@ -1,8 +1,8 @@
 ﻿using Data.Model;
+using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using LinqToDB;
-using LinqToDB.Common;
 using LinqToDB.SqlQuery;
 using Logic.Libreria;
 using MetroFramework.Controls;
@@ -11,8 +11,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Logic {

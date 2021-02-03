@@ -19,6 +19,7 @@ namespace Punto_de_Venta {
         private LogicProductos productos;
         private LogicInventario inventario;
         private LogicCorte corte;
+        private LogicDepartamento departamento;
 
         public static string code = "";
 
@@ -98,6 +99,10 @@ namespace Punto_de_Venta {
             corte = new LogicCorte(listLabelCorte, tblDepartamento, btnImprimirCorte, btnCorte, btnAbrirCorte);
 
             corte.index();
+
+            departamento = new LogicDepartamento(tblDepartamentosTab, txtDepartamentoTab);
+
+            departamento.index();
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -435,6 +440,41 @@ namespace Punto_de_Venta {
 
                 }
             }
+        }
+
+        /**
+         * Eventos de Departamento
+         */
+        private void btnGuardarDep_Click(object sender, EventArgs e) {
+            if (txtDepartamentoTab.Text.Length == 0) {
+                txtDepartamentoTab.Focus();
+            } else {
+                departamento.store();
+                txtDepartamentoTab.Focus();
+            }
+        }
+
+        private void btnActualizarDep_Click(object sender, EventArgs e) {
+            if (txtDepartamentoTab.Text.Length == 0) {
+                txtDepartamentoTab.Focus();
+            } else {
+                departamento.update();
+                txtDepartamentoTab.Focus();
+            }
+        }
+
+        private void btnCancelarDep_Click(object sender, EventArgs e) {
+            departamento.clean();
+            txtDepartamentoTab.Focus();
+        }
+
+        private void btnEditarDep_Click(object sender, EventArgs e) {
+            departamento.edit();
+        }
+
+        private void btnEliminarDep_Click(object sender, EventArgs e) {
+            departamento.delete();
+            txtDepartamentoTab.Focus();
         }
     }
 }

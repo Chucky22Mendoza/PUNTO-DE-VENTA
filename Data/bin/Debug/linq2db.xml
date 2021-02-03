@@ -395,6 +395,13 @@
             Default value: <c>true</c>.
             </summary>
         </member>
+        <member name="F:LinqToDB.Common.Configuration.OptimizeForSequentialAccess">
+            <summary>
+            Enables mapping expression to be compatible with <see cref="F:System.Data.CommandBehavior.SequentialAccess"/> behavior.
+            Note that it doesn't switch linq2db to use <see cref="F:System.Data.CommandBehavior.SequentialAccess"/> behavior for
+            queries, so this optimization could be used for <see cref="F:System.Data.CommandBehavior.Default"/> too.
+            </summary>
+        </member>
         <member name="F:LinqToDB.Common.Configuration.Data.BulkCopyUseConnectionCommandTimeout">
             <summary>
             Controls behavior of bulk copy timeout if <see cref="P:LinqToDB.Data.BulkCopyOptions.BulkCopyTimeout"/> is not provided.
@@ -513,13 +520,6 @@
             <remarks>
             <a href="https://github.com/linq2db/linq2db/issues/365">More details</a>.
             </remarks>
-        </member>
-        <member name="F:LinqToDB.Common.Configuration.Linq.UseBinaryAggregateExpression">
-            <summary>
-            Used to optimize huge logical operations with large number of operands like expr1.and.expr2...and.exprN into balanced tree.
-            Without this option, such conditions could lead to <seealso cref="T:System.StackOverflowException"/>.
-            Default value: <c>false</c>.
-            </summary>
         </member>
         <member name="F:LinqToDB.Common.Configuration.Linq.DisableQueryCache">
             <summary>
@@ -909,8 +909,9 @@
             <summary>
             Sets the priority for keeping the cache entry in the cache during a memory pressure tokened cleanup.
             </summary>
-            <param name="entry"></param>
-            <param name="priority"></param>
+            <param name="entry">The entry to set the priority for.</param>
+            <param name="priority">The <see cref="T:LinqToDB.Common.Internal.Cache.CacheItemPriority"/> to set on the entry.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/> for chaining.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.CacheEntryExtensions.AddExpirationToken(LinqToDB.Common.Internal.Cache.ICacheEntry,LinqToDB.Common.Internal.Cache.IChangeToken)">
             <summary>
@@ -918,64 +919,73 @@
             </summary>
             <param name="entry">The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/>.</param>
             <param name="expirationToken">The <see cref="T:LinqToDB.Common.Internal.Cache.IChangeToken"/> that causes the cache entry to expire.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/> for chaining.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.CacheEntryExtensions.SetAbsoluteExpiration(LinqToDB.Common.Internal.Cache.ICacheEntry,System.TimeSpan)">
             <summary>
             Sets an absolute expiration time, relative to now.
             </summary>
-            <param name="entry"></param>
-            <param name="relative"></param>
+            <param name="entry">The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/>.</param>
+            <param name="relative">The <see cref="T:System.TimeSpan"/> representing the expiration time relative to now.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/> for chaining.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.CacheEntryExtensions.SetAbsoluteExpiration(LinqToDB.Common.Internal.Cache.ICacheEntry,System.DateTimeOffset)">
             <summary>
             Sets an absolute expiration date for the cache entry.
             </summary>
-            <param name="entry"></param>
-            <param name="absolute"></param>
+            <param name="entry">The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/>.</param>
+            <param name="absolute">A <see cref="T:System.DateTimeOffset"/> representing the expiration time in absolute terms.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/> for chaining.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.CacheEntryExtensions.SetSlidingExpiration(LinqToDB.Common.Internal.Cache.ICacheEntry,System.TimeSpan)">
             <summary>
             Sets how long the cache entry can be inactive (e.g. not accessed) before it will be removed.
             This will not extend the entry lifetime beyond the absolute expiration (if set).
             </summary>
-            <param name="entry"></param>
-            <param name="offset"></param>
+            <param name="entry">The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/>.</param>
+            <param name="offset">A <see cref="T:System.TimeSpan"/> representing a sliding expiration.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/> for chaining.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.CacheEntryExtensions.RegisterPostEvictionCallback(LinqToDB.Common.Internal.Cache.ICacheEntry,LinqToDB.Common.Internal.Cache.PostEvictionDelegate)">
             <summary>
             The given callback will be fired after the cache entry is evicted from the cache.
             </summary>
-            <param name="entry"></param>
-            <param name="callback"></param>
+            <param name="entry">The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/>.</param>
+            <param name="callback">The callback to run after the entry is evicted.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/> for chaining.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.CacheEntryExtensions.RegisterPostEvictionCallback(LinqToDB.Common.Internal.Cache.ICacheEntry,LinqToDB.Common.Internal.Cache.PostEvictionDelegate,System.Object)">
             <summary>
             The given callback will be fired after the cache entry is evicted from the cache.
             </summary>
-            <param name="entry"></param>
-            <param name="callback"></param>
-            <param name="state"></param>
+            <param name="entry">The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/>.</param>
+            <param name="callback">The callback to run after the entry is evicted.</param>
+            <param name="state">The state to pass to the post-eviction callback.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/> for chaining.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.CacheEntryExtensions.SetValue(LinqToDB.Common.Internal.Cache.ICacheEntry,System.Object)">
             <summary>
             Sets the value of the cache entry.
             </summary>
-            <param name="entry"></param>
-            <param name="value"></param>
+            <param name="entry">The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/>.</param>
+            <param name="value">The value to set on the <paramref name="entry"/>.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/> for chaining.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.CacheEntryExtensions.SetSize(LinqToDB.Common.Internal.Cache.ICacheEntry,System.Int64)">
             <summary>
             Sets the size of the cache entry value.
             </summary>
-            <param name="entry"></param>
-            <param name="size"></param>
+            <param name="entry">The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/>.</param>
+            <param name="size">The size to set on the <paramref name="entry"/>.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/> for chaining.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.CacheEntryExtensions.SetOptions(LinqToDB.Common.Internal.Cache.ICacheEntry,LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions)">
             <summary>
             Applies the values of an existing <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/> to the entry.
             </summary>
-            <param name="entry"></param>
-            <param name="options"></param>
+            <param name="entry">The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/>.</param>
+            <param name="options">Set the values of these options on the <paramref name="entry"/>.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.ICacheEntry"/> for chaining.</returns>
         </member>
         <member name="T:LinqToDB.Common.Internal.Cache.CacheItemPriority">
             <summary>
@@ -1160,6 +1170,11 @@
             ?. Items with the soonest sliding expiration.
             ?. Larger objects - estimated by object graph size, inaccurate.
         </member>
+        <member name="M:LinqToDB.Common.Internal.Cache.MemoryCache.Clear">
+            <summary>
+            Remove all cache entries.
+            </summary>
+        </member>
         <member name="M:LinqToDB.Common.Internal.Cache.MemoryCache.ExpirePriorityBucket(System.Int64@,System.Int64,System.Func{LinqToDB.Common.Internal.Cache.CacheEntry,System.Int64},System.Collections.Generic.List{LinqToDB.Common.Internal.Cache.CacheEntry},System.Collections.Generic.List{LinqToDB.Common.Internal.Cache.CacheEntry})">
             Policy:
             1. Least recently used objects.
@@ -1171,15 +1186,17 @@
             <summary>
             Sets the priority for keeping the cache entry in the cache during a memory pressure tokened cleanup.
             </summary>
-            <param name="options"></param>
-            <param name="priority"></param>
+            <param name="options">The option on which to set the priority.</param>
+            <param name="priority">The <see cref="T:LinqToDB.Common.Internal.Cache.CacheItemPriority"/> to set on the option.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/> so that additional calls can be chained.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.MemoryCacheEntryExtensions.SetSize(LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions,System.Int64)">
             <summary>
             Sets the size of the cache entry value.
             </summary>
-            <param name="options"></param>
-            <param name="size"></param>
+            <param name="options">The options to set the entry size on.</param>
+            <param name="size">The size to set on the <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/>.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/> so that additional calls can be chained.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.MemoryCacheEntryExtensions.AddExpirationToken(LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions,LinqToDB.Common.Internal.Cache.IChangeToken)">
             <summary>
@@ -1187,43 +1204,49 @@
             </summary>
             <param name="options">The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/>.</param>
             <param name="expirationToken">The <see cref="T:LinqToDB.Common.Internal.Cache.IChangeToken"/> that causes the cache entry to expire.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/> so that additional calls can be chained.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.MemoryCacheEntryExtensions.SetAbsoluteExpiration(LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions,System.TimeSpan)">
             <summary>
             Sets an absolute expiration time, relative to now.
             </summary>
-            <param name="options"></param>
-            <param name="relative"></param>
+            <param name="options">The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/>.</param>
+            <param name="relative">The expiration time, relative to now.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/> so that additional calls can be chained.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.MemoryCacheEntryExtensions.SetAbsoluteExpiration(LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions,System.DateTimeOffset)">
             <summary>
             Sets an absolute expiration date for the cache entry.
             </summary>
-            <param name="options"></param>
-            <param name="absolute"></param>
+            <param name="options">The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/>.</param>
+            <param name="absolute">The expiration time, in absolute terms.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/> so that additional calls can be chained.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.MemoryCacheEntryExtensions.SetSlidingExpiration(LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions,System.TimeSpan)">
             <summary>
             Sets how long the cache entry can be inactive (e.g. not accessed) before it will be removed.
             This will not extend the entry lifetime beyond the absolute expiration (if set).
             </summary>
-            <param name="options"></param>
-            <param name="offset"></param>
+            <param name="options">The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/>.</param>
+            <param name="offset">The sliding expiration time.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/> so that additional calls can be chained.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.MemoryCacheEntryExtensions.RegisterPostEvictionCallback(LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions,LinqToDB.Common.Internal.Cache.PostEvictionDelegate)">
             <summary>
             The given callback will be fired after the cache entry is evicted from the cache.
             </summary>
-            <param name="options"></param>
-            <param name="callback"></param>
+            <param name="options">The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/>.</param>
+            <param name="callback">The callback to register for calling after an entry is evicted.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/> so that additional calls can be chained.</returns>
         </member>
         <member name="M:LinqToDB.Common.Internal.Cache.MemoryCacheEntryExtensions.RegisterPostEvictionCallback(LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions,LinqToDB.Common.Internal.Cache.PostEvictionDelegate,System.Object)">
             <summary>
             The given callback will be fired after the cache entry is evicted from the cache.
             </summary>
-            <param name="options"></param>
-            <param name="callback"></param>
-            <param name="state"></param>
+            <param name="options">The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/>.</param>
+            <param name="callback">The callback to register for calling after an entry is evicted.</param>
+            <param name="state">The state to pass to the callback.</param>
+            <returns>The <see cref="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions"/> so that additional calls can be chained.</returns>
         </member>
         <member name="T:LinqToDB.Common.Internal.Cache.MemoryCacheEntryOptions">
             <summary>
@@ -1286,8 +1309,8 @@
             <summary>
             Signature of the callback which gets called when a cache entry expires.
             </summary>
-            <param name="key"></param>
-            <param name="value"></param>
+            <param name="key">The key of the entry being evicted.</param>
+            <param name="value">The value of the entry being evicted.</param>
             <param name="reason">The <see cref="T:LinqToDB.Common.Internal.Cache.EvictionReason"/>.</param>
             <param name="state">The information that was passed when registering the callback.</param>
         </member>
@@ -2392,7 +2415,7 @@
         <member name="M:LinqToDB.DataContext.CloneDataConnection(LinqToDB.Data.DataConnection,LinqToDB.Async.IAsyncDbTransaction,LinqToDB.Async.IAsyncDbConnection)">
             <summary>
             Creates instance of <see cref="T:LinqToDB.Data.DataConnection"/> class, attached to same database connection/transaction.
-            Used by <see cref="M:LinqToDB.IDataContext.Clone(System.Boolean)"/> API only if <see cref="P:LinqToDB.Data.DataConnection.IsMarsEnabled"/> 
+            Used by <see cref="M:LinqToDB.IDataContext.Clone(System.Boolean)"/> API only if <see cref="P:LinqToDB.Data.DataConnection.IsMarsEnabled"/>
             is <c>true</c> and there is an active connection associated with current context.
             <paramref name="dbConnection"/> and <paramref name="dbTransaction"/> parameters are mutually exclusive.
             One and only one parameter will have value - if there is active transaction, <paramref name="dbTransaction"/>
@@ -2605,7 +2628,7 @@
             <typeparam name="TArg3">Type of third parameter for compiled query.</typeparam>
             <typeparam name="TResult">Query result type.</typeparam>
         </member>
-        <member name="M:LinqToDB.DataExtensions.Insert``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.Insert``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             </summary>
@@ -2616,9 +2639,10 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.Insert``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.Insert``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             </summary>
@@ -2630,9 +2654,10 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.InsertAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Inserts record asynchronously into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             </summary>
@@ -2643,10 +2668,11 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertAsync``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.InsertAsync``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Inserts record asynchronously into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             </summary>
@@ -2658,13 +2684,14 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertOrReplace``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.InsertOrReplace``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Inserts new record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter
-            or update exising record, identified by match on primary key value.
+            or update existing record, identified by match on primary key value.
             </summary>
             <typeparam name="T">Mapping class.</typeparam>
             <param name="dataContext">Database connection context.</param>
@@ -2673,12 +2700,13 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertOrReplace``1(LinqToDB.IDataContext,``0,LinqToDB.InsertOrUpdateColumnFilter{``0},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.InsertOrReplace``1(LinqToDB.IDataContext,``0,LinqToDB.InsertOrUpdateColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Inserts new record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter
-            or update exising record, identified by match on primary key value.
+            or update existing record, identified by match on primary key value.
             </summary>
             <typeparam name="T">Mapping class.</typeparam>
             <param name="dataContext">Database connection context.</param>
@@ -2688,12 +2716,13 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertOrReplaceAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.InsertOrReplaceAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously inserts new record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter
-            or update exising record, identified by match on primary key value.
+            or update existing record, identified by match on primary key value.
             </summary>
             <typeparam name="T">Mapping class.</typeparam>
             <param name="dataContext">Database connection context.</param>
@@ -2702,13 +2731,14 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertOrReplaceAsync``1(LinqToDB.IDataContext,``0,LinqToDB.InsertOrUpdateColumnFilter{``0},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.InsertOrReplaceAsync``1(LinqToDB.IDataContext,``0,LinqToDB.InsertOrUpdateColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously inserts new record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter
-            or update exising record, identified by match on primary key value.
+            or update existing record, identified by match on primary key value.
             </summary>
             <typeparam name="T">Mapping class.</typeparam>
             <param name="dataContext">Database connection context.</param>
@@ -2718,10 +2748,11 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithIdentity``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithIdentity``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record.
@@ -2733,9 +2764,10 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithIdentity``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithIdentity``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record.
@@ -2748,9 +2780,10 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithInt32Identity``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithInt32Identity``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record as <see cref="T:System.Int32"/> value.
@@ -2762,9 +2795,10 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithInt32Identity``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithInt32Identity``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record as <see cref="T:System.Int32"/> value.
@@ -2777,9 +2811,10 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithInt64Identity``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithInt64Identity``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record as <see cref="T:System.Int64"/> value.
@@ -2791,9 +2826,10 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithInt64Identity``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithInt64Identity``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record as <see cref="T:System.Int64"/> value.
@@ -2806,9 +2842,10 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithDecimalIdentity``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithDecimalIdentity``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record as <see cref="T:System.Decimal"/> value.
@@ -2820,9 +2857,10 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithDecimalIdentity``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithDecimalIdentity``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record as <see cref="T:System.Decimal"/> value.
@@ -2835,9 +2873,10 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithIdentityAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithIdentityAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record.
@@ -2849,10 +2888,11 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithIdentityAsync``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithIdentityAsync``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record.
@@ -2865,10 +2905,11 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithInt32IdentityAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithInt32IdentityAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record as <see cref="T:System.Int32"/> value.
@@ -2880,10 +2921,11 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithInt32IdentityAsync``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithInt32IdentityAsync``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record as <see cref="T:System.Int32"/> value.
@@ -2896,10 +2938,11 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithInt64IdentityAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithInt64IdentityAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record as <see cref="T:System.Int64"/> value.
@@ -2911,10 +2954,11 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithInt64IdentityAsync``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithInt64IdentityAsync``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record as <see cref="T:System.Int64"/> value.
@@ -2927,10 +2971,11 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithDecimalIdentityAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithDecimalIdentityAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record as <see cref="T:System.Decimal"/> value.
@@ -2942,10 +2987,11 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.InsertWithDecimalIdentityAsync``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.InsertWithDecimalIdentityAsync``1(LinqToDB.IDataContext,``0,LinqToDB.InsertColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously inserts record into table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Returns identity value for inserted record as <see cref="T:System.Decimal"/> value.
@@ -2958,10 +3004,11 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Inserted record's identity value.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.Update``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.Update``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Updates record in table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Record to update identified by match on primary key value from <paramref name="obj"/> value.
@@ -2973,9 +3020,10 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.Update``1(LinqToDB.IDataContext,``0,LinqToDB.UpdateColumnFilter{``0},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.Update``1(LinqToDB.IDataContext,``0,LinqToDB.UpdateColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Updates record in table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Record to update identified by match on primary key value from <paramref name="obj"/> value.
@@ -2988,9 +3036,10 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.UpdateAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.UpdateAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously updates record in table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Record to update identified by match on primary key value from <paramref name="obj"/> value.
@@ -3002,10 +3051,11 @@
             <param name="databaseName">Name of the database</param>
             <param name="schemaName">Name of the schema</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.UpdateAsync``1(LinqToDB.IDataContext,``0,LinqToDB.UpdateColumnFilter{``0},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.UpdateAsync``1(LinqToDB.IDataContext,``0,LinqToDB.UpdateColumnFilter{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously updates record in table, identified by <typeparamref name="T"/> mapping class, using values from <paramref name="obj"/> parameter.
             Record to update identified by match on primary key value from <paramref name="obj"/> value.
@@ -3018,10 +3068,11 @@
             <param name="databaseName">Name of the database</param>
             <param name="schemaName">Name of the schema</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.Delete``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.Delete``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Deletes record in table, identified by <typeparamref name="T"/> mapping class.
             Record to delete identified by match on primary key value from <paramref name="obj"/> value.
@@ -3033,9 +3084,10 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.DeleteAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.DeleteAsync``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously deletes record in table, identified by <typeparamref name="T"/> mapping class.
             Record to delete identified by match on primary key value from <paramref name="obj"/> value.
@@ -3047,10 +3099,11 @@
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Number of affected records.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.String,LinqToDB.SqlQuery.DefaultNullable,System.String)">
+        <member name="M:LinqToDB.DataExtensions.CreateTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.String,LinqToDB.SqlQuery.DefaultNullable,System.String,LinqToDB.TableOptions)">
             <summary>
             Creates new table in database for mapping class <typeparamref name="T"/>.
             Information about table name, columns names and types is taken from mapping class.
@@ -3069,9 +3122,10 @@
             Default value: <see cref="F:LinqToDB.SqlQuery.DefaultNullable.None"/>.
             </param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Created table as queryable source.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTableAsync``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.String,LinqToDB.SqlQuery.DefaultNullable,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.CreateTableAsync``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.String,LinqToDB.SqlQuery.DefaultNullable,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously creates new table in database for mapping class <typeparamref name="T"/>.
             Information about table name, columns names and types is taken from mapping class.
@@ -3090,10 +3144,11 @@
             Default value: <see cref="F:LinqToDB.SqlQuery.DefaultNullable.None"/>.
             </param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Created table as queryable source.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.DropTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.Boolean,System.String)">
+        <member name="M:LinqToDB.DataExtensions.DropTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,LinqToDB.TableOptions)">
             <summary>
             Drops table identified by mapping class <typeparamref name="T"/>.
             </summary>
@@ -3107,8 +3162,9 @@
             Tracked by <a href="https://github.com/linq2db/linq2db/issues/798">issue</a>.
             Default value: <c>true</c>.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
         </member>
-        <member name="M:LinqToDB.DataExtensions.DropTable``1(LinqToDB.ITable{``0},System.String,System.String,System.String,System.Boolean,System.String)">
+        <member name="M:LinqToDB.DataExtensions.DropTable``1(LinqToDB.ITable{``0},System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,LinqToDB.TableOptions)">
             <summary>
             Drops table identified by <paramref name="table"/> parameter.
             </summary>
@@ -3117,13 +3173,14 @@
             <param name="tableName">Optional table name to override default table name, extracted from <typeparamref name="T"/> mapping.</param>
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
-            <param name="throwExceptionIfNotExists">If <c>false</c>, any exception during drop operation will be silently catched and <c>0</c> returned.
+            <param name="throwExceptionIfNotExists">If <c>false</c>, any exception during drop operation will be silently caught and <c>0</c> returned.
             This behavior is not correct and will be fixed in future to mask only missing table exceptions.
             Tracked by <a href="https://github.com/linq2db/linq2db/issues/798">issue</a>.
             Default value: <c>true</c>.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
         </member>
-        <member name="M:LinqToDB.DataExtensions.DropTableAsync``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.Boolean,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.DropTableAsync``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously drops table identified by mapping class <typeparamref name="T"/>.
             </summary>
@@ -3132,15 +3189,16 @@
             <param name="tableName">Optional table name to override default table name, extracted from <typeparamref name="T"/> mapping.</param>
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
-            <param name="throwExceptionIfNotExists">If <c>false</c>, any exception during drop operation will be silently catched and <c>0</c> returned.
+            <param name="throwExceptionIfNotExists">If <c>false</c>, any exception during drop operation will be silently caught and <c>0</c> returned.
             This behavior is not correct and will be fixed in future to mask only missing table exceptions.
             Tracked by <a href="https://github.com/linq2db/linq2db/issues/798">issue</a>.
             Default value: <c>true</c>.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Asynchronous operation completion task.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.DropTableAsync``1(LinqToDB.ITable{``0},System.String,System.String,System.String,System.Boolean,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.DropTableAsync``1(LinqToDB.ITable{``0},System.String,System.String,System.String,System.Nullable{System.Boolean},System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Asynchronously drops table identified by <paramref name="table"/> parameter.
             </summary>
@@ -3149,11 +3207,12 @@
             <param name="tableName">Optional table name to override default table name, extracted from <typeparamref name="T"/> mapping.</param>
             <param name="databaseName">Optional database name, to override default database name. See <see cref="M:LinqToDB.LinqExtensions.DatabaseName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
             <param name="schemaName">Optional schema/owner name, to override default name. See <see cref="M:LinqToDB.LinqExtensions.SchemaName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
-            <param name="throwExceptionIfNotExists">If <c>false</c>, any exception during drop operation will be silently catched and <c>0</c> returned.
+            <param name="throwExceptionIfNotExists">If <c>false</c>, any exception during drop operation will be silently caught and <c>0</c> returned.
             This behavior is not correct and will be fixed in future to mask only missing table exceptions.
             Tracked by <a href="https://github.com/linq2db/linq2db/issues/798">issue</a>.
             Default value: <c>true</c>.</param>
             <param name="serverName">Optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="token">Optional asynchronous operation cancellation token.</param>
             <returns>Asynchronous operation completion task.</returns>
         </member>
@@ -3236,7 +3295,7 @@
                     LINQ operators - <code>context.FromSql&lt;Blogs&gt;("SELECT * FROM dbo.Blogs").OrderBy(b => b.Name);</code>
                 </para>
                 <para>
-                    As with any API that accepts SQL it is important to parameterize any user input to protect against a SQL injection
+                    As with any API that accepts SQL it is important to parametrize any user input to protect against a SQL injection
                     attack. You can include parameter place holders in the SQL query string and then supply parameter values as additional
                     arguments. Any parameter values you supply will automatically be converted to a DbParameter -
                     <code>context.FromSql&lt;Blogs&gt;("SELECT * FROM [dbo].[SearchBlogs]({0})", userSuppliedSearchTerm);</code>
@@ -3257,7 +3316,7 @@
             <summary>
                 <para>
                     Creates a LINQ query based on expression. Returned <see cref="T:System.Linq.IQueryable`1" /> represents single record.<para />
-                    Could be useful for function calls, querying of database variables, properties or subqueries.
+                    Could be useful for function calls, querying of database variables, properties or sub-queries.
                 </para>
             </summary>
             <typeparam name="TEntity">Type of result.</typeparam>
@@ -3279,7 +3338,7 @@
             </code>
             </example>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Creates new temporary table.
             </summary>
@@ -3289,9 +3348,10 @@
             <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.Collections.Generic.IEnumerable{``0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.Collections.Generic.IEnumerable{``0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Creates new temporary table and populate it using BulkCopy.
             </summary>
@@ -3303,9 +3363,10 @@
             <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.String,System.Collections.Generic.IEnumerable{``0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.String,System.Collections.Generic.IEnumerable{``0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Creates new temporary table and populate it using BulkCopy.
             </summary>
@@ -3317,9 +3378,10 @@
             <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.Linq.IQueryable{``0},System.String,System.String,System.String,System.Action{LinqToDB.ITable{``0}},System.String)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.Linq.IQueryable{``0},System.String,System.String,System.String,System.Action{LinqToDB.ITable{``0}},System.String,LinqToDB.TableOptions)">
             <summary>
             Creates new temporary table and populate it using data from provided query.
             </summary>
@@ -3331,9 +3393,10 @@
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="action">Optional action that will be executed after table creation but before it populated with data from <paramref name="items"/>.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.Linq.IQueryable{``0},System.Action{LinqToDB.Mapping.EntityMappingBuilder{``0}},System.String,System.String,System.String,System.Action{LinqToDB.ITable{``0}},System.String)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.Linq.IQueryable{``0},System.Action{LinqToDB.Mapping.EntityMappingBuilder{``0}},System.String,System.String,System.String,System.Action{LinqToDB.ITable{``0}},System.String,LinqToDB.TableOptions)">
             <summary>
             Creates new temporary table and populate it using data from provided query. Table mapping could be changed
             using fluent mapper.
@@ -3347,9 +3410,10 @@
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="action">Optional action that will be executed after table creation but before it populated with data from <paramref name="items"/>.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.String,System.Linq.IQueryable{``0},System.String,System.String,System.Action{LinqToDB.ITable{``0}},System.String)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.String,System.Linq.IQueryable{``0},System.String,System.String,System.Action{LinqToDB.ITable{``0}},System.String,LinqToDB.TableOptions)">
             <summary>
             Creates new temporary table and populate it using data from provided query.
             </summary>
@@ -3361,9 +3425,10 @@
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="action">Optional action that will be executed after table creation but before it populated with data from <paramref name="items"/>.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.String,System.Linq.IQueryable{``0},System.Action{LinqToDB.Mapping.EntityMappingBuilder{``0}},System.String,System.String,System.Action{LinqToDB.ITable{``0}},System.String)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTable``1(LinqToDB.IDataContext,System.String,System.Linq.IQueryable{``0},System.Action{LinqToDB.Mapping.EntityMappingBuilder{``0}},System.String,System.String,System.Action{LinqToDB.ITable{``0}},System.String,LinqToDB.TableOptions)">
             <summary>
             Creates new temporary table and populate it using data from provided query. Table mapping could be changed
             using fluent mapper.
@@ -3377,9 +3442,10 @@
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="action">Optional action that will be executed after table creation but before it populated with data from <paramref name="items"/>.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Creates new temporary table.
             </summary>
@@ -3389,10 +3455,11 @@
             <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <param name="cancellationToken">Asynchronous operation cancellation token.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.Collections.Generic.IEnumerable{``0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.Collections.Generic.IEnumerable{``0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Creates new temporary table and populate it using BulkCopy.
             </summary>
@@ -3404,10 +3471,11 @@
             <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <param name="cancellationToken">Asynchronous operation cancellation token.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.String,System.Collections.Generic.IEnumerable{``0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.String,System.Collections.Generic.IEnumerable{``0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Creates new temporary table and populate it using BulkCopy.
             </summary>
@@ -3419,10 +3487,11 @@
             <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <param name="cancellationToken">Asynchronous operation cancellation token.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.Linq.IQueryable{``0},System.String,System.String,System.String,System.Func{LinqToDB.ITable{``0},System.Threading.Tasks.Task},System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.Linq.IQueryable{``0},System.String,System.String,System.String,System.Func{LinqToDB.ITable{``0},System.Threading.Tasks.Task},System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Creates new temporary table and populate it using data from provided query.
             </summary>
@@ -3434,10 +3503,11 @@
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="action">Optional asynchronous action that will be executed after table creation but before it populated with data from <paramref name="items"/>.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <param name="cancellationToken">Asynchronous operation cancellation token.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.Linq.IQueryable{``0},System.Action{LinqToDB.Mapping.EntityMappingBuilder{``0}},System.String,System.String,System.String,System.Func{LinqToDB.ITable{``0},System.Threading.Tasks.Task},System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.Linq.IQueryable{``0},System.Action{LinqToDB.Mapping.EntityMappingBuilder{``0}},System.String,System.String,System.String,System.Func{LinqToDB.ITable{``0},System.Threading.Tasks.Task},System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Creates new temporary table and populate it using data from provided query. Table mapping could be changed
             using fluent mapper.
@@ -3451,10 +3521,11 @@
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="action">Optional asynchronous action that will be executed after table creation but before it populated with data from <paramref name="items"/>.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <param name="cancellationToken">Asynchronous operation cancellation token.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.String,System.Linq.IQueryable{``0},System.String,System.String,System.Func{LinqToDB.ITable{``0},System.Threading.Tasks.Task},System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.String,System.Linq.IQueryable{``0},System.String,System.String,System.Func{LinqToDB.ITable{``0},System.Threading.Tasks.Task},System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Creates new temporary table and populate it using data from provided query.
             </summary>
@@ -3466,10 +3537,11 @@
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="action">Optional asynchronous action that will be executed after table creation but before it populated with data from <paramref name="items"/>.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <param name="cancellationToken">Asynchronous operation cancellation token.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.String,System.Linq.IQueryable{``0},System.Action{LinqToDB.Mapping.EntityMappingBuilder{``0}},System.String,System.String,System.Func{LinqToDB.ITable{``0},System.Threading.Tasks.Task},System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.DataExtensions.CreateTempTableAsync``1(LinqToDB.IDataContext,System.String,System.Linq.IQueryable{``0},System.Action{LinqToDB.Mapping.EntityMappingBuilder{``0}},System.String,System.String,System.Func{LinqToDB.ITable{``0},System.Threading.Tasks.Task},System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Creates new temporary table and populate it using data from provided query. Table mapping could be changed
             using fluent mapper.
@@ -3483,6 +3555,70 @@
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="action">Optional asynchronous action that will be executed after table creation but before it populated with data from <paramref name="items"/>.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns temporary table instance.</returns>
+        </member>
+        <member name="M:LinqToDB.DataExtensions.IntoTempTable``1(System.Collections.Generic.IEnumerable{``0},LinqToDB.IDataContext,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,LinqToDB.Data.BulkCopyOptions)">
+            <summary>
+            Creates new temporary table and populate it using BulkCopy.
+            </summary>
+            <typeparam name="T">Table record mapping class.</typeparam>
+            <param name="db">Database connection instance.</param>
+            <param name="items">Initial records to insert into created table.</param>
+            <param name="options">Optional BulkCopy options.</param>
+            <param name="tableName">Optional name of temporary table. If not specified, value from mapping will be used.</param>
+            <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
+            <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
+            <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
+            <returns>Returns temporary table instance.</returns>
+        </member>
+        <member name="M:LinqToDB.DataExtensions.IntoTempTable``1(System.Linq.IQueryable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Action{LinqToDB.ITable{``0}},System.Action{LinqToDB.Mapping.EntityMappingBuilder{``0}})">
+            <summary>
+            Creates new temporary table and populate it using data from provided query.
+            </summary>
+            <typeparam name="T">Table record mapping class.</typeparam>
+            <param name="items">Query to get records to populate created table with initial data.</param>
+            <param name="tableName">Optional name of temporary table. If not specified, value from mapping will be used.</param>
+            <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
+            <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
+            <param name="action">Optional action that will be executed after table creation, but before it populated with data from <paramref name="items"/>.</param>
+            <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
+            <param name="setTable">Action to modify <typeparamref name="T"/> entity's mapping using fluent mapping.</param>
+            <returns>Returns temporary table instance.</returns>
+        </member>
+        <member name="M:LinqToDB.DataExtensions.IntoTempTableAsync``1(System.Collections.Generic.IEnumerable{``0},LinqToDB.IDataContext,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,LinqToDB.Data.BulkCopyOptions,System.Threading.CancellationToken)">
+            <summary>
+            Creates new temporary table and populate it using BulkCopy.
+            </summary>
+            <typeparam name="T">Table record mapping class.</typeparam>
+            <param name="db">Database connection instance.</param>
+            <param name="items">Initial records to insert into created table.</param>
+            <param name="options">Optional BulkCopy options.</param>
+            <param name="tableName">Optional name of temporary table. If not specified, value from mapping will be used.</param>
+            <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
+            <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
+            <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
+            <param name="cancellationToken">Asynchronous operation cancellation token.</param>
+            <returns>Returns temporary table instance.</returns>
+        </member>
+        <member name="M:LinqToDB.DataExtensions.IntoTempTableAsync``1(System.Linq.IQueryable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Func{LinqToDB.ITable{``0},System.Threading.Tasks.Task},System.Action{LinqToDB.Mapping.EntityMappingBuilder{``0}},System.Threading.CancellationToken)">
+            <summary>
+            Creates new temporary table and populate it using data from provided query. Table mapping could be changed
+            using fluent mapper.
+            </summary>
+            <typeparam name="T">Table record mapping class.</typeparam>
+            <param name="items">Query to get records to populate created table with initial data.</param>
+            <param name="setTable">Action to modify <typeparamref name="T"/> entity's mapping using fluent mapping.</param>
+            <param name="tableName">Optional name of temporary table. If not specified, value from mapping will be used.</param>
+            <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
+            <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
+            <param name="action">Optional asynchronous action that will be executed after table creation but before it populated with data from <paramref name="items"/>.</param>
+            <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. Default is <see cref="F:LinqToDB.TableOptions.IsTemporary"/>.</param>
             <param name="cancellationToken">Asynchronous operation cancellation token.</param>
             <returns>Returns temporary table instance.</returns>
         </member>
@@ -3521,12 +3657,16 @@
             <param name="providerName">Provider name.</param>
             <returns><see cref="T:LinqToDB.Data.DataConnection"/> instance.</returns>
         </member>
-        <member name="M:LinqToDB.DataProvider.Access.AccessTools.CreateDatabase(System.String,System.Boolean)">
+        <member name="M:LinqToDB.DataProvider.Access.AccessTools.CreateDatabase(System.String,System.Boolean,System.String)">
             <summary>
-            Creates new Access database file. Requires Jet OLE DB provider and ADOX.
+            Creates new Access database file. Requires Access OLE DB provider (JET or ACE) and ADOX.
             </summary>
             <param name="databaseName">Name of database to create.</param>
             <param name="deleteIfExists">If <c>true</c>, existing database will be removed before create.</param>
+            <param name="provider">Name of OleDb provider to use to create database. Default value: "Microsoft.Jet.OLEDB.4.0".</param>
+            <remarks>
+            Provider value examples: Microsoft.Jet.OLEDB.4.0 (for JET database), Microsoft.ACE.OLEDB.12.0, Microsoft.ACE.OLEDB.15.0 (for ACE database).
+            </remarks>
         </member>
         <member name="M:LinqToDB.DataProvider.Access.AccessTools.DropDatabase(System.String)">
             <summary>
@@ -3808,9 +3948,9 @@
         <member name="P:LinqToDB.DataProvider.Oracle.OracleTools.DontEscapeLowercaseIdentifiers">
             <summary>
             Gets or sets flag to tell LinqToDB to quote identifiers, if they contain lowercase letters.
-            Default value: <c>true</c>.
-            This flag added for backward compatibility and will be removed later, so it is recommended to
-            set it to <c>false</c> and and fix mappings to use uppercase letters for non-quoted identifiers.
+            Default value: <c>false</c>.
+            This flag is added for backward compatibility and will be removed later, so it is recommended to
+            leave it as <c>false</c> and fix mappings to use uppercase letters for non-quoted identifiers.
             </summary>
         </member>
         <member name="F:LinqToDB.DataProvider.PostgreSQL.NpgsqlProviderAdapter.NpgsqlDbType.Citext">
@@ -5082,6 +5222,12 @@
             Gets or sets explicit name of target table instead of one, configured for copied entity in mapping schema.
             </summary>
         </member>
+        <member name="P:LinqToDB.Data.BulkCopyOptions.TableOptions">
+            <summary>
+            Gets or sets <see cref="T:LinqToDB.TableOptions"/> flags overrides instead of configured for copied entity in mapping schema.
+            See <see cref="M:LinqToDB.TableExtensions.IsTemporary``1(LinqToDB.ITable{``0},System.Boolean)"/> method for support information per provider.
+            </summary>
+        </member>
         <member name="P:LinqToDB.Data.BulkCopyOptions.NotifyAfter">
             <summary>
             Gets or sets counter after how many copied records <see cref="P:LinqToDB.Data.BulkCopyOptions.RowsCopiedCallback"/> should be called.
@@ -5900,12 +6046,23 @@
             Contains text of last command, sent to database using current connection.
             </summary>
         </member>
+        <member name="F:LinqToDB.Data.DataConnection.LastParameters">
+            <summary>
+            Contains last parameters, sent to database using current connection.
+            </summary>
+        </member>
         <member name="P:LinqToDB.Data.DataConnection.CommandTimeout">
             <summary>
             Gets or sets command execution timeout in seconds.
             Negative timeout value means that default timeout will be used.
             0 timeout value corresponds to infinite timeout.
             By default timeout is not set and default value for current provider used.
+            </summary>
+        </member>
+        <member name="M:LinqToDB.Data.DataConnection.GetCurrentCommand">
+            <summary>
+            Provides acess to current <see cref="F:LinqToDB.Data.DataConnection._command"/> instance. Used for logs to avoid command instance creation
+            in <see cref="P:LinqToDB.Data.DataConnection.Command"/> getter if <see cref="F:LinqToDB.Data.DataConnection._command"/> is not initialized.
             </summary>
         </member>
         <member name="P:LinqToDB.Data.DataConnection.Command">
@@ -5986,6 +6143,7 @@
             <summary>
             Adds additional mapping schema to current connection.
             </summary>
+            <remarks><see cref="T:LinqToDB.Data.DataConnection"/> will share <see cref="T:LinqToDB.Mapping.MappingSchema"/> instances that were created by combining same mapping schemas.</remarks>
             <param name="mappingSchema">Mapping schema.</param>
             <returns>Current connection object.</returns>
         </member>
@@ -7918,7 +8076,7 @@
             <param name="cancellationToken">Asynchronous operation cancellation token.</param>
             <returns>Task with bulk insert operation status.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.Data.DataConnection,System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.Data.DataConnection,System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Executes following merge operations in specified order:
             - Update
@@ -7934,9 +8092,10 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Returns number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.Data.DataConnection,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.Data.DataConnection,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Executes following merge operations in specified order:
             - Update
@@ -7952,9 +8111,10 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Returns number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.Data.DataConnection,System.Boolean,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.Data.DataConnection,System.Boolean,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Executes following merge operations in specified order:
             - Update
@@ -7970,9 +8130,10 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Returns number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.Data.DataConnection,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.Data.DataConnection,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Executes following merge operations in specified order:
             - Update
@@ -7985,9 +8146,10 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Returns number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.ITable{``0},System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.ITable{``0},System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Executes following merge operations in specified order:
             - Update
@@ -8003,9 +8165,10 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Returns number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Executes following merge operations in specified order:
             - Update
@@ -8021,9 +8184,10 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Returns number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.ITable{``0},System.Boolean,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.ITable{``0},System.Boolean,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Executes following merge operations in specified order:
             - Update
@@ -8039,9 +8203,10 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Returns number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.ITable{``0},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.Merge``1(LinqToDB.ITable{``0},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Executes following merge operations in specified order:
             - Update
@@ -8054,9 +8219,10 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <returns>Returns number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.Data.DataConnection,System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.Data.DataConnection,System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Executes following merge operations asynchronously in specified order:
             - Update
@@ -8072,10 +8238,11 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
             <returns>Task with number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.Data.DataConnection,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.Data.DataConnection,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Executes following merge operations asynchronously in specified order:
             - Update
@@ -8091,10 +8258,11 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
             <returns>Task with number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.Data.DataConnection,System.Boolean,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.Data.DataConnection,System.Boolean,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Executes following merge operations asynchronously in specified order:
             - Update
@@ -8110,10 +8278,11 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
             <returns>Task with number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.Data.DataConnection,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.Data.DataConnection,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Executes following merge operations asynchronously in specified order:
             - Update
@@ -8126,10 +8295,11 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
             <returns>Task with number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.ITable{``0},System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.ITable{``0},System.Linq.IQueryable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Executes following merge operations asynchronously in specified order:
             - Update
@@ -8145,10 +8315,11 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
             <returns>Task with number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.ITable{``0},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Executes following merge operations asynchronously in specified order:
             - Update
@@ -8164,10 +8335,11 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
             <returns>Task with number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.ITable{``0},System.Boolean,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.ITable{``0},System.Boolean,System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Executes following merge operations asynchronously in specified order:
             - Update
@@ -8183,10 +8355,11 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
             <returns>Task with number of affected target records.</returns>
         </member>
-        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.ITable{``0},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.Data.DataConnectionExtensions.MergeAsync``1(LinqToDB.ITable{``0},System.Collections.Generic.IEnumerable{``0},System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Executes following merge operations asynchronously in specified order:
             - Update
@@ -8199,6 +8372,7 @@
             <param name="databaseName">Optional target table's database name.</param>
             <param name="schemaName">Optional target table's schema name.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Table options. See <see cref="T:LinqToDB.TableOptions"/> enum for support information per provider.</param>
             <param name="cancellationToken">Optional asynchronous operation cancellation token.</param>
             <returns>Task with number of affected target records.</returns>
         </member>
@@ -8669,6 +8843,12 @@
             </remarks>
             </summary>
         </member>
+        <member name="M:LinqToDB.Expressions.ConvertFromDataReaderExpression.ColumnReader.RawValuePlaceholder">
+            <summary>
+            This method is used as placeholder, which will be replaced with raw value variable.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:LinqToDB.Expressions.ExpressionEqualityComparer">
             <summary>
                 This API supports the Entity Framework Core infrastructure and is not intended to be used
@@ -8823,7 +9003,7 @@
         </member>
         <member name="M:LinqToDB.Expressions.InternalExtensions.OptimizeExpression(System.Linq.Expressions.Expression)">
             <summary>
-            Optimizes expression context by evaluating constants and simplifying boolean operations. 
+            Optimizes expression context by evaluating constants and simplifying boolean operations.
             </summary>
             <param name="expression">Expression to optimize.</param>
             <returns>Optimized expression.</returns>
@@ -9119,6 +9299,11 @@
             Gets SQL support flags for current context data provider.
             </summary>
         </member>
+        <member name="P:LinqToDB.IDataContext.SupportedTableOptions">
+            <summary>
+            Gets supported table options for current context data provider.
+            </summary>
+        </member>
         <member name="P:LinqToDB.IDataContext.DataReaderType">
             <summary>
             Gets data reader implementation type for current context data provider.
@@ -9126,7 +9311,7 @@
         </member>
         <member name="P:LinqToDB.IDataContext.MappingSchema">
             <summary>
-            Gets maping schema, used for current context.
+            Gets mapping schema, used for current context.
             </summary>
         </member>
         <member name="P:LinqToDB.IDataContext.InlineParameters">
@@ -9250,6 +9435,12 @@
             </summary>
         </member>
         <member name="M:LinqToDB.ITableMutable`1.ChangeTableName(System.String)">
+            <summary>
+            This is internal API and is not intended for use by Linq To DB applications.
+            It may change or be removed without further notice.
+            </summary>
+        </member>
+        <member name="M:LinqToDB.ITableMutable`1.ChangeTableOptions(LinqToDB.TableOptions)">
             <summary>
             This is internal API and is not intended for use by Linq To DB applications.
             It may change or be removed without further notice.
@@ -11974,6 +12165,11 @@
             Checks the context if it's a root of the expression.
             </summary>
         </member>
+        <member name="T:LinqToDB.Linq.Internal.ColumnReaderAttribute">
+            <summary>
+            Internal API.
+            </summary>
+        </member>
         <member name="M:LinqToDB.Linq.Expressions.MapBinary(System.String,System.Linq.Expressions.ExpressionType,System.Type,System.Type,System.Linq.Expressions.LambdaExpression)">
             <summary>
             Maps specific BinaryExpression to another Lambda expression during SQL generation.
@@ -12664,7 +12860,7 @@
             <summary>
             Gets or sets whether a column is insertable.
             This flag will affect only insert operations with implicit columns specification like
-            <see cref="M:LinqToDB.DataExtensions.Insert``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)"/>
+            <see cref="M:LinqToDB.DataExtensions.Insert``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)"/>
             method and will be ignored when user explicitly specifies value for this column.
             </summary>
         </member>
@@ -12678,7 +12874,7 @@
             <summary>
             Gets or sets whether a column is updatable.
             This flag will affect only update operations with implicit columns specification like
-            <see cref="M:LinqToDB.DataExtensions.Update``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)"/>
+            <see cref="M:LinqToDB.DataExtensions.Update``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)"/>
             method and will be ignored when user explicitly specifies value for this column.
             </summary>
         </member>
@@ -12768,7 +12964,7 @@
         <member name="P:LinqToDB.Mapping.ColumnAttribute.CreateFormat">
             <summary>
             Custom template for column definition in create table SQL expression, generated using
-            <see cref="M:LinqToDB.DataExtensions.CreateTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.String,LinqToDB.SqlQuery.DefaultNullable,System.String)"/> methods.
+            <see cref="M:LinqToDB.DataExtensions.CreateTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.String,LinqToDB.SqlQuery.DefaultNullable,System.String,LinqToDB.TableOptions)"/> methods.
             Template accepts following string parameters:
             - {0} - column name;
             - {1} - column type;
@@ -12782,7 +12978,7 @@
             Positive values first (ascending), then unspecified (arbitrary), then negative values (ascending).
             </summary>
             <remarks>
-            Ordering performed in <see cref="M:LinqToDB.SqlQuery.SqlTable.#ctor(LinqToDB.Mapping.MappingSchema,System.Type,System.String)"/> constructor.
+            Ordering performed in <see cref="T:LinqToDB.SqlQuery.SqlTable"/> constructor.
             </remarks>
         </member>
         <member name="M:LinqToDB.Mapping.ColumnAttribute.HasOrder">
@@ -12902,7 +13098,7 @@
             <summary>
             Gets whether a column is insertable.
             This flag will affect only insert operations with implicit columns specification like
-            <see cref="M:LinqToDB.DataExtensions.Insert``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)"/>
+            <see cref="M:LinqToDB.DataExtensions.Insert``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)"/>
             method and will be ignored when user explicitly specifies value for this column.
             </summary>
         </member>
@@ -12933,8 +13129,8 @@
             </summary>
         </member>
         <member name="M:LinqToDB.Mapping.ColumnDescriptor.ShouldSkip(System.Object,LinqToDB.Mapping.EntityDescriptor,LinqToDB.Mapping.SkipModification)">
-            <summary> 
-            Checks if the passed object has values that should bes skipped based on the given flags. 
+            <summary>
+            Checks if the passed object has values that should bes skipped based on the given flags.
             </summary>
             <param name="obj">The object containing the values for the operation.</param>
             <param name="descriptor"><see cref="T:LinqToDB.Mapping.EntityDescriptor"/> of the current instance.</param>
@@ -12945,7 +13141,7 @@
             <summary>
             Gets whether a column is updatable.
             This flag will affect only update operations with implicit columns specification like
-            <see cref="M:LinqToDB.DataExtensions.Update``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)"/>
+            <see cref="M:LinqToDB.DataExtensions.Update``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)"/>
             method and will be ignored when user explicitly specifies value for this column.
             </summary>
         </member>
@@ -12985,7 +13181,7 @@
         <member name="P:LinqToDB.Mapping.ColumnDescriptor.CreateFormat">
             <summary>
             Custom template for column definition in create table SQL expression, generated using
-            <see cref="M:LinqToDB.DataExtensions.CreateTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.String,LinqToDB.SqlQuery.DefaultNullable,System.String)"/> methods.
+            <see cref="M:LinqToDB.DataExtensions.CreateTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.String,LinqToDB.SqlQuery.DefaultNullable,System.String,LinqToDB.TableOptions)"/> methods.
             Template accepts following string parameters:
             - {0} - column name;
             - {1} - column type;
@@ -13012,6 +13208,12 @@
         <member name="M:LinqToDB.Mapping.ColumnDescriptor.GetDbDataType(System.Boolean)">
             <summary>
             Returns DbDataType for current column.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LinqToDB.Mapping.ColumnDescriptor.GetConvertedDbDataType">
+            <summary>
+            Returns DbDataType for current column after conversions.
             </summary>
             <returns></returns>
         </member>
@@ -13298,6 +13500,11 @@
             Gets or sets optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.
             </summary>
         </member>
+        <member name="P:LinqToDB.Mapping.EntityDescriptor.TableOptions">
+            <summary>
+            Gets or sets table options. See <see cref="P:LinqToDB.Mapping.EntityDescriptor.TableOptions"/> enum for support information per provider.
+            </summary>
+        </member>
         <member name="P:LinqToDB.Mapping.EntityDescriptor.IsColumnAttributeRequired">
             <summary>
             Gets or sets column mapping rules for current mapping class or interface.
@@ -13308,7 +13515,7 @@
             - <see cref="T:LinqToDB.Mapping.ColumnAliasAttribute"/>.
             Otherwise all supported members of scalar type will be used:
             - public instance fields and properties;
-            - explicit interface implmentation properties.
+            - explicit interface implementation properties.
             Also see <seealso cref="F:LinqToDB.Common.Configuration.IsStructIsScalarType"/> and <seealso cref="T:LinqToDB.Mapping.ScalarTypeAttribute"/>.
             </summary>
         </member>
@@ -13345,7 +13552,7 @@
         </member>
         <member name="P:LinqToDB.Mapping.EntityDescriptor.InheritanceMapping">
             <summary>
-            Gets list of inheritace mapping descriptors for current entity.
+            Gets list of inheritance mapping descriptors for current entity.
             </summary>
         </member>
         <member name="P:LinqToDB.Mapping.EntityDescriptor.ObjectType">
@@ -13676,6 +13883,22 @@
             <param name="serverName">Linked server name.</param>
             <returns>Returns current fluent entity mapping builder.</returns>
         </member>
+        <member name="M:LinqToDB.Mapping.EntityMappingBuilder`1.HasIsTemporary(System.Boolean)">
+            <summary>
+            Sets linked server name.
+            See <see cref="M:LinqToDB.TableExtensions.IsTemporary``1(LinqToDB.ITable{``0},System.Boolean)"/> method for support information per provider.
+            </summary>
+            <param name="isTemporary">Linked server name.</param>
+            <returns>Returns current fluent entity mapping builder.</returns>
+        </member>
+        <member name="M:LinqToDB.Mapping.EntityMappingBuilder`1.HasTableOptions(LinqToDB.TableOptions)">
+            <summary>
+            Sets Table options.
+            See <see cref="M:LinqToDB.TableExtensions.TableOptions``1(LinqToDB.ITable{``0},LinqToDB.TableOptions)"/> method for support information per provider.
+            </summary>
+            <param name="tableOptions">Table options.</param>
+            <returns>Returns current fluent entity mapping builder.</returns>
+        </member>
         <member name="M:LinqToDB.Mapping.EntityMappingBuilder`1.Inheritance``1(System.Linq.Expressions.Expression{System.Func{`0,``0}},``0,System.Type,System.Boolean)">
             <summary>
             Adds inheritance mapping for specified discriminator value.
@@ -13854,9 +14077,9 @@
         <member name="T:LinqToDB.Mapping.IdentityAttribute">
             <summary>
             Marks target column as identity column with value, generated on database side during insert operations.
-            Identity columns will be ignored for insert and update operations with implicit column list like 
-            <see cref="M:LinqToDB.DataExtensions.Insert``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)"/> or
-            <see cref="M:LinqToDB.DataExtensions.Update``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)"/> methods.
+            Identity columns will be ignored for insert and update operations with implicit column list like
+            <see cref="M:LinqToDB.DataExtensions.Insert``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)"/> or
+            <see cref="M:LinqToDB.DataExtensions.Update``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)"/> methods.
             </summary>
         </member>
         <member name="M:LinqToDB.Mapping.IdentityAttribute.#ctor">
@@ -13905,6 +14128,11 @@
         <member name="P:LinqToDB.Mapping.IEntityChangeDescriptor.ServerName">
             <summary>
             Gets or sets optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.
+            </summary>
+        </member>
+        <member name="P:LinqToDB.Mapping.IEntityChangeDescriptor.TableOptions">
+            <summary>
+            Gets or sets Table options. See <see cref="P:LinqToDB.Mapping.IEntityChangeDescriptor.TableOptions"/> enum for support information per provider.
             </summary>
         </member>
         <member name="P:LinqToDB.Mapping.IEntityChangeDescriptor.Columns">
@@ -14853,7 +15081,7 @@
             </summary>
             <param name="format">
             Custom template for column definition in create table SQL expression, generated using
-            <see cref="M:LinqToDB.DataExtensions.CreateTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.String,LinqToDB.SqlQuery.DefaultNullable,System.String)"/> methods.
+            <see cref="M:LinqToDB.DataExtensions.CreateTable``1(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.String,LinqToDB.SqlQuery.DefaultNullable,System.String,LinqToDB.TableOptions)"/> methods.
             Template accepts following string parameters:
             - {0} - column name;
             - {1} - column type;
@@ -14887,7 +15115,7 @@
             <summary>
             Sets whether a column is insertable.
             This flag will affect only insert operations with implicit columns specification like
-            <see cref="M:LinqToDB.DataExtensions.Insert``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)"/>
+            <see cref="M:LinqToDB.DataExtensions.Insert``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)"/>
             method and will be ignored when user explicitly specifies value for this column.
             </summary>
             <param name="skipOnInsert">If <c>true</c> - column will be ignored for implicit insert operations.</param>
@@ -14897,7 +15125,7 @@
             <summary>
             Sets whether a column is updatable.
             This flag will affect only update operations with implicit columns specification like
-            <see cref="M:LinqToDB.DataExtensions.Update``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String)"/>
+            <see cref="M:LinqToDB.DataExtensions.Update``1(LinqToDB.IDataContext,``0,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)"/>
             method and will be ignored when user explicitly specifies value for this column.
             </summary>
             <param name="skipOnUpdate">If <c>true</c> - column will be ignored for implicit update operations.</param>
@@ -15225,12 +15453,12 @@
         </member>
         <member name="M:LinqToDB.Mapping.TableAttribute.#ctor">
             <summary>
-            Creates new table mapping atteribute.
+            Creates new table mapping attribute.
             </summary>
         </member>
         <member name="M:LinqToDB.Mapping.TableAttribute.#ctor(System.String)">
             <summary>
-            Creates new table mapping atteribute.
+            Creates new table mapping attribute.
             </summary>
             <param name="tableName">Name of mapped table or view in database.</param>
         </member>
@@ -15262,6 +15490,16 @@
             Gets or sets optional linked server name. See <see cref="M:LinqToDB.LinqExtensions.ServerName``1(LinqToDB.ITable{``0},System.String)"/> method for support information per provider.
             </summary>
         </member>
+        <member name="P:LinqToDB.Mapping.TableAttribute.IsTemporary">
+            <summary>
+            Gets or sets IsTemporary flag. See <see cref="M:LinqToDB.TableExtensions.IsTemporary``1(LinqToDB.ITable{``0},System.Boolean)"/> method for support information per provider.
+            </summary>
+        </member>
+        <member name="P:LinqToDB.Mapping.TableAttribute.TableOptions">
+            <summary>
+            Gets or sets Table options. See <see cref="P:LinqToDB.Mapping.TableAttribute.TableOptions"/> enum for support information per provider.
+            </summary>
+        </member>
         <member name="P:LinqToDB.Mapping.TableAttribute.IsColumnAttributeRequired">
             <summary>
             Gets or sets column mapping rules for current class or interface.
@@ -15272,7 +15510,7 @@
             - <see cref="T:LinqToDB.Mapping.ColumnAliasAttribute"/>.
             Otherwise all supported members of scalar type will be used:
             - public instance fields and properties;
-            - explicit interface implmentation properties.
+            - explicit interface implementation properties.
             Also see <seealso cref="F:LinqToDB.Common.Configuration.IsStructIsScalarType"/> and <seealso cref="T:LinqToDB.Mapping.ScalarTypeAttribute"/>.
             Default value: <c>true</c>.
             </summary>
@@ -16339,6 +16577,24 @@
             </code>
             </example>
         </member>
+        <member name="P:LinqToDB.SqlProvider.BasicSqlBuilder.InlineComma">
+            <summary>
+            Inline comma separator.
+            Default value: <code>", "</code>
+            </summary>
+        </member>
+        <member name="P:LinqToDB.SqlProvider.BasicSqlBuilder.Comma">
+            <summary>
+            End-of-line comma separator.
+            Default value: <code>","</code>
+            </summary>
+        </member>
+        <member name="P:LinqToDB.SqlProvider.BasicSqlBuilder.OpenParens">
+            <summary>
+            End-of-line open parentheses element.
+            Default value: <code>"("</code>
+            </summary>
+        </member>
         <member name="P:LinqToDB.SqlProvider.BasicSqlBuilder.MergeSupportsColumnAliasesInSource">
             <summary>
             If true, provider supports column aliases specification after table alias.
@@ -16382,6 +16638,13 @@
             <param name="row">Index of data row to check. Could contain -1 to indicate that this is a check for empty source NULL value.</param>
             <param name="column">Index of data column to check in row.</param>
             <returns>Returns <c>true</c>, if generated SQL should include type information for value at specified position, otherwise <c>false</c> returned.</returns>
+        </member>
+        <member name="M:LinqToDB.SqlProvider.BasicSqlOptimizer.TransformStatement(LinqToDB.SqlQuery.SqlStatement)">
+            <summary>
+            Used for correcting statement and should return new statement if changes were made.
+            </summary>
+            <param name="statement"></param>
+            <returns></returns>
         </member>
         <member name="M:LinqToDB.SqlProvider.BasicSqlOptimizer.CorrectUpdateTable(LinqToDB.SqlQuery.SqlUpdateStatement)">
             <summary>
@@ -16570,12 +16833,55 @@
             Provided name should be converted to sequence name.
             </summary>
         </member>
+        <member name="F:LinqToDB.SqlProvider.ConvertType.TriggerName">
+            <summary>
+            Provided name should be converted to trigger name.
+            </summary>
+        </member>
+        <member name="M:LinqToDB.SqlProvider.ISqlOptimizer.Finalize(LinqToDB.SqlQuery.SqlStatement)">
+            <summary>
+            Finalizes query.
+            </summary>
+            <param name="statement"></param>
+            <returns>Query which is ready for optimization.</returns>
+        </member>
+        <member name="M:LinqToDB.SqlProvider.ISqlOptimizer.IsParameterDependent(LinqToDB.SqlQuery.SqlStatement)">
+            <summary>
+            Examine query for parameter dependency.
+            </summary>
+            <param name="statement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LinqToDB.SqlProvider.ISqlOptimizer.ConvertSkipTake(LinqToDB.Mapping.MappingSchema,LinqToDB.SqlQuery.SelectQuery,LinqToDB.SqlProvider.OptimizationContext,LinqToDB.SqlQuery.ISqlExpression@,LinqToDB.SqlQuery.ISqlExpression@)">
+            <summary>
+            Corrects skip/take for specific DataProvider
+            </summary>
+            <param name="mappingSchema"></param>
+            <param name="selectQuery"></param>
+            <param name="optimizationContext"></param>
+            <param name="takeExpr"></param>
+            <param name="skipExpr"></param>
+        </member>
+        <member name="M:LinqToDB.SqlProvider.ISqlOptimizer.ConvertElement(LinqToDB.Mapping.MappingSchema,LinqToDB.SqlQuery.IQueryElement,LinqToDB.SqlProvider.OptimizationContext)">
+            <summary>
+            Converts query element to specific provider dialect. 
+            </summary>
+            <param name="mappingSchema"></param>
+            <param name="element"></param>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
         <member name="M:LinqToDB.SqlProvider.JoinOptimizer.GetKeysInternal(LinqToDB.SqlQuery.SqlTableSource)">
             <summary>
             Collects unique keys from different sources.
             </summary>
             <param name="tableSource"></param>
             <returns>List of unique keys</returns>
+        </member>
+        <member name="P:LinqToDB.SqlProvider.SqlProviderFlags.IsGroupByColumnRequred">
+            <summary>
+            Provider requires that selected subquery column must be used in group by even for constant column.
+            </summary>
         </member>
         <member name="P:LinqToDB.SqlProvider.SqlProviderFlags.IsCrossJoinSupported">
             <summary>
@@ -16667,9 +16973,9 @@
             <param name="expr">Tested expression</param>
             <returns>true if tested expression is not a Field or Column</returns>
         </member>
-        <member name="M:LinqToDB.SqlQuery.QueryHelper.IsImmutable(LinqToDB.SqlQuery.ISqlExpression)">
+        <member name="M:LinqToDB.SqlQuery.QueryHelper.IsConstant(LinqToDB.SqlQuery.ISqlExpression)">
             <summary>
-            Returns <c>true</c> if tested expression can be constant or immutable value based on parameters.
+            Returns <c>true</c> if tested expression is constant during query execution (e.g. value or parameter).
             </summary>
             <param name="expr">Tested expression.</param>
             <returns></returns>
@@ -16763,14 +17069,6 @@
             <param name="inProjection">If 'true', function ensures that column is created. If 'false' it may return Field if it fits to nesting level.</param>
             <returns>Returns Column of Field according to its nesting level. May return null if expression is not valid for <paramref name="selectQuery"/></returns>
         </member>
-        <member name="M:LinqToDB.SqlQuery.QueryHelper.OptimizeSubqueries``1(``0)">
-            <summary>
-            Removes not needed subqueries nesting. Very simple algorithm.
-            </summary>
-            <typeparam name="TStatement"></typeparam>
-            <param name="statement">Statement which may contain queries that needs optimization</param>
-            <returns>The same <paramref name="statement"/> or modified statement when optimization has been performed.</returns>
-        </member>
         <member name="M:LinqToDB.SqlQuery.QueryHelper.WrapQuery``1(``0,System.Func{LinqToDB.SqlQuery.SelectQuery,System.Int32},System.Action{System.Collections.Generic.IReadOnlyList{LinqToDB.SqlQuery.SelectQuery}})">
             <summary>
             Wraps tested query in subquery(s).
@@ -16835,6 +17133,14 @@
             <param name="wrapTest">Delegate for testing when query needs to be wrapped.</param>
             <param name="onWrap">After enveloping query this function called for prcess needed optimizations.</param>
             <returns>The same <paramref name="statement"/> or modified statement when wrapping has been performed.</returns>
+        </member>
+        <member name="M:LinqToDB.SqlQuery.QueryHelper.JoinRemoval(LinqToDB.SqlQuery.SqlStatement,System.Func{LinqToDB.SqlQuery.SqlStatement,LinqToDB.SqlQuery.SqlJoinedTable,System.Boolean})">
+            <summary>
+            Removes Join from query based on <paramref name="joinFunc"/> result.
+            </summary>
+            <param name="statement">Source statement.</param>
+            <param name="joinFunc"></param>
+            <returns>Same or new statement with removed joins.</returns>
         </member>
         <member name="M:LinqToDB.SqlQuery.QueryHelper.MoveOrderByUp(LinqToDB.SqlQuery.SelectQuery[])">
             <summary>
@@ -17007,18 +17313,18 @@
             Used in JoinOptimizer for safely removing sub-query from resulting SQL.
             </summary>
         </member>
-        <member name="M:LinqToDB.SqlQuery.SqlValuesTable.#ctor(System.Linq.Expressions.Expression)">
+        <member name="M:LinqToDB.SqlQuery.SqlValuesTable.#ctor(LinqToDB.SqlQuery.ISqlExpression)">
             <summary>
             To create new instance in build context.
             </summary>
             <param name="source">Expression, that contains enumerable source.</param>
         </member>
-        <member name="M:LinqToDB.SqlQuery.SqlValuesTable.#ctor(System.Linq.Expressions.Expression,System.Collections.Generic.Dictionary{System.String,System.Func{System.Object,System.Collections.Generic.IDictionary{System.Linq.Expressions.Expression,LinqToDB.SqlQuery.ISqlExpression},LinqToDB.SqlQuery.ISqlExpression}},LinqToDB.SqlQuery.SqlField[],System.Collections.Generic.IReadOnlyList{LinqToDB.SqlQuery.ISqlExpression[]})">
+        <member name="M:LinqToDB.SqlQuery.SqlValuesTable.#ctor(LinqToDB.SqlQuery.ISqlExpression,System.Collections.Generic.Dictionary{System.String,System.Func{System.Object,System.Collections.Generic.IDictionary{System.Linq.Expressions.Expression,LinqToDB.SqlQuery.ISqlExpression},LinqToDB.SqlQuery.ISqlExpression}},LinqToDB.SqlQuery.SqlField[],System.Collections.Generic.IReadOnlyList{LinqToDB.SqlQuery.ISqlExpression[]})">
             <summary>
             Constructor for convert visitor.
             </summary>
         </member>
-        <member name="M:LinqToDB.SqlQuery.SqlValuesTable.#ctor(LinqToDB.SqlQuery.SqlField[],LinqToDB.SqlQuery.ISqlExpression[][])">
+        <member name="M:LinqToDB.SqlQuery.SqlValuesTable.#ctor(LinqToDB.SqlQuery.SqlField[],System.Collections.Generic.IReadOnlyList{LinqToDB.SqlQuery.ISqlExpression[]})">
             <summary>
             Constructor for remote context.
             </summary>
@@ -17056,6 +17362,15 @@
             <param name="propertyName">Name of the property.</param>
             <returns></returns>
             <exception cref="T:LinqToDB.Linq.LinqException">'Property' is only server-side method.</exception>
+        </member>
+        <member name="M:LinqToDB.Sql.Alias``1(``0,System.String)">
+            <summary>
+            Used internally for keeping Alias information with expression.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="obj"></param>
+            <param name="alias"></param>
+            <returns></returns>
         </member>
         <member name="F:LinqToDB.Sql.DateParts.Week">
             <summary>
@@ -17204,7 +17519,7 @@
             Useful for specifying place of alias when using <see cref="M:LinqToDB.DataExtensions.FromSql``1(LinqToDB.IDataContext,LinqToDB.Common.RawSqlString,System.Object[])"/> method.
             </summary>
             <remarks>
-            	If <see cref="M:LinqToDB.DataExtensions.FromSql``1(LinqToDB.IDataContext,LinqToDB.Common.RawSqlString,System.Object[])"/> contains at least one <see cref="M:LinqToDB.Sql.AliasExpr"/>, 
+            	If <see cref="M:LinqToDB.DataExtensions.FromSql``1(LinqToDB.IDataContext,LinqToDB.Common.RawSqlString,System.Object[])"/> contains at least one <see cref="M:LinqToDB.Sql.AliasExpr"/>,
             	automatic alias for the query will be not generated.
             </remarks>
             <returns>ISqlExpression which is Alias Placeholder.</returns>
@@ -17314,6 +17629,91 @@
             Token name for analytic function. Used for resolving method chain.
             </summary>
         </member>
+        <member name="T:LinqToDB.TableExtensions">
+            <summary>
+            Contains extension methods for LINQ queries.
+            </summary>
+        </member>
+        <member name="M:LinqToDB.TableExtensions.IsTemporary``1(LinqToDB.ITable{``0},System.Boolean)">
+            <summary>
+            Overrides IsTemporary flag for the current table. This call will have effect only for databases that support
+            temporary tables.
+            <para>Supported by: DB2, Oracle, PostgreSQL, Informix, SQL Server, Sybase ASE.</para>
+            </summary>
+            <typeparam name="T">Table record mapping class.</typeparam>
+            <param name="table">Table-like query source.</param>
+            <param name="isTemporary">If true, the current tables will handled as a temporary table.</param>
+            <returns>Table-like query source with new owner/schema name.</returns>
+        </member>
+        <member name="M:LinqToDB.TableExtensions.IsTemporary``1(LinqToDB.ITable{``0})">
+            <summary>
+            Overrides IsTemporary flag for the current table. This call will have effect only for databases that support
+            temporary tables.
+            <para>Supported by: DB2, Oracle, PostgreSQL, Informix, SQL Server, Sybase ASE.</para>
+            </summary>
+            <typeparam name="T">Table record mapping class.</typeparam>
+            <param name="table">Table-like query source.</param>
+            <returns>Table-like query source with new owner/schema name.</returns>
+        </member>
+        <member name="M:LinqToDB.TableExtensions.TableOptions``1(LinqToDB.ITable{``0},LinqToDB.TableOptions)">
+            <summary>
+            Overrides TableOptions value for the current table. This call will have effect only for databases that support
+            the options.
+            </summary>
+            <typeparam name="T">Table record mapping class.</typeparam>
+            <param name="table">Table-like query source.</param>
+            <param name="options"><see cref="M:LinqToDB.TableExtensions.TableOptions``1(LinqToDB.ITable{``0},LinqToDB.TableOptions)"/> value.</param>
+            <returns>Table-like query source with new owner/schema name.</returns>
+        </member>
+        <member name="F:LinqToDB.TableOptions.CreateIfNotExists">
+            <summary>
+            IF NOT EXISTS option of the CREATE statement. This option will have effect only for databases that support the option.
+            <para>Supported by: DB2, Firebird, Informix, MySql, Oracle, PostgreSQL, SQLite, SQL Server, Sybase ASE.</para>
+            </summary>
+        </member>
+        <member name="F:LinqToDB.TableOptions.DropIfExists">
+            <summary>
+            IF EXISTS option of the DROP statement. This option will have effect only for databases that support the option.
+            <para>Supported by: DB2, Firebird, Informix, MySql, Oracle, PostgreSQL, SQLite, SQL Server, Sybase ASE.</para>
+            </summary>
+        </member>
+        <member name="F:LinqToDB.TableOptions.IsTemporary">
+            <summary>
+            Table is temporary (not visible to other sessions). This option will have effect only for databases that support temporary tables.
+            If database supports both global and local temporary tables, local table will be used.
+            <para>Supported by: DB2, Firebird, Informix, MySql, Oracle, PostgreSQL, SQLite, SQL Server, SAP Hana, Sybase ASE.</para>
+            </summary>
+        </member>
+        <member name="F:LinqToDB.TableOptions.IsLocalTemporaryStructure">
+            <summary>
+            Table is temporary (table structure is not visible to other sessions). This option will have effect only for databases that support temporary tables.
+            <para>Supported by: DB2, Informix, MySql, PostgreSQL, SQLite, SAP Hana, SQL Server, Sybase ASE.</para>
+            </summary>
+        </member>
+        <member name="F:LinqToDB.TableOptions.IsGlobalTemporaryStructure">
+            <summary>
+            Table is global temporary (table structure is visible from other sessions). This option will have effect only for databases that support temporary tables.
+            <para>Supported by: DB2, Firebird, Oracle, SAP Hana, SQL Server, Sybase ASE.</para>
+            </summary>
+        </member>
+        <member name="F:LinqToDB.TableOptions.IsLocalTemporaryData">
+            <summary>
+            Table data is temporary (table data is not visible to other sessions). This option will have effect only for databases that support temporary tables.
+            <para>Supported by: DB2, Informix, MySql, PostgreSQL, SQLite, SAP Hana, SQL Server, Sybase ASE.</para>
+            </summary>
+        </member>
+        <member name="F:LinqToDB.TableOptions.IsGlobalTemporaryData">
+            <summary>
+            Table data is global temporary (table data is visible from other sessions). This option will have effect only for databases that support temporary tables.
+            <para>Supported by: DB2, Firebird, Oracle, SAP Hana, SQL Server, Sybase ASE.</para>
+            </summary>
+        </member>
+        <member name="F:LinqToDB.TableOptions.IsTransactionTemporaryData">
+            <summary>
+            Table data is temporary (table data is transaction level visible). This option will have effect only for databases that support temporary tables.
+            <para>Supported by: Firebird, Oracle, PostgreSQL.</para>
+            </summary>
+        </member>
         <member name="T:LinqToDB.TakeHints">
             <summary>
             Hints for Take
@@ -17343,7 +17743,7 @@
             Gets total number of records, inserted into table using BulkCopy.
             </summary>
         </member>
-        <member name="M:LinqToDB.TempTable`1.#ctor(LinqToDB.IDataContext,System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.TempTable`1.#ctor(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Creates new temporary table.
             </summary>
@@ -17352,8 +17752,9 @@
             <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. If not specified, value from mapping will be used.</param>
         </member>
-        <member name="M:LinqToDB.TempTable`1.#ctor(LinqToDB.IDataContext,System.Collections.Generic.IEnumerable{`0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.TempTable`1.#ctor(LinqToDB.IDataContext,System.Collections.Generic.IEnumerable{`0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Creates new temporary table and populate it using BulkCopy.
             </summary>
@@ -17364,8 +17765,9 @@
             <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. If not specified, value from mapping will be used.</param>
         </member>
-        <member name="M:LinqToDB.TempTable`1.#ctor(LinqToDB.IDataContext,System.String,System.Collections.Generic.IEnumerable{`0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String)">
+        <member name="M:LinqToDB.TempTable`1.#ctor(LinqToDB.IDataContext,System.String,System.Collections.Generic.IEnumerable{`0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,LinqToDB.TableOptions)">
             <summary>
             Creates new temporary table and populate it using BulkCopy.
             </summary>
@@ -17376,8 +17778,9 @@
             <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. If not specified, value from mapping will be used.</param>
         </member>
-        <member name="M:LinqToDB.TempTable`1.#ctor(LinqToDB.IDataContext,System.Linq.IQueryable{`0},System.String,System.String,System.String,System.Action{LinqToDB.ITable{`0}},System.String)">
+        <member name="M:LinqToDB.TempTable`1.#ctor(LinqToDB.IDataContext,System.Linq.IQueryable{`0},System.String,System.String,System.String,System.Action{LinqToDB.ITable{`0}},System.String,LinqToDB.TableOptions)">
             <summary>
             Creates new temporary table and populate it using data from provided query.
             </summary>
@@ -17388,8 +17791,9 @@
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="action">Optional action that will be executed after table creation but before it populated with data from <paramref name="items"/>.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. If not specified, value from mapping will be used.</param>
         </member>
-        <member name="M:LinqToDB.TempTable`1.#ctor(LinqToDB.IDataContext,System.String,System.Linq.IQueryable{`0},System.String,System.String,System.Action{LinqToDB.ITable{`0}},System.String)">
+        <member name="M:LinqToDB.TempTable`1.#ctor(LinqToDB.IDataContext,System.String,System.Linq.IQueryable{`0},System.String,System.String,System.Action{LinqToDB.ITable{`0}},System.String,LinqToDB.TableOptions)">
             <summary>
             Creates new temporary table and populate it using data from provided query.
             </summary>
@@ -17400,6 +17804,7 @@
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="action">Optional action that will be executed after table creation but before it populated with data from <paramref name="items"/>.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. If not specified, value from mapping will be used.</param>
         </member>
         <member name="M:LinqToDB.TempTable`1.#ctor(LinqToDB.ITable{`0})">
             <summary>
@@ -17407,7 +17812,7 @@
             </summary>
             <param name="table">Table instance.</param>
         </member>
-        <member name="M:LinqToDB.TempTable`1.CreateAsync(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.TempTable`1.CreateAsync(LinqToDB.IDataContext,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Creates new temporary table.
             </summary>
@@ -17416,9 +17821,10 @@
             <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. If not specified, value from mapping will be used.</param>
             <param name="cancellationToken">Asynchronous operation cancellation token.</param>
         </member>
-        <member name="M:LinqToDB.TempTable`1.CreateAsync(LinqToDB.IDataContext,System.Collections.Generic.IEnumerable{`0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.TempTable`1.CreateAsync(LinqToDB.IDataContext,System.Collections.Generic.IEnumerable{`0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Creates new temporary table and populate it using BulkCopy.
             </summary>
@@ -17429,9 +17835,10 @@
             <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. If not specified, value from mapping will be used.</param>
             <param name="cancellationToken">Asynchronous operation cancellation token.</param>
         </member>
-        <member name="M:LinqToDB.TempTable`1.CreateAsync(LinqToDB.IDataContext,System.String,System.Collections.Generic.IEnumerable{`0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.TempTable`1.CreateAsync(LinqToDB.IDataContext,System.String,System.Collections.Generic.IEnumerable{`0},LinqToDB.Data.BulkCopyOptions,System.String,System.String,System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Creates new temporary table and populate it using BulkCopy.
             </summary>
@@ -17442,9 +17849,10 @@
             <param name="databaseName">Optional name of table's database. If not specified, value from mapping will be used.</param>
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. If not specified, value from mapping will be used.</param>
             <param name="cancellationToken">Asynchronous operation cancellation token.</param>
         </member>
-        <member name="M:LinqToDB.TempTable`1.CreateAsync(LinqToDB.IDataContext,System.Linq.IQueryable{`0},System.String,System.String,System.String,System.Func{LinqToDB.ITable{`0},System.Threading.Tasks.Task},System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.TempTable`1.CreateAsync(LinqToDB.IDataContext,System.Linq.IQueryable{`0},System.String,System.String,System.String,System.Func{LinqToDB.ITable{`0},System.Threading.Tasks.Task},System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Creates new temporary table and populate it using data from provided query.
             </summary>
@@ -17455,9 +17863,10 @@
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="action">Optional asynchronous action that will be executed after table creation but before it populated with data from <paramref name="items"/>.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. If not specified, value from mapping will be used.</param>
             <param name="cancellationToken">Asynchronous operation cancellation token.</param>
         </member>
-        <member name="M:LinqToDB.TempTable`1.CreateAsync(LinqToDB.IDataContext,System.String,System.Linq.IQueryable{`0},System.String,System.String,System.Func{LinqToDB.ITable{`0},System.Threading.Tasks.Task},System.String,System.Threading.CancellationToken)">
+        <member name="M:LinqToDB.TempTable`1.CreateAsync(LinqToDB.IDataContext,System.String,System.Linq.IQueryable{`0},System.String,System.String,System.Func{LinqToDB.ITable{`0},System.Threading.Tasks.Task},System.String,LinqToDB.TableOptions,System.Threading.CancellationToken)">
             <summary>
             Creates new temporary table and populate it using data from provided query.
             </summary>
@@ -17468,6 +17877,7 @@
             <param name="schemaName">Optional name of table schema/owner. If not specified, value from mapping will be used.</param>
             <param name="action">Optional asynchronous action that will be executed after table creation but before it populated with data from <paramref name="items"/>.</param>
             <param name="serverName">Optional name of linked server. If not specified, value from mapping will be used.</param>
+            <param name="tableOptions">Optional Table options. If not specified, value from mapping will be used.</param>
             <param name="cancellationToken">Asynchronous operation cancellation token.</param>
         </member>
         <member name="M:LinqToDB.TempTable`1.Copy(System.Collections.Generic.IEnumerable{`0},LinqToDB.Data.BulkCopyOptions)">
@@ -17518,6 +17928,20 @@
             <param name="context">Data connection to use to retrieve sequence values of max used value for column.</param>
             <param name="useSequenceName">Enables identity values retrieval from sequence for columns with sequence name specified in mapping using <see cref="T:LinqToDB.Mapping.SequenceNameAttribute"/>.</param>
             <returns>Returns new collection of identity fields initialized or <paramref name="source"/> if entity had no identity columns.</returns>
+        </member>
+        <member name="T:LinqToDB.ComWrapper">
+            <summary>
+            This class is used as COM object wrapper instead of dynamic keyword, as dynamic for COM is not supported on .net core till v5.
+            See original issue https://github.com/dotnet/runtime/issues/12587.
+            </summary>
+        </member>
+        <member name="M:LinqToDB.ComWrapper.Create(System.String)">
+            <summary>
+            Caller method should use [SecuritySafeCritical] attribute. We don't put it here, as
+            <paramref name="progID"/> value is not static here.
+            </summary>
+            <param name="progID">ID of COM class to create.</param>
+            <returns>Dynamic disposable(!) wrapper over COM object.</returns>
         </member>
         <member name="T:JetBrains.Annotations.StringFormatMethodAttribute">
              <summary>
