@@ -179,7 +179,6 @@ C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Punto de Venta\b
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Punto de Venta\bin\Debug\K4os.Compression.LZ4.xml
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Punto de Venta\bin\Debug\K4os.Compression.LZ4.Streams.xml
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Punto de Venta\bin\Debug\K4os.Hash.xxHash.xml
-C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Punto de Venta\bin\Debug\linq2db.pdb
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Punto de Venta\bin\Debug\linq2db.xml
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Punto de Venta\bin\Debug\MySql.Data.xml
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Punto de Venta\bin\Debug\Renci.SshNet.xml
@@ -250,3 +249,4 @@ C:\Users\login\Documents\PDV\Punto de Venta\obj\Debug\Punto de Venta.csproj.Core
 C:\Users\login\Documents\PDV\Punto de Venta\obj\Debug\Punto de Venta.csproj.CopyComplete
 C:\Users\login\Documents\PDV\Punto de Venta\obj\Debug\Punto de Venta.exe
 C:\Users\login\Documents\PDV\Punto de Venta\obj\Debug\Punto de Venta.pdb
+C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Punto de Venta\bin\Debug\Google.Protobuf.pdb

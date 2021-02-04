@@ -111,7 +111,6 @@ C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Logic\bin\Debug\
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Logic\bin\Debug\K4os.Compression.LZ4.xml
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Logic\bin\Debug\K4os.Compression.LZ4.Streams.xml
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Logic\bin\Debug\K4os.Hash.xxHash.xml
-C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Logic\bin\Debug\linq2db.pdb
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Logic\bin\Debug\linq2db.xml
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Logic\bin\Debug\MySql.Data.xml
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Logic\bin\Debug\Renci.SshNet.xml
@@ -208,3 +207,4 @@ C:\Users\login\Documents\PDV\Logic\obj\Debug\Logic.csproj.CoreCompileInputs.cach
 C:\Users\login\Documents\PDV\Logic\obj\Debug\Logic.csproj.CopyComplete
 C:\Users\login\Documents\PDV\Logic\obj\Debug\Logic.dll
 C:\Users\login\Documents\PDV\Logic\obj\Debug\Logic.pdb
+C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Logic\bin\Debug\Google.Protobuf.pdb

@@ -134,13 +134,19 @@ namespace Punto_de_Venta {
             if (puntoVentaTabs.SelectedTab.Text == "Venta")
             {
                 txtProductCode.Focus();
+                getProducts.Stop();
             }
             else if (puntoVentaTabs.SelectedTab.Text == "Productos")
             {
                 txtCode.Focus();
+                productos.index();
+                getProducts.Start();
+
+
             } else if(puntoVentaTabs.SelectedTab.Text == "Inventario")
             {
                 txtCodigoProducto.Focus();
+                getProducts.Stop();
             }
         }
 
@@ -475,6 +481,11 @@ namespace Punto_de_Venta {
         private void btnEliminarDep_Click(object sender, EventArgs e) {
             departamento.delete();
             txtDepartamentoTab.Focus();
+        }
+
+        private void getProducts_Tick(object sender, EventArgs e)
+        {
+            productos.index();
         }
     }
 }

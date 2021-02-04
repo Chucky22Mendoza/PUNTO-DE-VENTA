@@ -93,7 +93,6 @@ C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Data\bin\Debug\i
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Data\bin\Debug\K4os.Compression.LZ4.xml
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Data\bin\Debug\K4os.Compression.LZ4.Streams.xml
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Data\bin\Debug\K4os.Hash.xxHash.xml
-C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Data\bin\Debug\linq2db.pdb
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Data\bin\Debug\linq2db.xml
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Data\bin\Debug\MySql.Data.xml
 C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Data\bin\Debug\Renci.SshNet.xml
@@ -178,3 +177,4 @@ C:\Users\login\Documents\PDV\Data\obj\Debug\Data.csproj.CoreCompileInputs.cache
 C:\Users\login\Documents\PDV\Data\obj\Debug\Data.csproj.CopyComplete
 C:\Users\login\Documents\PDV\Data\obj\Debug\Data.dll
 C:\Users\login\Documents\PDV\Data\obj\Debug\Data.pdb
+C:\Users\jessy\Desktop\Jessy\Proyectos\PDV-Isrra\PUNTO-DE-VENTA\Data\bin\Debug\Google.Protobuf.pdb
