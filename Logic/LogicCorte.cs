@@ -1,10 +1,13 @@
-﻿using Data.Model;
+﻿using Data;
+using Data.Model;
 using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using LinqToDB;
+using LinqToDB.Data;
 using LinqToDB.SqlQuery;
 using Logic.Libreria;
+using Logic.Model;
 using MetroFramework.Controls;
 using System;
 using System.Collections.Generic;
@@ -17,6 +20,7 @@ namespace Logic {
     public class LogicCorte : Librerias {
         private List<Label> listLabel;
         private MetroGrid tblDepartamento;
+        private MetroGrid tblProductosVentas;
         private MetroButton btnImprimir;
         private MetroButton btnCorte;
         private MetroButton btnInicioCorte;
@@ -25,9 +29,10 @@ namespace Logic {
 
         }
 
-        public LogicCorte(List<Label> listLabel, MetroGrid tblDepartamento, MetroButton btnImprimir, MetroButton btnCorte, MetroButton btnInicioCorte) {
+        public LogicCorte(List<Label> listLabel, MetroGrid tblDepartamento, MetroGrid tblProductosVentas, MetroButton btnImprimir, MetroButton btnCorte, MetroButton btnInicioCorte) {
             this.listLabel = listLabel;
             this.tblDepartamento = tblDepartamento;
+            this.tblProductosVentas = tblProductosVentas;
             this.btnImprimir = btnImprimir;
             this.btnCorte = btnCorte;
             this.btnInicioCorte = btnInicioCorte;
@@ -83,22 +88,18 @@ namespace Logic {
         }
 
         double sumaVentaTotales, sumaGananciaDia, dineroInicialCaja, sumaEntradas, sumaSalidas;
-        string nombreDep;
         int idCorte;
-        List<double> listVenta;
-        List<string> listDep;
-        List<Departamento> listDepObj;
+        List<DepartamentoVenta> listDepartamentos;
+        List<ProductoVenta> listProductos;
         public void setDataGUI() {
             sumaVentaTotales = 0;
             sumaGananciaDia = 0;
             dineroInicialCaja = 0;
             sumaEntradas = 0;
             sumaSalidas = 0;
-            nombreDep = "";
             idCorte = 0;
-            listVenta = new List<double>();
-            listDep = new List<string>();
-            listDepObj = new List<Departamento>();
+            listDepartamentos = new List<DepartamentoVenta>();
+            listProductos = new List<ProductoVenta>();
 
             DateTime dateTime = DateTime.Now;
 
@@ -112,32 +113,37 @@ namespace Logic {
             dineroInicialCaja = corteCaja.dinero_inicial;
             idCorte = corteCaja.id_corte_caja;
 
-            ventas.ForEach(ventaObj => {
-                if (ventaObj.estado == 1 && ventaObj.fecha_creacion > corteCaja.fecha_corte_inicio) {
-                    ventaProductos.ForEach(venta => {
-                        if (venta.fecha_registro > corteCaja.fecha_corte_inicio) {
-                            sumaVentaTotales += venta.total;
-                            productos.ForEach(producto => {
-                                if (producto.codigo == venta.id_producto) {
-                                    sumaGananciaDia += (producto.precio - producto.precio_costo) * venta.cantidad;
-                                    departamentos.ForEach(departamento => {
-                                        if (departamento.idDepartamento == producto.departamento) {
-                                            nombreDep = departamento.nombre;
-                                            if (!listDep.Contains(departamento.nombre)) {
-                                                listDep.Add(nombreDep);
-                                                listVenta.Add(venta.total);
-                                            } else {
-                                                int indexDep = listDep.IndexOf(nombreDep);
-                                                listVenta[indexDep] = listVenta[indexDep] + venta.total;
-                                            }
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            });
+            using (var db = new Connection()) {
+                var queryVentasTotales = db.QueryProc<double>("venta_totales",
+                    new DataParameter("fecha_hora", corteCaja.fecha_corte_inicio)
+                );
+
+                sumaVentaTotales = queryVentasTotales.ToList()[0];
+            }
+            
+            using (var db = new Connection()) {
+                var queryGanancias = db.QueryProc<double>("ganancias",
+                    new DataParameter("fecha_hora", corteCaja.fecha_corte_inicio)
+                );
+
+                sumaGananciaDia = queryGanancias.ToList()[0];
+            }
+
+            using (var db = new Connection()) {
+                var queryVentasPorProducto = db.QueryProc<ProductoVenta>("ventas_por_producto",
+                    new DataParameter("fecha_hora", corteCaja.fecha_corte_inicio)
+                );
+
+                listProductos = queryVentasPorProducto.ToList();
+            }
+
+            using (var db = new Connection()) {
+                var queryVentasPorDepartamento = db.QueryProc<DepartamentoVenta>("ventas_por_departamento",
+                    new DataParameter("fecha_hora", corteCaja.fecha_corte_inicio)
+                );
+
+                listDepartamentos = queryVentasPorDepartamento.ToList();
+            }
 
             entradas_salidas.ForEach(io => {
                 if (io.date_create > corteCaja.fecha_corte_inicio) {
@@ -149,13 +155,13 @@ namespace Logic {
                 }
             });
 
-            for (int i = 0; i < listDep.Count; i++) {
-                Departamento obj = new Departamento();
-                obj.nombre = listDep[i];
-                obj.ventas = listVenta[i];
-                obj.ventasStr = parser.getCentavos(Math.Round(listVenta[i], 2).ToString());
-                listDepObj.Add(obj);
-            }
+            listDepartamentos.ForEach(departamento => {
+                departamento.ventasStr = parser.getCentavos(Math.Round(departamento.total_departamento, 2).ToString());
+            });
+
+            listProductos.ForEach(producto => {
+                producto.ventasStr = parser.getCentavos(Math.Round(producto.total_producto, 2).ToString());
+            });
 
             double totalDineroCaja = sumaVentaTotales + (sumaEntradas - sumaSalidas);
             double sumaEntradaEfectivo = sumaVentaTotales + dineroInicialCaja;
@@ -178,28 +184,59 @@ namespace Logic {
             listLabel[7].Text = parser.getCentavos(sumaSalidas.ToString());
             listLabel[8].Text = parser.getCentavos(totalDineroCaja.ToString());
 
-            List<Departamento> sortedList = listDepObj.OrderBy(obj => obj.ventas).ToList();
+            List<DepartamentoVenta> sortedListDepartamentos = listDepartamentos.OrderBy(obj => obj.total_departamento).ToList();
 
-            tblDepartamento.DataSource = sortedList;
+            tblDepartamento.DataSource = sortedListDepartamentos;
 
-            tblDepartamento.Columns[0].DefaultCellStyle.BackColor = Color.White;
-            tblDepartamento.Columns[0].DefaultCellStyle.ForeColor = Color.Black;
-            tblDepartamento.Columns[0].DefaultCellStyle.SelectionForeColor = Color.White;
-            tblDepartamento.Columns[0].DefaultCellStyle.SelectionBackColor = Color.Gray;
-            tblDepartamento.Columns[0].Width = 185;
+            tblDepartamento.Columns[1].DefaultCellStyle.BackColor = Color.White;
+            tblDepartamento.Columns[1].DefaultCellStyle.ForeColor = Color.Black;
+            tblDepartamento.Columns[1].DefaultCellStyle.SelectionForeColor = Color.White;
+            tblDepartamento.Columns[1].DefaultCellStyle.SelectionBackColor = Color.Gray;
+            tblDepartamento.Columns[1].Width = 120;
 
-            tblDepartamento.Columns[2].DefaultCellStyle.BackColor = Color.White;
-            tblDepartamento.Columns[2].DefaultCellStyle.ForeColor = Color.Black;
-            tblDepartamento.Columns[2].DefaultCellStyle.SelectionForeColor = Color.White;
-            tblDepartamento.Columns[2].DefaultCellStyle.SelectionBackColor = Color.Gray;
-            tblDepartamento.Columns[2].Width = 70;
+            tblDepartamento.Columns[3].DefaultCellStyle.BackColor = Color.White;
+            tblDepartamento.Columns[3].DefaultCellStyle.ForeColor = Color.Black;
+            tblDepartamento.Columns[3].DefaultCellStyle.SelectionForeColor = Color.White;
+            tblDepartamento.Columns[3].DefaultCellStyle.SelectionBackColor = Color.Gray;
+            tblDepartamento.Columns[3].Width = 70;
 
-            tblDepartamento.Columns[1].Visible = false;
+            tblDepartamento.Columns[0].Visible = false;
+            tblDepartamento.Columns[2].Visible = false;
 
             tblDepartamento.ColumnHeadersDefaultCellStyle.BackColor = Color.Black;
             tblDepartamento.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             tblDepartamento.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.DimGray;
             tblDepartamento.RowHeadersWidth = 25;
+
+            List<ProductoVenta> sortedListProductos = listProductos.OrderBy(obj => obj.total_producto).ToList();
+
+            tblProductosVentas.DataSource = sortedListProductos;
+
+            tblProductosVentas.Columns[1].DefaultCellStyle.BackColor = Color.White;
+            tblProductosVentas.Columns[1].DefaultCellStyle.ForeColor = Color.Black;
+            tblProductosVentas.Columns[1].DefaultCellStyle.SelectionForeColor = Color.White;
+            tblProductosVentas.Columns[1].DefaultCellStyle.SelectionBackColor = Color.Gray;
+            tblProductosVentas.Columns[1].Width = 120;
+
+            tblProductosVentas.Columns[2].DefaultCellStyle.BackColor = Color.White;
+            tblProductosVentas.Columns[2].DefaultCellStyle.ForeColor = Color.Black;
+            tblProductosVentas.Columns[2].DefaultCellStyle.SelectionForeColor = Color.White;
+            tblProductosVentas.Columns[2].DefaultCellStyle.SelectionBackColor = Color.Gray;
+            tblProductosVentas.Columns[2].Width = 100;
+
+            tblProductosVentas.Columns[4].DefaultCellStyle.BackColor = Color.White;
+            tblProductosVentas.Columns[4].DefaultCellStyle.ForeColor = Color.Black;
+            tblProductosVentas.Columns[4].DefaultCellStyle.SelectionForeColor = Color.White;
+            tblProductosVentas.Columns[4].DefaultCellStyle.SelectionBackColor = Color.Gray;
+            tblProductosVentas.Columns[4].Width = 70;
+
+            tblProductosVentas.Columns[0].Visible = false;
+            tblProductosVentas.Columns[3].Visible = false;
+
+            tblProductosVentas.ColumnHeadersDefaultCellStyle.BackColor = Color.Black;
+            tblProductosVentas.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            tblProductosVentas.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.DimGray;
+            tblProductosVentas.RowHeadersWidth = 25;
 
             BeginTransactionAsync();
             try {
@@ -341,7 +378,7 @@ namespace Logic {
 
                 // Llenamos la tabla con información
 
-                List<Departamento> departamento = (List<Departamento>) tblDepartamento.DataSource;
+                List<DepartamentoVenta> departamento = (List<DepartamentoVenta>) tblDepartamento.DataSource;
                 
                 departamento.ForEach(element => {
                     // Añadimos las celdas a la tabla
@@ -355,8 +392,58 @@ namespace Logic {
                     table.AddCell(clDepartamento);
                     table.AddCell(clVentas);
                 });
+
+                // Creamos una tabla 
+                PdfPTable tableP = new PdfPTable(2);
+                table.WidthPercentage = 50;
+                table.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                // Configuramos el título de las columnas de la tabla
+                PdfPCell clProd = new PdfPCell(new Phrase("Producto", _standardFont));
+                clProd.Border = 0;
+                clProd.BorderWidthBottom = 0.75f;
+                clProd.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell clCodigo = new PdfPCell(new Phrase("Código", _standardFont));
+                clCodigo.Border = 0;
+                clCodigo.BorderWidthBottom = 0.75f;
+                clCodigo.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell clVentasProd = new PdfPCell(new Phrase("Ventas", _standardFont));
+                clVentasProd.Border = 0;
+                clVentasProd.BorderWidthBottom = 0.75f;
+                clVentasProd.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                // Añadimos las celdas a la tabla
+                tableP.AddCell(clProd);
+                tableP.AddCell(clCodigo);
+                tableP.AddCell(clVentasProd);
+
+                // Llenamos la tabla con información
+
+                List<ProductoVenta> producto = (List<ProductoVenta>)tblProductosVentas.DataSource;
+
+                producto.ForEach(element => {
+                    // Añadimos las celdas a la tabla
+                    clProd = new PdfPCell(new Phrase(element.nombre, _standardFont));
+                    clCodigo = new PdfPCell(new Phrase(element.codigo, _standardFont));
+                    clVentasProd = new PdfPCell(new Phrase(element.ventasStr, _standardFont));
+
+                    clProd.HorizontalAlignment = Element.ALIGN_CENTER;
+                    clCodigo.HorizontalAlignment = Element.ALIGN_CENTER;
+                    clVentasProd.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    // Finalmente, añadimos la tabla al documento PDF y cerramos el documento
+                    tableP.AddCell(clProd);
+                    tableP.AddCell(clCodigo);
+                    tableP.AddCell(clVentasProd);
+                });
+
                 // Finalmente, añadimos la tabla al documento PDF y cerramos el documento
                 doc.Add(table);
+                doc.Add(Chunk.NEWLINE);
+                doc.Add(Chunk.NEWLINE);
+                doc.Add(tableP);
                 doc.Close();
                 writer.Close();
             }

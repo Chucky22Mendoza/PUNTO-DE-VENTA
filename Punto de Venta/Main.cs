@@ -96,7 +96,7 @@ namespace Punto_de_Venta {
             listLabelCorte.Add(lblMensaje);
             tblDepartamento.BackgroundColor = Color.WhiteSmoke;
 
-            corte = new LogicCorte(listLabelCorte, tblDepartamento, btnImprimirCorte, btnCorte, btnAbrirCorte);
+            corte = new LogicCorte(listLabelCorte, tblDepartamento, tblProductosVentas, btnImprimirCorte, btnCorte, btnAbrirCorte);
 
             corte.index();
 
@@ -486,6 +486,76 @@ namespace Punto_de_Venta {
         private void getProducts_Tick(object sender, EventArgs e)
         {
             productos.index();
+        }
+
+        private void label28_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label34_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblEntradaCambio_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblDineroInicial_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTotalEfectivo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label37_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label41_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblVentasEfectivo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblEntradas_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblSalidas_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label39_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label40_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label54_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTotalDineroCaja_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

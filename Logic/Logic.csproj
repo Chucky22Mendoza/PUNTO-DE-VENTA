@@ -106,7 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LogicDepartamento.cs" />
-    <Compile Include="Model\Departamento.cs" />
+    <Compile Include="Model\DepartamentoVenta.cs" />
     <Compile Include="Libreria\CargarImagen.cs" />
     <Compile Include="Libreria\Librerias.cs" />
     <Compile Include="Libreria\Parser.cs" />
@@ -115,6 +115,7 @@
     <Compile Include="LogicInventario.cs" />
     <Compile Include="LogicVenta.cs" />
     <Compile Include="LogicProductos.cs" />
+    <Compile Include="Model\ProductoVenta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
