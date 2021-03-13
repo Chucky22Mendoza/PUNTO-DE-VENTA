@@ -394,7 +394,7 @@ namespace Logic {
                 });
 
                 // Creamos una tabla 
-                PdfPTable tableP = new PdfPTable(2);
+                PdfPTable tableP = new PdfPTable(3);
                 table.WidthPercentage = 50;
                 table.HorizontalAlignment = Element.ALIGN_CENTER;
 
