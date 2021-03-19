@@ -21,6 +21,8 @@ namespace Punto_de_Venta {
         private LogicCorte corte;
         private LogicDepartamento departamento;
 
+        public static string productoCodigo;
+
         public static string code = "";
 
         public Main() {
@@ -35,11 +37,6 @@ namespace Punto_de_Venta {
 
             labels.Add(lblTotal);
             labels.Add(lblItems);
-
-            //var listButtonSale = new List<MetroButton>();
-
-            //listButtonSale.Add(btnCharge);
-            //listButtonSale.Add(btnClean);
 
             venta = new LogicVenta( listSale,  labels);
 
@@ -76,8 +73,6 @@ namespace Punto_de_Venta {
             listLabel.Add(lblTituloDescripcion);
             listLabel.Add(lblDescripcion);
             listLabel.Add(lblTituloCantidadActual);
-            listLabel.Add(lblCantidadActual);
-            listLabel.Add(lblTituloCantidad);
 
             inventario = new LogicInventario(txtCodigoProducto, numInventario, listLabel);
 
@@ -140,7 +135,7 @@ namespace Punto_de_Venta {
             {
                 txtCode.Focus();
                 productos.index();
-                getProducts.Start();
+                //getProducts.Start();
 
 
             } else if(puntoVentaTabs.SelectedTab.Text == "Inventario")
@@ -238,10 +233,36 @@ namespace Punto_de_Venta {
             this.txtProductCode.Focus();
         }
 
+        private void btnSearchProduct_Click(object sender, EventArgs e)
+        {
+
+            BuscarProductos buscarProductos = new BuscarProductos();
+
+            buscarProductos.ShowDialog();
+
+            venta.addProduct(productoCodigo, 1);
+
+            this.txtProductCode.Focus();
+
+        }
+
         /**
          * Funciones de productos
          */
 
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (txtSearch.Text != "")
+            {
+
+                productos.searchProductMain(txtSearch.Text);
+
+            } else
+            {
+                txtCode.Focus();
+            }
+
+        }
 
         private void txtName_Click(object sender, EventArgs e)
         {
@@ -314,8 +335,6 @@ namespace Punto_de_Venta {
                 txtCode.Focus();
             }
         }
-
-
 
         private void btnStore_Click(object sender, EventArgs e)
         {
@@ -487,5 +506,7 @@ namespace Punto_de_Venta {
         {
             productos.index();
         }
+
+        
     }
 }
