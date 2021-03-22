@@ -10,7 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Data;
 
 namespace Logic
 {
@@ -18,12 +17,9 @@ namespace Logic
     {
 
         private MetroGrid tableProducts;
-        private MetroGrid tableSearchProducts;
         private List<MetroTextBox> listInput;
         private List<MetroComboBox> listCombo;
         private List<NumericUpDown> listNumeric;
-
-        List<Producto> producto = new List<Producto>();
 
         public LogicProductos(MetroGrid tableProducts, List<MetroTextBox> listInput, List<MetroComboBox> listCombo, List<NumericUpDown> listNumeric)
         {
@@ -31,11 +27,6 @@ namespace Logic
             this.listInput = listInput;
             this.listCombo = listCombo;
             this.listNumeric = listNumeric;
-        }
-
-        public LogicProductos(MetroGrid tableSearchProducts)
-        {
-            this.tableSearchProducts = tableSearchProducts;
         }
 
         public void index()
@@ -260,34 +251,6 @@ namespace Logic
             listNumeric[3].Value = 0;
 
             listNumeric[4].Value = 0;
-        }
-
-        public void searchProduct(string name)
-        {
-
-            producto = _Producto.Where(obj => obj.nombre.Contains(name)).ToList();
-
-            if(producto.Count() > 0)
-            {
-               
-                tableSearchProducts.DataSource = producto;
-
-            }
-
-        }
-
-        public void searchProductMain(string name)
-        {
-
-            producto = _Producto.Where(obj => obj.nombre.Contains(name)).ToList();
-
-            if (producto.Count() > 0)
-            {
-
-                tableProducts.DataSource = producto;
-
-            }
-
         }
     }
 

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Cobrar));
             this.btnOK = new System.Windows.Forms.Button();
             this.txtEfectivo = new System.Windows.Forms.TextBox();
             this.lblCambio = new System.Windows.Forms.Label();
@@ -148,7 +147,6 @@
             this.Controls.Add(this.lblEfectivo);
             this.Controls.Add(this.lblTotal);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Cobrar";

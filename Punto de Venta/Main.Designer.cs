@@ -24,24 +24,22 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             this.puntoVentaTabs = new MetroFramework.Controls.MetroTabControl();
             this.tabVenta = new MetroFramework.Controls.MetroTabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnSearchProduct = new MetroFramework.Controls.MetroButton();
             this.btnAbrirCorte = new MetroFramework.Controls.MetroButton();
             this.btnInOut = new MetroFramework.Controls.MetroButton();
             this.lblMensaje = new System.Windows.Forms.Label();
@@ -96,9 +94,11 @@
             this.btnReporteInventario = new MetroFramework.Controls.MetroButton();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.lblDescripcion = new System.Windows.Forms.Label();
+            this.lblCantidadActual = new System.Windows.Forms.Label();
             this.btnAgregarInventario = new MetroFramework.Controls.MetroButton();
             this.numInventario = new System.Windows.Forms.NumericUpDown();
             this.lblTituloCantidadActual = new System.Windows.Forms.Label();
+            this.lblTituloCantidad = new System.Windows.Forms.Label();
             this.lblTituloDescripcion = new System.Windows.Forms.Label();
             this.txtCodigoProducto = new MetroFramework.Controls.MetroTextBox();
             this.lblCodigoProducto = new System.Windows.Forms.Label();
@@ -196,9 +196,9 @@
             this.puntoVentaTabs.Controls.Add(this.tabCorte);
             this.puntoVentaTabs.Controls.Add(this.tabDepartamentos);
             this.puntoVentaTabs.Location = new System.Drawing.Point(0, 1);
-            this.puntoVentaTabs.Margin = new System.Windows.Forms.Padding(4);
+            this.puntoVentaTabs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.puntoVentaTabs.Name = "puntoVentaTabs";
-            this.puntoVentaTabs.SelectedIndex = 2;
+            this.puntoVentaTabs.SelectedIndex = 4;
             this.puntoVentaTabs.Size = new System.Drawing.Size(1359, 737);
             this.puntoVentaTabs.TabIndex = 0;
             this.puntoVentaTabs.UseSelectable = true;
@@ -212,7 +212,7 @@
             this.tabVenta.HorizontalScrollbarHighlightOnWheel = false;
             this.tabVenta.HorizontalScrollbarSize = 12;
             this.tabVenta.Location = new System.Drawing.Point(4, 38);
-            this.tabVenta.Margin = new System.Windows.Forms.Padding(4);
+            this.tabVenta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabVenta.Name = "tabVenta";
             this.tabVenta.Size = new System.Drawing.Size(1351, 695);
             this.tabVenta.TabIndex = 2;
@@ -226,7 +226,7 @@
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Location = new System.Drawing.Point(-5, 4);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1359, 690);
             this.panel1.TabIndex = 2;
@@ -237,9 +237,9 @@
             this.groupBox2.Controls.Add(this.groupBox4);
             this.groupBox2.Controls.Add(this.listSale);
             this.groupBox2.Location = new System.Drawing.Point(16, 4);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Size = new System.Drawing.Size(1336, 679);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
@@ -247,7 +247,6 @@
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.groupBox4.Controls.Add(this.btnSearchProduct);
             this.groupBox4.Controls.Add(this.btnAbrirCorte);
             this.groupBox4.Controls.Add(this.btnInOut);
             this.groupBox4.Controls.Add(this.lblMensaje);
@@ -258,30 +257,18 @@
             this.groupBox4.Controls.Add(this.lblTotal);
             this.groupBox4.Controls.Add(this.btnCharge);
             this.groupBox4.Location = new System.Drawing.Point(4, 0);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox4.Size = new System.Drawing.Size(1325, 122);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
-            // 
-            // btnSearchProduct
-            // 
-            this.btnSearchProduct.BackColor = System.Drawing.SystemColors.Desktop;
-            this.btnSearchProduct.Location = new System.Drawing.Point(620, 30);
-            this.btnSearchProduct.Margin = new System.Windows.Forms.Padding(4);
-            this.btnSearchProduct.Name = "btnSearchProduct";
-            this.btnSearchProduct.Size = new System.Drawing.Size(151, 39);
-            this.btnSearchProduct.TabIndex = 61;
-            this.btnSearchProduct.Text = "Buscar";
-            this.btnSearchProduct.UseSelectable = true;
-            this.btnSearchProduct.Click += new System.EventHandler(this.btnSearchProduct_Click);
             // 
             // btnAbrirCorte
             // 
             this.btnAbrirCorte.BackColor = System.Drawing.SystemColors.Desktop;
             this.btnAbrirCorte.Location = new System.Drawing.Point(173, 78);
-            this.btnAbrirCorte.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAbrirCorte.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAbrirCorte.Name = "btnAbrirCorte";
             this.btnAbrirCorte.Size = new System.Drawing.Size(151, 39);
             this.btnAbrirCorte.TabIndex = 60;
@@ -293,7 +280,7 @@
             // 
             this.btnInOut.BackColor = System.Drawing.SystemColors.Desktop;
             this.btnInOut.Location = new System.Drawing.Point(15, 78);
-            this.btnInOut.Margin = new System.Windows.Forms.Padding(4);
+            this.btnInOut.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnInOut.Name = "btnInOut";
             this.btnInOut.Size = new System.Drawing.Size(151, 39);
             this.btnInOut.TabIndex = 58;
@@ -316,7 +303,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(389, 44);
+            this.label12.Location = new System.Drawing.Point(389, 25);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(183, 25);
@@ -329,10 +316,10 @@
             // 
             // 
             this.txtProductCode.CustomButton.Image = null;
-            this.txtProductCode.CustomButton.Location = new System.Drawing.Point(339, 1);
-            this.txtProductCode.CustomButton.Margin = new System.Windows.Forms.Padding(5);
+            this.txtProductCode.CustomButton.Location = new System.Drawing.Point(452, 1);
+            this.txtProductCode.CustomButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.txtProductCode.CustomButton.Name = "";
-            this.txtProductCode.CustomButton.Size = new System.Drawing.Size(37, 37);
+            this.txtProductCode.CustomButton.Size = new System.Drawing.Size(49, 46);
             this.txtProductCode.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtProductCode.CustomButton.TabIndex = 1;
             this.txtProductCode.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -340,8 +327,8 @@
             this.txtProductCode.CustomButton.Visible = false;
             this.txtProductCode.FontSize = MetroFramework.MetroTextBoxSize.Tall;
             this.txtProductCode.Lines = new string[0];
-            this.txtProductCode.Location = new System.Drawing.Point(394, 75);
-            this.txtProductCode.Margin = new System.Windows.Forms.Padding(4);
+            this.txtProductCode.Location = new System.Drawing.Point(396, 64);
+            this.txtProductCode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtProductCode.MaxLength = 32767;
             this.txtProductCode.Name = "txtProductCode";
             this.txtProductCode.PasswordChar = '\0';
@@ -374,7 +361,7 @@
             this.btnClean.BackColor = System.Drawing.SystemColors.Desktop;
             this.btnClean.FontSize = MetroFramework.MetroButtonSize.Tall;
             this.btnClean.Location = new System.Drawing.Point(940, 30);
-            this.btnClean.Margin = new System.Windows.Forms.Padding(4);
+            this.btnClean.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnClean.Name = "btnClean";
             this.btnClean.Size = new System.Drawing.Size(151, 62);
             this.btnClean.TabIndex = 24;
@@ -398,7 +385,7 @@
             this.btnCharge.BackColor = System.Drawing.SystemColors.Desktop;
             this.btnCharge.FontSize = MetroFramework.MetroButtonSize.Tall;
             this.btnCharge.Location = new System.Drawing.Point(781, 30);
-            this.btnCharge.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCharge.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCharge.Name = "btnCharge";
             this.btnCharge.Size = new System.Drawing.Size(151, 62);
             this.btnCharge.TabIndex = 25;
@@ -425,7 +412,7 @@
             this.tabProductos.HorizontalScrollbarHighlightOnWheel = false;
             this.tabProductos.HorizontalScrollbarSize = 12;
             this.tabProductos.Location = new System.Drawing.Point(4, 38);
-            this.tabProductos.Margin = new System.Windows.Forms.Padding(4);
+            this.tabProductos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabProductos.Name = "tabProductos";
             this.tabProductos.Size = new System.Drawing.Size(1351, 695);
             this.tabProductos.TabIndex = 3;
@@ -441,7 +428,7 @@
             this.panel2.Controls.Add(this.groupBox7);
             this.panel2.Controls.Add(this.groupBox8);
             this.panel2.Location = new System.Drawing.Point(-5, 4);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1364, 694);
             this.panel2.TabIndex = 3;
@@ -454,9 +441,9 @@
             this.groupBox6.Controls.Add(this.label22);
             this.groupBox6.Controls.Add(this.tableProducts);
             this.groupBox6.Location = new System.Drawing.Point(528, 98);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox6.Size = new System.Drawing.Size(813, 585);
             this.groupBox6.TabIndex = 2;
             this.groupBox6.TabStop = false;
@@ -464,7 +451,7 @@
             // btnDelete
             // 
             this.btnDelete.Location = new System.Drawing.Point(415, 540);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(140, 28);
             this.btnDelete.TabIndex = 50;
@@ -475,7 +462,7 @@
             // btnEdit
             // 
             this.btnEdit.Location = new System.Drawing.Point(267, 540);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEdit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(140, 28);
             this.btnEdit.TabIndex = 49;
@@ -504,43 +491,43 @@
             this.tableProducts.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tableProducts.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.tableProducts.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tableProducts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tableProducts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.tableProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Aqua;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tableProducts.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.Aqua;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tableProducts.DefaultCellStyle = dataGridViewCellStyle13;
             this.tableProducts.EnableHeadersVisualStyles = false;
             this.tableProducts.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.tableProducts.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.tableProducts.Location = new System.Drawing.Point(8, 70);
-            this.tableProducts.Margin = new System.Windows.Forms.Padding(4);
+            this.tableProducts.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableProducts.Name = "tableProducts";
             this.tableProducts.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tableProducts.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tableProducts.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.tableProducts.RowHeadersWidth = 51;
             this.tableProducts.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Gray;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            this.tableProducts.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.White;
+            this.tableProducts.RowsDefaultCellStyle = dataGridViewCellStyle15;
             this.tableProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tableProducts.Size = new System.Drawing.Size(797, 449);
             this.tableProducts.TabIndex = 21;
@@ -573,9 +560,9 @@
             this.groupBox7.Controls.Add(this.txtDescription);
             this.groupBox7.Controls.Add(this.label2);
             this.groupBox7.Location = new System.Drawing.Point(16, 98);
-            this.groupBox7.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox7.Size = new System.Drawing.Size(504, 585);
             this.groupBox7.TabIndex = 1;
             this.groupBox7.TabStop = false;
@@ -586,10 +573,10 @@
             // 
             // 
             this.txtCode.CustomButton.Image = null;
-            this.txtCode.CustomButton.Location = new System.Drawing.Point(461, 2);
-            this.txtCode.CustomButton.Margin = new System.Windows.Forms.Padding(5);
+            this.txtCode.CustomButton.Location = new System.Drawing.Point(615, 2);
+            this.txtCode.CustomButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.txtCode.CustomButton.Name = "";
-            this.txtCode.CustomButton.Size = new System.Drawing.Size(23, 23);
+            this.txtCode.CustomButton.Size = new System.Drawing.Size(31, 28);
             this.txtCode.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtCode.CustomButton.TabIndex = 1;
             this.txtCode.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -597,7 +584,7 @@
             this.txtCode.CustomButton.Visible = false;
             this.txtCode.Lines = new string[0];
             this.txtCode.Location = new System.Drawing.Point(8, 48);
-            this.txtCode.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtCode.MaxLength = 32767;
             this.txtCode.Name = "txtCode";
             this.txtCode.PasswordChar = '\0';
@@ -629,10 +616,10 @@
             // 
             // 
             this.txtName.CustomButton.Image = null;
-            this.txtName.CustomButton.Location = new System.Drawing.Point(461, 2);
-            this.txtName.CustomButton.Margin = new System.Windows.Forms.Padding(5);
+            this.txtName.CustomButton.Location = new System.Drawing.Point(615, 2);
+            this.txtName.CustomButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.txtName.CustomButton.Name = "";
-            this.txtName.CustomButton.Size = new System.Drawing.Size(23, 23);
+            this.txtName.CustomButton.Size = new System.Drawing.Size(31, 28);
             this.txtName.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtName.CustomButton.TabIndex = 1;
             this.txtName.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -640,7 +627,7 @@
             this.txtName.CustomButton.Visible = false;
             this.txtName.Lines = new string[0];
             this.txtName.Location = new System.Drawing.Point(7, 117);
-            this.txtName.Margin = new System.Windows.Forms.Padding(4);
+            this.txtName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtName.MaxLength = 32767;
             this.txtName.Name = "txtName";
             this.txtName.PasswordChar = '\0';
@@ -670,7 +657,7 @@
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(183, 539);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(140, 28);
             this.btnUpdate.TabIndex = 49;
@@ -681,7 +668,7 @@
             // btnStore
             // 
             this.btnStore.Location = new System.Drawing.Point(8, 539);
-            this.btnStore.Margin = new System.Windows.Forms.Padding(4);
+            this.btnStore.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnStore.Name = "btnStore";
             this.btnStore.Size = new System.Drawing.Size(140, 28);
             this.btnStore.TabIndex = 48;
@@ -692,7 +679,7 @@
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(355, 540);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(140, 28);
             this.btnCancel.TabIndex = 47;
@@ -703,7 +690,7 @@
             // numQuantityMinimum
             // 
             this.numQuantityMinimum.Location = new System.Drawing.Point(265, 487);
-            this.numQuantityMinimum.Margin = new System.Windows.Forms.Padding(4);
+            this.numQuantityMinimum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numQuantityMinimum.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -717,7 +704,7 @@
             // numQuantityCurrent
             // 
             this.numQuantityCurrent.Location = new System.Drawing.Point(101, 487);
-            this.numQuantityCurrent.Margin = new System.Windows.Forms.Padding(4);
+            this.numQuantityCurrent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numQuantityCurrent.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -766,7 +753,7 @@
             this.cbDepartment.FormattingEnabled = true;
             this.cbDepartment.ItemHeight = 24;
             this.cbDepartment.Location = new System.Drawing.Point(9, 378);
-            this.cbDepartment.Margin = new System.Windows.Forms.Padding(4);
+            this.cbDepartment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbDepartment.Name = "cbDepartment";
             this.cbDepartment.Size = new System.Drawing.Size(485, 30);
             this.cbDepartment.TabIndex = 40;
@@ -787,7 +774,7 @@
             // numWholeSale
             // 
             this.numWholeSale.Location = new System.Drawing.Point(343, 324);
-            this.numWholeSale.Margin = new System.Windows.Forms.Padding(4);
+            this.numWholeSale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numWholeSale.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -801,7 +788,7 @@
             // numSale
             // 
             this.numSale.Location = new System.Drawing.Point(177, 324);
-            this.numSale.Margin = new System.Windows.Forms.Padding(4);
+            this.numSale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numSale.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -815,7 +802,7 @@
             // numCost
             // 
             this.numCost.Location = new System.Drawing.Point(12, 324);
-            this.numCost.Margin = new System.Windows.Forms.Padding(4);
+            this.numCost.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numCost.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -868,7 +855,7 @@
             "Granel",
             "Paquete"});
             this.cbTypeSale.Location = new System.Drawing.Point(9, 257);
-            this.cbTypeSale.Margin = new System.Windows.Forms.Padding(4);
+            this.cbTypeSale.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbTypeSale.Name = "cbTypeSale";
             this.cbTypeSale.Size = new System.Drawing.Size(485, 30);
             this.cbTypeSale.TabIndex = 32;
@@ -892,10 +879,10 @@
             // 
             // 
             this.txtDescription.CustomButton.Image = null;
-            this.txtDescription.CustomButton.Location = new System.Drawing.Point(461, 2);
-            this.txtDescription.CustomButton.Margin = new System.Windows.Forms.Padding(5);
+            this.txtDescription.CustomButton.Location = new System.Drawing.Point(615, 2);
+            this.txtDescription.CustomButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.txtDescription.CustomButton.Name = "";
-            this.txtDescription.CustomButton.Size = new System.Drawing.Size(23, 23);
+            this.txtDescription.CustomButton.Size = new System.Drawing.Size(31, 28);
             this.txtDescription.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtDescription.CustomButton.TabIndex = 1;
             this.txtDescription.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -903,7 +890,7 @@
             this.txtDescription.CustomButton.Visible = false;
             this.txtDescription.Lines = new string[0];
             this.txtDescription.Location = new System.Drawing.Point(7, 186);
-            this.txtDescription.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDescription.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtDescription.MaxLength = 32767;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.PasswordChar = '\0';
@@ -937,9 +924,9 @@
             this.groupBox8.Controls.Add(this.txtSearch);
             this.groupBox8.Controls.Add(this.label18);
             this.groupBox8.Location = new System.Drawing.Point(16, 14);
-            this.groupBox8.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox8.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox8.Size = new System.Drawing.Size(1325, 78);
             this.groupBox8.TabIndex = 0;
             this.groupBox8.TabStop = false;
@@ -954,6 +941,7 @@
             this.label21.Size = new System.Drawing.Size(116, 25);
             this.label21.TabIndex = 28;
             this.label21.Text = "Búsqueda:";
+            this.label21.Visible = false;
             // 
             // txtSearch
             // 
@@ -961,10 +949,10 @@
             // 
             // 
             this.txtSearch.CustomButton.Image = null;
-            this.txtSearch.CustomButton.Location = new System.Drawing.Point(462, 2);
-            this.txtSearch.CustomButton.Margin = new System.Windows.Forms.Padding(5);
+            this.txtSearch.CustomButton.Location = new System.Drawing.Point(616, 2);
+            this.txtSearch.CustomButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.txtSearch.CustomButton.Name = "";
-            this.txtSearch.CustomButton.Size = new System.Drawing.Size(23, 23);
+            this.txtSearch.CustomButton.Size = new System.Drawing.Size(31, 28);
             this.txtSearch.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtSearch.CustomButton.TabIndex = 1;
             this.txtSearch.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -973,7 +961,7 @@
             this.txtSearch.FontSize = MetroFramework.MetroTextBoxSize.Medium;
             this.txtSearch.Lines = new string[0];
             this.txtSearch.Location = new System.Drawing.Point(743, 30);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtSearch.MaxLength = 32767;
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.PasswordChar = '\0';
@@ -985,9 +973,9 @@
             this.txtSearch.Size = new System.Drawing.Size(488, 28);
             this.txtSearch.TabIndex = 27;
             this.txtSearch.UseSelectable = true;
+            this.txtSearch.Visible = false;
             this.txtSearch.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtSearch.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // label18
             // 
@@ -1007,7 +995,7 @@
             this.tabInventario.HorizontalScrollbarHighlightOnWheel = false;
             this.tabInventario.HorizontalScrollbarSize = 12;
             this.tabInventario.Location = new System.Drawing.Point(4, 38);
-            this.tabInventario.Margin = new System.Windows.Forms.Padding(4);
+            this.tabInventario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabInventario.Name = "tabInventario";
             this.tabInventario.Size = new System.Drawing.Size(1351, 695);
             this.tabInventario.TabIndex = 4;
@@ -1023,7 +1011,7 @@
             this.panel3.Controls.Add(this.groupBox9);
             this.panel3.Controls.Add(this.groupBox10);
             this.panel3.Location = new System.Drawing.Point(-5, 4);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1364, 687);
             this.panel3.TabIndex = 4;
@@ -1035,9 +1023,9 @@
             this.groupBox5.Controls.Add(this.btnProductuosBajosInv);
             this.groupBox5.Controls.Add(this.btnReporteInventario);
             this.groupBox5.Location = new System.Drawing.Point(525, 98);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox5.Size = new System.Drawing.Size(816, 574);
             this.groupBox5.TabIndex = 50;
             this.groupBox5.TabStop = false;
@@ -1045,7 +1033,7 @@
             // btnReporteMovimientos
             // 
             this.btnReporteMovimientos.Location = new System.Drawing.Point(165, 31);
-            this.btnReporteMovimientos.Margin = new System.Windows.Forms.Padding(4);
+            this.btnReporteMovimientos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnReporteMovimientos.Name = "btnReporteMovimientos";
             this.btnReporteMovimientos.Size = new System.Drawing.Size(487, 48);
             this.btnReporteMovimientos.TabIndex = 51;
@@ -1056,7 +1044,7 @@
             // btnProductuosBajosInv
             // 
             this.btnProductuosBajosInv.Location = new System.Drawing.Point(165, 303);
-            this.btnProductuosBajosInv.Margin = new System.Windows.Forms.Padding(4);
+            this.btnProductuosBajosInv.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnProductuosBajosInv.Name = "btnProductuosBajosInv";
             this.btnProductuosBajosInv.Size = new System.Drawing.Size(487, 48);
             this.btnProductuosBajosInv.TabIndex = 50;
@@ -1067,7 +1055,7 @@
             // btnReporteInventario
             // 
             this.btnReporteInventario.Location = new System.Drawing.Point(165, 202);
-            this.btnReporteInventario.Margin = new System.Windows.Forms.Padding(4);
+            this.btnReporteInventario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnReporteInventario.Name = "btnReporteInventario";
             this.btnReporteInventario.Size = new System.Drawing.Size(487, 48);
             this.btnReporteInventario.TabIndex = 49;
@@ -1079,16 +1067,18 @@
             // 
             this.groupBox9.BackColor = System.Drawing.Color.WhiteSmoke;
             this.groupBox9.Controls.Add(this.lblDescripcion);
+            this.groupBox9.Controls.Add(this.lblCantidadActual);
             this.groupBox9.Controls.Add(this.btnAgregarInventario);
             this.groupBox9.Controls.Add(this.numInventario);
             this.groupBox9.Controls.Add(this.lblTituloCantidadActual);
+            this.groupBox9.Controls.Add(this.lblTituloCantidad);
             this.groupBox9.Controls.Add(this.lblTituloDescripcion);
             this.groupBox9.Controls.Add(this.txtCodigoProducto);
             this.groupBox9.Controls.Add(this.lblCodigoProducto);
             this.groupBox9.Location = new System.Drawing.Point(16, 98);
-            this.groupBox9.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox9.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox9.Size = new System.Drawing.Size(501, 574);
             this.groupBox9.TabIndex = 1;
             this.groupBox9.TabStop = false;
@@ -1104,37 +1094,58 @@
             this.lblDescripcion.TabIndex = 50;
             this.lblDescripcion.Text = "-";
             // 
+            // lblCantidadActual
+            // 
+            this.lblCantidadActual.AutoSize = true;
+            this.lblCantidadActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantidadActual.Location = new System.Drawing.Point(228, 231);
+            this.lblCantidadActual.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCantidadActual.Name = "lblCantidadActual";
+            this.lblCantidadActual.Size = new System.Drawing.Size(20, 24);
+            this.lblCantidadActual.TabIndex = 49;
+            this.lblCantidadActual.Text = "0";
+            // 
             // btnAgregarInventario
             // 
-            this.btnAgregarInventario.Location = new System.Drawing.Point(40, 351);
-            this.btnAgregarInventario.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAgregarInventario.Location = new System.Drawing.Point(9, 351);
+            this.btnAgregarInventario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAgregarInventario.Name = "btnAgregarInventario";
-            this.btnAgregarInventario.Size = new System.Drawing.Size(416, 48);
+            this.btnAgregarInventario.Size = new System.Drawing.Size(487, 48);
             this.btnAgregarInventario.TabIndex = 48;
-            this.btnAgregarInventario.Text = "Guardar";
+            this.btnAgregarInventario.Text = "Agregar";
             this.btnAgregarInventario.UseSelectable = true;
             this.btnAgregarInventario.Click += new System.EventHandler(this.btnAgregarInventario_Click);
             // 
             // numInventario
             // 
-            this.numInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numInventario.Location = new System.Drawing.Point(183, 238);
-            this.numInventario.Margin = new System.Windows.Forms.Padding(4);
+            this.numInventario.Location = new System.Drawing.Point(192, 303);
+            this.numInventario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numInventario.Name = "numInventario";
-            this.numInventario.Size = new System.Drawing.Size(116, 36);
+            this.numInventario.Size = new System.Drawing.Size(101, 22);
             this.numInventario.TabIndex = 36;
             this.numInventario.Click += new System.EventHandler(this.numInventario_Click);
             // 
             // lblTituloCantidadActual
             // 
             this.lblTituloCantidadActual.AutoSize = true;
-            this.lblTituloCantidadActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTituloCantidadActual.Location = new System.Drawing.Point(144, 202);
+            this.lblTituloCantidadActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTituloCantidadActual.Location = new System.Drawing.Point(164, 196);
             this.lblTituloCantidadActual.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTituloCantidadActual.Name = "lblTituloCantidadActual";
-            this.lblTituloCantidadActual.Size = new System.Drawing.Size(193, 29);
+            this.lblTituloCantidadActual.Size = new System.Drawing.Size(153, 24);
             this.lblTituloCantidadActual.TabIndex = 34;
             this.lblTituloCantidadActual.Text = "Cantidad actual";
+            // 
+            // lblTituloCantidad
+            // 
+            this.lblTituloCantidad.AutoSize = true;
+            this.lblTituloCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTituloCantidad.Location = new System.Drawing.Point(195, 263);
+            this.lblTituloCantidad.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTituloCantidad.Name = "lblTituloCantidad";
+            this.lblTituloCantidad.Size = new System.Drawing.Size(92, 24);
+            this.lblTituloCantidad.TabIndex = 33;
+            this.lblTituloCantidad.Text = "Cantidad";
             // 
             // lblTituloDescripcion
             // 
@@ -1153,10 +1164,10 @@
             // 
             // 
             this.txtCodigoProducto.CustomButton.Image = null;
-            this.txtCodigoProducto.CustomButton.Location = new System.Drawing.Point(461, 2);
-            this.txtCodigoProducto.CustomButton.Margin = new System.Windows.Forms.Padding(5);
+            this.txtCodigoProducto.CustomButton.Location = new System.Drawing.Point(615, 2);
+            this.txtCodigoProducto.CustomButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.txtCodigoProducto.CustomButton.Name = "";
-            this.txtCodigoProducto.CustomButton.Size = new System.Drawing.Size(23, 23);
+            this.txtCodigoProducto.CustomButton.Size = new System.Drawing.Size(31, 28);
             this.txtCodigoProducto.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtCodigoProducto.CustomButton.TabIndex = 1;
             this.txtCodigoProducto.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -1164,7 +1175,7 @@
             this.txtCodigoProducto.CustomButton.Visible = false;
             this.txtCodigoProducto.Lines = new string[0];
             this.txtCodigoProducto.Location = new System.Drawing.Point(9, 50);
-            this.txtCodigoProducto.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCodigoProducto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtCodigoProducto.MaxLength = 32767;
             this.txtCodigoProducto.Name = "txtCodigoProducto";
             this.txtCodigoProducto.PasswordChar = '\0';
@@ -1196,9 +1207,9 @@
             this.groupBox10.BackColor = System.Drawing.Color.WhiteSmoke;
             this.groupBox10.Controls.Add(this.label35);
             this.groupBox10.Location = new System.Drawing.Point(16, 14);
-            this.groupBox10.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox10.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox10.Size = new System.Drawing.Size(1325, 78);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
@@ -1221,7 +1232,7 @@
             this.tabCorte.HorizontalScrollbarHighlightOnWheel = false;
             this.tabCorte.HorizontalScrollbarSize = 12;
             this.tabCorte.Location = new System.Drawing.Point(4, 38);
-            this.tabCorte.Margin = new System.Windows.Forms.Padding(4);
+            this.tabCorte.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabCorte.Name = "tabCorte";
             this.tabCorte.Size = new System.Drawing.Size(1351, 695);
             this.tabCorte.TabIndex = 5;
@@ -1238,7 +1249,7 @@
             this.panel4.Controls.Add(this.groupBox14);
             this.panel4.Controls.Add(this.groupBox13);
             this.panel4.Location = new System.Drawing.Point(-5, 4);
-            this.panel4.Margin = new System.Windows.Forms.Padding(4);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1364, 687);
             this.panel4.TabIndex = 5;
@@ -1256,9 +1267,9 @@
             this.groupBox12.Controls.Add(this.label39);
             this.groupBox12.Controls.Add(this.lblVentasEfectivo);
             this.groupBox12.Location = new System.Drawing.Point(16, 389);
-            this.groupBox12.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox12.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox12.Size = new System.Drawing.Size(663, 283);
             this.groupBox12.TabIndex = 33;
             this.groupBox12.TabStop = false;
@@ -1368,9 +1379,9 @@
             this.groupBox15.Controls.Add(this.tblDepartamento);
             this.groupBox15.Controls.Add(this.label27);
             this.groupBox15.Location = new System.Drawing.Point(687, 98);
-            this.groupBox15.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox15.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox15.Name = "groupBox15";
-            this.groupBox15.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox15.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox15.Size = new System.Drawing.Size(655, 574);
             this.groupBox15.TabIndex = 32;
             this.groupBox15.TabStop = false;
@@ -1382,38 +1393,38 @@
             this.tblDepartamento.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tblDepartamento.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.tblDepartamento.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tblDepartamento.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tblDepartamento.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.tblDepartamento.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tblDepartamento.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tblDepartamento.DefaultCellStyle = dataGridViewCellStyle17;
             this.tblDepartamento.EnableHeadersVisualStyles = false;
             this.tblDepartamento.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.tblDepartamento.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.tblDepartamento.Location = new System.Drawing.Point(132, 79);
-            this.tblDepartamento.Margin = new System.Windows.Forms.Padding(4);
+            this.tblDepartamento.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tblDepartamento.Name = "tblDepartamento";
             this.tblDepartamento.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tblDepartamento.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tblDepartamento.RowHeadersDefaultCellStyle = dataGridViewCellStyle18;
             this.tblDepartamento.RowHeadersWidth = 51;
             this.tblDepartamento.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.tblDepartamento.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -1442,9 +1453,9 @@
             this.groupBox14.Controls.Add(this.label28);
             this.groupBox14.Controls.Add(this.label25);
             this.groupBox14.Location = new System.Drawing.Point(16, 98);
-            this.groupBox14.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox14.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox14.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox14.Size = new System.Drawing.Size(663, 283);
             this.groupBox14.TabIndex = 29;
             this.groupBox14.TabStop = false;
@@ -1537,9 +1548,9 @@
             this.groupBox13.Controls.Add(this.btnCorte);
             this.groupBox13.Controls.Add(this.label36);
             this.groupBox13.Location = new System.Drawing.Point(16, 14);
-            this.groupBox13.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox13.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox13.Size = new System.Drawing.Size(1325, 78);
             this.groupBox13.TabIndex = 0;
             this.groupBox13.TabStop = false;
@@ -1591,7 +1602,7 @@
             // btnImprimirCorte
             // 
             this.btnImprimirCorte.Location = new System.Drawing.Point(1121, 20);
-            this.btnImprimirCorte.Margin = new System.Windows.Forms.Padding(4);
+            this.btnImprimirCorte.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnImprimirCorte.Name = "btnImprimirCorte";
             this.btnImprimirCorte.Size = new System.Drawing.Size(196, 38);
             this.btnImprimirCorte.TabIndex = 28;
@@ -1602,7 +1613,7 @@
             // btnCorte
             // 
             this.btnCorte.Location = new System.Drawing.Point(917, 20);
-            this.btnCorte.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCorte.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCorte.Name = "btnCorte";
             this.btnCorte.Size = new System.Drawing.Size(196, 38);
             this.btnCorte.TabIndex = 27;
@@ -1628,7 +1639,7 @@
             this.tabDepartamentos.HorizontalScrollbarHighlightOnWheel = false;
             this.tabDepartamentos.HorizontalScrollbarSize = 12;
             this.tabDepartamentos.Location = new System.Drawing.Point(4, 38);
-            this.tabDepartamentos.Margin = new System.Windows.Forms.Padding(4);
+            this.tabDepartamentos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tabDepartamentos.Name = "tabDepartamentos";
             this.tabDepartamentos.Size = new System.Drawing.Size(1351, 695);
             this.tabDepartamentos.TabIndex = 6;
@@ -1644,7 +1655,7 @@
             this.panel5.Controls.Add(this.groupBox3);
             this.panel5.Controls.Add(this.groupBox11);
             this.panel5.Location = new System.Drawing.Point(-8, 4);
-            this.panel5.Margin = new System.Windows.Forms.Padding(4);
+            this.panel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(1364, 687);
             this.panel5.TabIndex = 5;
@@ -1657,9 +1668,9 @@
             this.groupBox1.Controls.Add(this.btnEditarDep);
             this.groupBox1.Controls.Add(this.tblDepartamentosTab);
             this.groupBox1.Location = new System.Drawing.Point(525, 98);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Size = new System.Drawing.Size(816, 574);
             this.groupBox1.TabIndex = 50;
             this.groupBox1.TabStop = false;
@@ -1679,7 +1690,7 @@
             // btnEliminarDep
             // 
             this.btnEliminarDep.Location = new System.Drawing.Point(417, 538);
-            this.btnEliminarDep.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEliminarDep.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnEliminarDep.Name = "btnEliminarDep";
             this.btnEliminarDep.Size = new System.Drawing.Size(140, 28);
             this.btnEliminarDep.TabIndex = 52;
@@ -1690,7 +1701,7 @@
             // btnEditarDep
             // 
             this.btnEditarDep.Location = new System.Drawing.Point(269, 538);
-            this.btnEditarDep.Margin = new System.Windows.Forms.Padding(4);
+            this.btnEditarDep.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnEditarDep.Name = "btnEditarDep";
             this.btnEditarDep.Size = new System.Drawing.Size(140, 28);
             this.btnEditarDep.TabIndex = 51;
@@ -1707,43 +1718,43 @@
             this.tblDepartamentosTab.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tblDepartamentosTab.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.tblDepartamentosTab.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tblDepartamentosTab.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tblDepartamentosTab.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.tblDepartamentosTab.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Aqua;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tblDepartamentosTab.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.Aqua;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tblDepartamentosTab.DefaultCellStyle = dataGridViewCellStyle20;
             this.tblDepartamentosTab.EnableHeadersVisualStyles = false;
             this.tblDepartamentosTab.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.tblDepartamentosTab.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.tblDepartamentosTab.Location = new System.Drawing.Point(284, 54);
-            this.tblDepartamentosTab.Margin = new System.Windows.Forms.Padding(4);
+            this.tblDepartamentosTab.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tblDepartamentosTab.Name = "tblDepartamentosTab";
             this.tblDepartamentosTab.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tblDepartamentosTab.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tblDepartamentosTab.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
             this.tblDepartamentosTab.RowHeadersWidth = 51;
             this.tblDepartamentosTab.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Gray;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White;
-            this.tblDepartamentosTab.RowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.White;
+            this.tblDepartamentosTab.RowsDefaultCellStyle = dataGridViewCellStyle22;
             this.tblDepartamentosTab.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tblDepartamentosTab.Size = new System.Drawing.Size(271, 449);
             this.tblDepartamentosTab.TabIndex = 22;
@@ -1757,9 +1768,9 @@
             this.groupBox3.Controls.Add(this.txtDepartamentoTab);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Location = new System.Drawing.Point(16, 98);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox3.Size = new System.Drawing.Size(501, 228);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
@@ -1767,7 +1778,7 @@
             // btnActualizarDep
             // 
             this.btnActualizarDep.Location = new System.Drawing.Point(181, 149);
-            this.btnActualizarDep.Margin = new System.Windows.Forms.Padding(4);
+            this.btnActualizarDep.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnActualizarDep.Name = "btnActualizarDep";
             this.btnActualizarDep.Size = new System.Drawing.Size(140, 52);
             this.btnActualizarDep.TabIndex = 52;
@@ -1778,7 +1789,7 @@
             // btnGuardarDep
             // 
             this.btnGuardarDep.Location = new System.Drawing.Point(7, 149);
-            this.btnGuardarDep.Margin = new System.Windows.Forms.Padding(4);
+            this.btnGuardarDep.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnGuardarDep.Name = "btnGuardarDep";
             this.btnGuardarDep.Size = new System.Drawing.Size(140, 52);
             this.btnGuardarDep.TabIndex = 51;
@@ -1789,7 +1800,7 @@
             // btnCancelarDep
             // 
             this.btnCancelarDep.Location = new System.Drawing.Point(353, 150);
-            this.btnCancelarDep.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancelarDep.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancelarDep.Name = "btnCancelarDep";
             this.btnCancelarDep.Size = new System.Drawing.Size(140, 52);
             this.btnCancelarDep.TabIndex = 50;
@@ -1803,10 +1814,10 @@
             // 
             // 
             this.txtDepartamentoTab.CustomButton.Image = null;
-            this.txtDepartamentoTab.CustomButton.Location = new System.Drawing.Point(461, 2);
-            this.txtDepartamentoTab.CustomButton.Margin = new System.Windows.Forms.Padding(5);
+            this.txtDepartamentoTab.CustomButton.Location = new System.Drawing.Point(615, 2);
+            this.txtDepartamentoTab.CustomButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.txtDepartamentoTab.CustomButton.Name = "";
-            this.txtDepartamentoTab.CustomButton.Size = new System.Drawing.Size(23, 23);
+            this.txtDepartamentoTab.CustomButton.Size = new System.Drawing.Size(31, 28);
             this.txtDepartamentoTab.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtDepartamentoTab.CustomButton.TabIndex = 1;
             this.txtDepartamentoTab.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -1814,7 +1825,7 @@
             this.txtDepartamentoTab.CustomButton.Visible = false;
             this.txtDepartamentoTab.Lines = new string[0];
             this.txtDepartamentoTab.Location = new System.Drawing.Point(7, 80);
-            this.txtDepartamentoTab.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDepartamentoTab.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtDepartamentoTab.MaxLength = 32767;
             this.txtDepartamentoTab.Name = "txtDepartamentoTab";
             this.txtDepartamentoTab.PasswordChar = '\0';
@@ -1845,9 +1856,9 @@
             this.groupBox11.BackColor = System.Drawing.Color.WhiteSmoke;
             this.groupBox11.Controls.Add(this.label15);
             this.groupBox11.Location = new System.Drawing.Point(16, 14);
-            this.groupBox11.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox11.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox11.Size = new System.Drawing.Size(1325, 78);
             this.groupBox11.TabIndex = 0;
             this.groupBox11.TabStop = false;
@@ -1872,10 +1883,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1362, 740);
+            this.ClientSize = new System.Drawing.Size(1357, 740);
             this.Controls.Add(this.puntoVentaTabs);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MaximizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Punto de venta ";
@@ -1982,6 +1994,7 @@
         private MetroFramework.Controls.MetroButton btnAgregarInventario;
         private System.Windows.Forms.NumericUpDown numInventario;
         private System.Windows.Forms.Label lblTituloCantidadActual;
+        private System.Windows.Forms.Label lblTituloCantidad;
         private System.Windows.Forms.Label lblTituloDescripcion;
         private MetroFramework.Controls.MetroTextBox txtCodigoProducto;
         private System.Windows.Forms.Label lblCodigoProducto;
@@ -1989,6 +2002,7 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label lblDescripcion;
+        private System.Windows.Forms.Label lblCantidadActual;
         private MetroFramework.Controls.MetroButton btnReporteMovimientos;
         private MetroFramework.Controls.MetroButton btnProductuosBajosInv;
         private MetroFramework.Controls.MetroButton btnReporteInventario;
@@ -2048,7 +2062,6 @@
         private MetroFramework.Controls.MetroButton btnGuardarDep;
         private MetroFramework.Controls.MetroButton btnCancelarDep;
         private System.Windows.Forms.Timer getProducts;
-        private MetroFramework.Controls.MetroButton btnSearchProduct;
     }
 }
 

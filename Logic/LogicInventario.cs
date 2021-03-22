@@ -33,31 +33,28 @@ namespace Logic {
                 listLabel[0].Text = "Código del producto";
                 listLabel[0].ForeColor = Color.Black;
                 if (numInventario.Value > 0) {
+                    listLabel[5].Text = "Cantidad";
+                    listLabel[5].ForeColor = Color.Black;
                     var producto = _Producto.Where(obj => obj.codigo.Equals(txtCodigoProducto.Text)).ToList();
                     if (producto.Count.Equals(1)) {
-
                         listLabel[0].Text = "Código del producto";
                         listLabel[0].ForeColor = Color.Black;
                         guardarRegistro();
-
                     } else {
-
                         listLabel[0].Text = "Código del producto existente requerido";
                         listLabel[0].ForeColor = Color.Red;
                         txtCodigoProducto.Focus();
-
                     }
                 } else {
-
+                    listLabel[5].Text = "Cantidad mayor a 0 requerida";
+                    listLabel[5].ForeColor = Color.Red;
+                    listLabel[5].Location = new Point(75, 214);
                     numInventario.Focus();
-
                 }
             } else {
-
                 listLabel[0].Text = "Código del producto requerido";
                 listLabel[0].ForeColor = Color.Red;
                 txtCodigoProducto.Focus();
-
             }
         }
 
@@ -72,25 +69,28 @@ namespace Logic {
             if (query.Count.Equals(1)) {
                 query.ForEach(obj => {
                     listLabel[2].Text = obj.descripcion;
-                    numInventario.Value = Convert.ToDecimal(obj.existencia.ToString());
+                    listLabel[4].Text = obj.existencia.ToString();
                 });
             } else {
                 listLabel[2].Text = "-";
-
-                numInventario.Value = 0;
+                listLabel[4].Text = "0";
             }
         }
 
+        int nuevaExistencia;
         private void guardarRegistro() {
-
             BeginTransactionAsync();
             try {
+                List<Producto> productos = _Producto.Where(obj => obj.codigo.Equals(txtCodigoProducto.Text)).ToList();
+                productos.ForEach(element => {
+                    nuevaExistencia = (int)(element.existencia + Convert.ToInt32(numInventario.Value));
+                });
                 
                 _Producto.Where(obj => obj.codigo.Equals(txtCodigoProducto.Text))
-                    .Set(obj => obj.existencia, Convert.ToInt32(numInventario.Value))
+                    .Set(obj => obj.existencia, nuevaExistencia)
                     .Update();
 
-                MessageBox.Show("Producto actualizado correctamente", "Guardado Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Producto actualizado correctamente", "Información", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 limpiarCampos();
                 CommitTransaction();
             } catch (SqlException) {
@@ -375,10 +375,13 @@ namespace Logic {
 
         private void limpiarCampos() {
             listLabel[2].Text = "-";
-            numInventario.Value = 0;
+            listLabel[4].Text = "0";
 
             listLabel[0].Text = "Código del producto";
             listLabel[0].ForeColor = Color.Black;
+            listLabel[5].Text = "Cantidad";
+            listLabel[5].ForeColor = Color.Black;
+            listLabel[5].Location = new Point(146, 214);
             txtCodigoProducto.Text = "";
             numInventario.Value = 0;
         }

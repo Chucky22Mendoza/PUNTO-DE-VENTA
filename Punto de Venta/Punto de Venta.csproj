@@ -114,12 +114,6 @@
     <Compile Include="AbrirCorte.Designer.cs">
       <DependentUpon>AbrirCorte.cs</DependentUpon>
     </Compile>
-    <Compile Include="BuscarProductos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BuscarProductos.Designer.cs">
-      <DependentUpon>BuscarProductos.cs</DependentUpon>
-    </Compile>
     <Compile Include="Cobrar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,9 +136,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AbrirCorte.resx">
       <DependentUpon>AbrirCorte.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BuscarProductos.resx">
-      <DependentUpon>BuscarProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cobrar.resx">
       <DependentUpon>Cobrar.cs</DependentUpon>
